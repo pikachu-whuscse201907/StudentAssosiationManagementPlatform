@@ -1,0 +1,2 @@
+# StudentAssosiationManagementPlatform
+Student Assosiation Management Platform
