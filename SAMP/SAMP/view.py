@@ -1,36 +1,42 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import *
 from .Cookie import *
 import time
 
+
 def login(request):
-    ''
-    # POST: username+pswd
-    # response 302
-    # if success: to index(logged)
-    # if fail: to login, failure notice
+    context = {}
+    user = None
+    if request.POST.get('username') is not None and request.POST.get('pswd') is not None:
+        user = get_user_from_username_pswd(request.POST.get('id'),request.POST.get('pswd'))
+    if user is None:
+        context['login_fail_notice'] = 'Wrong Username or Password!'
+        return HttpResponse(render(request, 'login.html', context))
+
+    response = HttpResponseRedirect('index/')
+    cookie = Cookie()
+    response.set_cookie('id', cookie.id, cookie.expire)
+    return response
 
 
 def index(request):
 
-
     context = {}
-    username=''
+    user=None
     if request.COOKIES.get('id') is not None:
-        username_cookie=get_user_from_cookie(request.COOKIES.get('id'))
-        username = username_cookie
+        user = get_user_from_cookie(request.COOKIES.get('id'))
 
-    if request.GET.get('user') is not None:
-        username_get=request.GET.get('user')
-        username = username_get
+    response = HttpResponse()
+    if user is not None:
+        context['name'] = user.name
+        cookie = Cookie()
+        write_cookie(user, cookie)
+        response.set_cookie('id', cookie.id, cookie.expire)
 
-    print(username)
-    if username is not None:
-        context['helloname'] = username
+    response.content = render(request, 'index.html', context)
 
-    response=HttpResponse(render(request, 'index.html', context))
-    cookie=new_cookie()
-    response.set_cookie('id',cookie,3600)
-    if username is not None:
-        write_cookie(username,cookie)
     return response
+
+
+def register(request):
+    ''
