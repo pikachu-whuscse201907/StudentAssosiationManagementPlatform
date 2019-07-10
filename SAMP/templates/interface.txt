@@ -1,0 +1,9 @@
+index.html
+变量名                  类型                备注
+    name                字符串              用户姓名，没有登陆时为空
+
+userpage.html
+    motto               字符串              个性签名
+    year                数字或字符           生日年
+    year                数字或字符           生日月
+    sex                 字符                性别
