@@ -71,7 +71,7 @@ def register(request):
         verify_result = veri(username, password1, password2)
         if veri(username, password1, password2) == True:
             #write info into database
-            return HttpResponseRedirect('login/')
+            return HttpResponseRedirect('../login/')
         else:
             context['register_fail_notice'] = verify_result
         return HttpResponse(render(request, 'register.html', context))

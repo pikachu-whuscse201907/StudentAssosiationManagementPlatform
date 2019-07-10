@@ -21,8 +21,8 @@ def veri(username, password, conpass):
                 continue
             else:
                 return "Your username includes invalid char!"
-    person = Person.objects.get(name=username)
-    if person == None:
+    person = Person.objects.filter(name=username)
+    if len(person) == 0:
         pass
     else:
         return "The username has been registered!"
