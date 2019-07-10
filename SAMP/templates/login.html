@@ -14,27 +14,32 @@
         var username = document.login.username.value;
         var pswd = document.login.pswd.value; 
         var illegalchar = /[^0-9]+/;
-        if(username.length == 0 || pswd.length==0)
+        if(username.length == 0)
         {
-            document.getElementById("text_username").value = "请输入账号";
+            document.getElementById("text_username").innerHTML = "请输入账号";
             document.login.username.focus();
+            return false;
+        }
+        else if(pswd.length==0)
+        {
+            document.getElementById("text_pwsd").innerHTML = "请输入密码";
             return false;
         }
         else if(illegalchar.test(username))
         {
-            alert("账号只能是数字");
+            document.getElementById("text_username").innerHTML ="账号只能是数字";
             document.login.username.focus();
             return false;
         }
         else if(username == pswd)
         {
-            alert("账号和密码相同！");
+            document.getElementById("text_username").innerHTML ="账号和密码相同！";
             document.login.username.focus();
             return false;
         }
         else if(username.length<6||pswd.length<6)
         {
-            alert("用户名或密码太短");
+            document.getElementById("text_username").innerHTML ="用户名或密码太短";
             document.login.username.focus();
             return false;
         }
@@ -48,10 +53,10 @@
     <form name="login" action="./" onsubmit="return str_filter()" method="POST">
     {% csrf_token %}
     <input  type="text" name="username" placeholder="用户名">
-    <p id="text_username"></p>
+    <p id="text_username" style="height:21px;"></p>
     <input  type="password" name="pswd" placeholder="密码">
-    <p id="text_pwsd"></p>
-    <button type="submit" >登录</button>
+    <p id="text_pwsd" style="height:21px;"></p>
+    <button type="submit"  >登录</button>
 
 
     {{ login_fail_notice}}
