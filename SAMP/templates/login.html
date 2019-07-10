@@ -44,8 +44,13 @@
 </head>
 <body>
     <h1>这是登陆页面</h1>
+<<<<<<< HEAD
     <a href="{% url 'LoginApp:my_index'%}">返回主页</a>
     <form name="login" action="./" onsubmit="return str_filter()" method="POST">
+=======
+    <a href="../index">返回主页</a>
+    <form action="./" method="POST">
+>>>>>>> 80c5382984b1789cde5360a06fbce52512c07ead
     {% csrf_token %}
     <input  type="text" name="username" placeholder="用户名">
     <p id="text_username"></p>
