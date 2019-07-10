@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>这是登陆页面</h1>
-    <a href="{% url 'LoginApp:my_index'%}">返回主页</a>
+    <a href="../index">返回主页</a>
     <form action="./" method="POST">
     {% csrf_token %}
     <input type="text" name="username" placeholder="用户名">
