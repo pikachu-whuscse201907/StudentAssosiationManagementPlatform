@@ -64,8 +64,8 @@ def index(request):
 
 def register(request):
     context = {}
-    username=request.POST.get('username', None)
-    password1=request.POST.get('password1', None)
+    username = request.POST.get('username', None)
+    password1 = request.POST.get('password1', None)
     password2 = request.POST.get('password2', None)
     if username is not None and password1 is not None and password2 is not None:
         verify_result = veri(username, password1, password2)
