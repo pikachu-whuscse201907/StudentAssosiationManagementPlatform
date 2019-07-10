@@ -6,6 +6,23 @@
         {#name变量填用户名#}
         </title>
         <style type="text/css">
+            a
+            {
+                text-decoration: none;
+            }
+            .box
+            {
+                width: 1180px;
+                margin: auto;
+            }
+            .menuitem .submenu
+            {
+            display: none;
+            }
+            .menuitem:hover .submenu
+            {
+            display: block;
+            }
         </style>
         <script>
             
@@ -13,8 +30,26 @@
     </head>
 
     <body>
+        <div class="navbar" >
+            <div class="box" style="height: 21px;background-color: gold">
+                <div style="width: 360px;float: left;"><a href="../index">学生社团管理平台</a></div>
+                <div style="width: 200px;float: right;">
+                    <!--我的社团下拉菜单-->
+                    <div class="menuitem" style="float: left;margin-right: 10px">
+                        <div>我的社团</div>
+                        <div class="submenu" style="float: left;">
+                            <div><a href="../searchclub">加入社团</a></div>
+                            <div><a href="../creatclub">创建社团</a></div>
+                            <div><a href="#">管理社团</a></div>
+                        </div>
+                    </div>
+                
+                    <div><a href="../userpage">我的主页</a></div>
+                </div>
+            </div>
+        </div>
         <div>
-            <div style="margin-top: 40px;margin-right: auto;margin-left: auto;width: 1180px;height: 600px;background-color: bisque ;">
+            <div style="padding-top:40px;margin-right: auto;margin-left: auto;width: 1180px;height: 600px;background-color: bisque ;">
                 <!--头像，点击可修改头像-->
                 <a href = "#"><img src="#" style="width: 60px ;height: 60px;border-radius: 100% ;overflow: hidden;"></a>
                 <h1>{{name}}</h1>
