@@ -6,30 +6,293 @@
     <title>register</title>
  
 </head>
-<body>
+<style type="text/css">
+	/*设置内容模块距离顶部一个有一段距离150px*/
 
-        <h1 align="center">Sign up</h1>
-        <form action="./" method="POST" align="center">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Your username"/>
-			<br><br>
-<!--
-            <input type="text" name="email" placeholder="Your email"/>
--->
+.content {
 
-            <input type="password" name="password1" placeholder="password" />
-			<br><br>
-            <input type="password" name="password2" placeholder="Please confirm your password" />
-			<br><br>
-            <input type="submit" value="Sign up"/>
-			<br><br>
-            <p class="change_link" align="center">
-                <span class="text">Already a member ?</span>
-                <a href="../login/"> Go and log in </a>
-            </p>
-            {{ register_fail_notice}}
-        </form>
+margin-top: 150px;
 
+opacity: 0.9
+}
+
+
+/*登录和注册按钮的整体样式*/
+
+.content button {
+
+height: 30px;/*登录和注册按钮的高度*/
+
+color: white;/*登录和注册按钮字体颜色为白色*/
+
+font-size: 18px;/*登录和注册按钮的字体大小*/
+
+border: 0px;/*无边框*/
+
+padding: 0px;/*无内边距*/
+
+cursor: pointer;/*登录和注册按钮的选择时为手形状*/
+
+}
+
+
+
+/*登录面板*/
+
+.content .panel {
+
+background-color: white;/*登录面板背景颜色为白色*/
+
+width: 302px;/*宽度为302px*/
+
+text-align: center;/*子内容居中*/
+
+margin: 0px auto;/*自身居中*/
+
+padding-top: 20px;/*顶部的内边距为20px*/
+
+padding-bottom: 20px;/*底部的内边距为20px*/
+
+border: 1px solid #ddd;/*边框颜色为灰色*/
+
+border-radius: 5px;/*边框边角有5px的弧度*/
+
+
+}
+
+
+/*登录和密码组*/
+
+.content .panel .group {
+
+text-align: left;/*子内容居中*/
+
+width: 262px;/*宽度为262px*/
+
+margin: 0px auto 20px;/*自身居中，并距离底部有20px的间距*/
+
+}
+
+.content .panel .group label {
+
+line-height: 30px;/*高度为30px*/
+
+font-size: 18px;/*字体大小为18px*/
+
+}
+
+.content .panel .group input {
+
+display: block;/*设置为块，是为了让输入框独占一行*/
+
+width: 250px;/*宽度为250px*/
+
+height: 30px;/*高度为30px*/
+
+border: 1px solid #ddd;/*输入框的边框*/
+
+padding: 0px 0px 0px 10px;/*左边内边距为10px，显得美观*/
+
+font-size: 16px;/*字体大小*/
+
+}
+
+.content .panel .group input:focus{
+
+
+border-left: 1px solid #CC865E;/*当输入框成为焦点时，左边框颜色编程褐色*/
+
+}
+
+.content .panel .register button {
+
+background-color: #CC865E;/*按钮的背景颜色*/
+
+width: 260px;/*按钮的宽度*/
+
+}
+
+.content .panel .register button:hover {
+
+background-color: white;/*按钮选中后背景颜色为白色*/
+
+color: #CC865E;/*按钮选中后字体颜色为褐色*/
+
+border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色*/
+
+}
+
+
+
+/*注册按钮*/
+
+
+
+
+
+.content .panel .login button {
+
+background-color: #CC865E;/*按钮的背景颜色为蓝色*/
+
+width: 110px;/*按钮的宽度*/
+
+}
+
+
+.content .panel .login button:hover {
+
+background-color: white;/*按钮选中后背景颜色为白色*/
+
+color: #CC865E;/*按钮选中后字体颜色为褐色*/
+
+border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466BAF*/
+
+}
+
+.button {
+	/*background-color: #CC865E;/*按钮的背景颜色为褐色*/
+
+	/*width: 0px;/*按钮的宽度*/
+
+	text-decoration: none;/*无下划线*/
+
+	color: #CC865E;
+}
+
+.button:hover {
+	/*background-color: white;/*按钮选中后背景颜色为白色*/
+
+	color: #FF0000;/*按钮选中后字体颜色为红色是*/
+
+/*border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466BAF*/
+}
+
+
+</style>
+
+<script>
+    //字符串过滤
+    function str_filter()
+    {
+        var username = document.register.username.value;
+        var passwordone = document.register.password1.value; 
+        var passwordtwo = document.register.password2.value; 
+        var illegalchar = /[^0-9]+/;
+        if(username.length == 0)
+        {
+            document.getElementById("zhanghao").innerHTML = "请输入账号";
+            document.register.username.focus();
+            return false;
+        }
+        else if(passwordone.length==0)
+        {
+            document.getElementById("mima1").innerHTML = "请输入密码";
+            document.register.mima1.focus();
+            return false;
+        }
+        else if(passwordtwo.length==0)
+        {
+            document.getElementById("mima2").innerHTML = "请再次输入密码";
+            document.register.mima2.focus();
+            return false;
+        }
+        else if(illegalchar.test(username))
+        {
+            document.getElementById("zhanghao").innerHTML ="账号只能是数字";
+            document.register.username.focus();
+            return false;
+        }
+        else if(username == passwordone)
+        {
+            document.getElementById("mima1").innerHTML ="账号和密码相同！";
+            document.register.mima1.focus();
+            return false;
+        }
+        else if(passwordtwo != passwordone)
+        {
+            document.getElementById("mima2").innerHTML ="两次密码不一致！";
+            document.register.mima2.focus();
+            return false;
+        }
+        else if(username.length<6)
+        {
+            document.getElementById("zhanghao").innerHTML ="用户名至少6位";
+            document.register.username.focus();
+            return false;
+        }
+        else if(passwordone.length<6)
+        {
+            document.getElementById("mima1").innerHTML ="密码至少6位";
+            document.register.mima1.focus();
+            return false;
+        }
+
+        return true;
+    }
+    </script>
+
+
+<body background="../static/register_background.jpg" style="background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
+	<div class="content">
+		<!-- 登录面板 -->
+		<div class="panel">
+
+			<h1 >Sign up</h1>
+
+			<form action="" method="POST" align="center" name="register">
+				<!-- 账号和密码组 -->
+				<div class="group">
+
+					<label id="zhanghao">账号</label>
+		        
+					<input type="text" name="username" placeholder="输入账号"/>
+
+				</div>
+				
+				<div class="group">
+
+					<label id="mima1">密码</label>
+		        
+					<input type="password" name="password1" placeholder="输入密码" />
+
+				</div>
+
+				<div class="group">
+
+					<label id="mima2">再次输入密码</label>
+		        
+					<input type="password" name="password2" placeholder="确认密码" />
+
+				</div>
+		        
+		        <div class="register">
+					
+					<button type="submit" onclick="return str_filter()">注册</button>
+
+
+				</div>
+
+				<div class="login" >
+		            <p  margin: 0px auto;>
+
+						<div>
+						<a href="../index" class="button">返回主页</a>
+						</div>
+		               
+						<div>
+						<a href="../login/" class="button">已有账号？登陆</a>	
+						</div>
+						 <!--<span class="text"></span>-->
+		            </p>
+		     	</div>
+				
+				{{ register_fail_notice }}
+
+			</form>
+
+
+		</div>
+	</div>
 </body>
 </html>
 

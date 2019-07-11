@@ -24,9 +24,9 @@ urlpatterns = [
     path('login/', view.login),
     path('logout/', view.logout),
     path('register/', view.register),
-    path('creatclub', view.creatclub),
-    path('searchclub', view.searchclub),
-    path('userpage', view.userpage),
+    path('creatclub/', view.creatclub),
+    path('searchclub/', view.searchclub),
+    path('userpage/', view.userpage),
 
     #re_path(r'.', view.redir_to_index),
 
