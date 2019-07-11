@@ -21,9 +21,9 @@ def login(request):
         if user is None:
             context['login_fail_notice'] = 'Wrong Username or Password!'
             return HttpResponse(render(request, 'login.html', context))
-
-        response = HttpResponseRedirect('../index/')
-
+        context['title'] = 'Login Success'
+        context['url'] = '../index/'
+        response = HttpResponse(render(request, 'jump.html', context))
         cookie = Cookie()
         response.set_cookie('id', cookie.cookie_id, expires=cookie.expire)
         return response
@@ -35,11 +35,15 @@ def login(request):
 
 def logout(request):
     context={}
-    response = HttpResponseRedirect('../index/')
-    if request.COOKIES.get('id') is not None:
-        user = get_user_from_cookie(request.COOKIES.get('id'))
-        #delete cookie from database
-        response.delete_cookie('id')
+    context['title'] = 'Logout Success'
+    context['url'] = '../index/'
+    response = HttpResponse(render(request, 'jump.html', context))
+    response.delete_cookie('id')
+    if request.COOKIES.get('id',None) is not None:
+        user = get_user_from_cookie(request.COOKIES['id'])
+        if user is not None:
+            #delete cookie from database(user)
+            ''
     return response
 
 
@@ -71,8 +75,9 @@ def register(request):
         verify_result = veri(username, password1, password2)
         if veri(username, password1, password2) == True:
             # write info into database
-            return HttpResponseRedirect('../login/')
-            # Redirect to a jump page.
+            context['title']='Register Success'
+            context['url']='../login/'
+            return HttpResponse(render(request, 'jump.html', context))
         else:
             context['register_fail_notice'] = verify_result
         return HttpResponse(render(request, 'register.html', context))
@@ -97,7 +102,7 @@ def userpage(request):
     if request.COOKIES.get('id') is not None:
         user = get_user_from_cookie(request.COOKIES.get('id'))# to be replaced
     if user is None:
-        return HttpResponseRedirect('../login/')
+        return response_not_logged_in(request)
     context = {}
     context['name']=user.name
     # context['year']=
@@ -107,5 +112,18 @@ def userpage(request):
     response=HttpResponse(render(request, 'userpage.html',context))
     return response
 
+def update_user_info(request):
+    context = {}
+    user = None
+    if request.COOKIES.get('id') is not None:
+        user = get_user_from_cookie(request.COOKIES.get('id'))  # to be replaced
+    if user is None:
+        return response_not_logged_in(request)
 
 
+def response_not_logged_in(request):
+    context = {}
+    context['title'] = 'Not logged in'
+    context['url'] = '../login/'
+    response = HttpResponse(render(request, 'jump.html', context))
+    return response
