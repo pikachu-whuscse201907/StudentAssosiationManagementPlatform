@@ -6,7 +6,114 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>LOGIN</title>
-    <style></style>
+    <style>
+        .content {
+
+            margin-top: 200px;/*距离顶部150*/
+
+            opacity: 0.9/*透明度*/
+        }
+        
+        /*登陆按钮样式*/
+        .content button{
+
+            height: 30px;/*按钮高度*/
+
+            color: white;/*字体颜色*/
+
+            font-size: 18px;/*字体大小*/
+
+            border: none;/*无边框*/
+
+            padding: none;/*无内边距*/
+
+            cursor: pointer;/*碰触鼠标变小手*/
+        }
+
+        .content .panel {
+
+            background-color: white;/*面板背景白色*/
+
+            width: 302px;/*宽度*/
+
+            text-align: center;/*字内容居中*/
+
+            margin: auto;/*自身居中*/
+
+            padding-top: 20px;/*顶层内边距20*/
+
+            padding-bottom: 20px;/*底层内边距20*/
+
+            border: 1px solid #ddd;/*边框灰色*/
+
+            border-radius: 5px
+        }
+
+        /*登陆和密码组*/
+        .content .panel .group {
+
+            text-align: left;/*子内容左对齐*/
+
+            width: 262px;/*宽度*/
+
+            margin: 0px auto 20px;/*自身居中,底部内边距*/
+        }
+
+        .content .panel .group label {
+
+            line-height: 30px;
+
+            font-size: 18px;
+        }
+
+        .content .panel .group input {
+
+            display: block;/*将input设置成块独占一行，删了就是账号后面跟着框*/
+
+            width: 250px;/*输入框的宽度*/
+
+            height: 30px;/*输入框高度*/
+
+            border: 1px solid #ddd;/*边框灰色*/
+
+            padding: 0px 0px 0px 10px;/*左边内边框10.而不是紧贴着边输入*/
+
+            font-size: 16px;/*字体大小*/
+        }
+
+        .content .panel .group input:focus {
+
+
+            border-left: 1px solid #CC865E;/*当输入框成为焦点时，左边框颜色编程褐色*/
+
+        }
+
+
+        .content .panel .login button {
+
+            background-color: #CC865E;/*背景色褐色*/
+
+            width: 260px;/*宽度*/
+        }
+
+        .content .panel .login button:hover {
+
+            background-color: white;/*触碰背景变白*/
+
+            color: #CC865E;/*文字变褐色*/
+
+            border: 1px solid #CC865E;/*边框变褐色*/
+
+        }
+
+        .button {
+
+            text-decoration: none;/*无下划线*/
+
+            color: #CC865E;/*字体颜色*/
+        }
+
+    </style>
     <script>
     //字符串过滤
     function str_filter()
@@ -14,20 +121,24 @@
         var username = document.login.username.value;
         var pswd = document.login.pswd.value; 
         var illegalchar = /[^0-9a-zA-Z]+/;
+
         if(username.length == 0)
+
         {
-            document.getElementById("text_username").innerHTML = "请输入账号";
+            document.getElementById("zhanghao").innerHTML = "请输入账号";
             document.login.username.focus();
             return false;
         }
+
         else if(pswd.length==0)
         {
-            document.getElementById("text_pwsd").innerHTML = "请输入密码";
+            document.getElementById("mima").innerHTML = "请输入密码";
             return false;
         }
         else if(illegalchar.test(username))
         {
-            document.getElementById("text_username").innerHTML ="账号含有非法字符";
+            document.getElementById("zhanghao").innerHTML ="账号含有非法字符";
+
             document.login.username.focus();
             return false;
         }
@@ -35,25 +146,49 @@
     }
     </script>
 </head>
-<body>
-    <h1>这是登陆页面</h1>
-    <a href="../index">返回主页</a>
-    <form name="login" action="./" onsubmit="return str_filter()" method="POST">
-    {% csrf_token %}
-    <input  type="text" name="username" placeholder="用户名">
-    <p id="text_username" style="height:21px;color:red;"></p>
-    <input  type="password" name="pswd" placeholder="密码">
-    <p id="text_pwsd" style="height:21px;color:red;"></p>
-    <button type="submit"  >登录</button>
 
+<body background="../static/register_background.jpg" style="background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
+    <div class="content">
+        <!--总内容模块-->
+        <div class="panel">
+            <!--登陆面板-->
+            <h1>Login</h1>
+            <form name="login" action="./" onsubmit="return str_filter()" method="POST">
+            {% csrf_token %}
 
-    {{ login_fail_notice}}
+            <div class="group">
+               <label id="zhanghao">用户名</label>
+               <input type="text" name="username" placeholder="请输入用户名">
+            </div>
 
+            <div class="group">
+               <label id="mima">密码</label>
+               <input type="password" name="pswd" placeholder="请输入密码">
+            </div>
+            &nbsp&nbsp&nbsp&nbsp&nbsp
+            <div class="login">
+                <button type="submit">登录</button>
+            </div>
 
+            <div>
+                &nbsp&nbsp&nbsp&nbsp&nbsp
+                <div>
+                    <a href="../index" class="button">返回主页</a>
+                </div>
+                &nbsp&nbsp&nbsp&nbsp&nbsp 
+                <div>
+                    <a href="../register" class="button">没有账号？注册</a>
+                </div>
 
+            </div>
+            
+            {{ login_fail_notice }}
 
+            </form>
+           
+        </div>
+    </div>
 
-
-    </form>
+    
 </body>
 </html>

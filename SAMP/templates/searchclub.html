@@ -1,60 +1,80 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>
-        加入社团
-        </title>
+        <title>学生社团管理平台</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
         <style type="text/css">
-            a
-            {
-                text-decoration: none;
-            }
-            .box
-            {
-                width: 1180px;
-                margin: auto;
-            }
-            .menuitem .submenu
-            {
-            display: none;
-            }
-            .menuitem:hover .submenu
-            {
-            display: block;
-            }
-        </style>
-        <script>
-            
-        </script>
-    </head>
 
+        </style>
+    </head>
     <body>
-        <div class="navbar" >
-            <div class="box" style="height: 21px;background-color: gold">
-                <div style="width: 360px;float: left;"><a href="../index">学生社团管理平台</a></div>
-                <div style="width: 200px;float: right;">
-                    <!--我的社团下拉菜单-->
-                    <div class="menuitem" style="float: left;margin-right: 10px">
-                        <div>我的社团</div>
-                        <div class="submenu" style="float: left;">
-                            <div>加入社团</div>
-                            <div><a href="../creatclub">创建社团</a></div>
-                            <div><a href="#">管理社团</a></div>
-                            <div><a href="../logout">登出</a></div>
-                        </div>
-                    </div>
+        <!--背景图-->
+        <div class = "bk">
+            <img src="../static/pictures/bk.jpg" class="bkimg">
+        </div>
+        <!--导航栏-->
+        <div>
+            <div class="nav_menu box">
+                <div class="backbutton menuitem"><主页</div>
                 
-                    <div><a href="../userpage">我的主页</a></div>
+                <!--我的社团下拉菜单-->
+                <div class="menuitem">
+                    <div>我的主页</div>
+                    <div class="submenu"><a href="../userpage">个人信息</a></div>
+                    <div class="submenu"><a href="../logout">登出</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
+                </div>
+                <div class="menuitem">
+                    <div>我的社团</div>
+                    <div class="submenu"><a>加入社团</a></div>
+                    <div class="submenu"><a href="../creatclub">创建社团</a></div>
+                    <div class="submenu"><a href="#">管理社团</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
                 </div>
             </div>
         </div>
-        <div>
-            <div style="padding-top:40px;margin-right: auto;margin-left: auto;width: 1180px;height: 600px;background-color: bisque ;">
-                <form action="">
-                    <input type="text" name="search_context" value="请输入社团名">
-                    <input type="submit" value="搜索">
-                </form>
-            </div>
+        <!--搜索框-->
+        <div class="box">
+            <form action="" >
+                <input type="search" name="search_context">
+                <input type="button" value="搜索">
+            </form>
+        </div>
+        <!--展示台-->
+        <div class="box"></div>
+        <!--公告-->
+        <div class="box showbox">
+            <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px;">
+                <tr>
+                    <td  colspan="2" style="height: 50px; width: 500px;background-color: rgba(245, 198, 198, 0.8)"><span style="font-size: 30px; color: red">公告栏</span></td>
+                    
+                </tr>
+                <tr>
+                    <td style="height: 30px; width: 500px; "><a href={{notic_url1}}>{{notic_title1}}</a></td>
+                    <td style="height: 30px;width: 100px;">{{notic_date1}}</td>
+                </tr>
+                <tr>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url2}}>{{notic_title2}}</a></td>
+                    <td style="height: 30px;width: 100px;">{{notic_date2}}</td>
+                </tr>
+                <tr>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url3}}>{{notic_title3}}</a></td>
+                    <td style="height: 30px;width: 100px;">{{notic_date3}}</td>
+                </tr>
+                <tr>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url4}}>{{notic_title4}}</a></td>
+                    <td style="height: 30px;width: 100px;">{{notic_date4}}</td>
+                </tr>
+                <tr>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url5}}>{{notic_title5}}</a></td>
+                    <td style="height: 30px;width: 100px;">{{notic_date5}}</td>
+                </tr>
+                <tr>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url6}}>{{notic_title6}}</a></td>
+                    <td style="height: 30px;width: 100px;">{{notic_date6}}</td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>

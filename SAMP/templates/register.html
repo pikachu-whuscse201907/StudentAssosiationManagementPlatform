@@ -65,7 +65,7 @@ border-radius: 5px;/*边框边角有5px的弧度*/
 
 .content .panel .group {
 
-text-align: left;/*子内容居中*/
+text-align: left;/*子内容左对齐*/
 
 width: 262px;/*宽度为262px*/
 
@@ -125,10 +125,7 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色*/
 
 
 /*注册按钮*/
-
-
-
-
+/*下面几个应该是没用的，最后两个button有用*/
 
 .content .panel .login button {
 
@@ -177,7 +174,7 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
         var username = document.register.username.value;
         var passwordone = document.register.password1.value; 
         var passwordtwo = document.register.password2.value; 
-        var illegalchar = /[^0-9]+/;
+        var illegalchar = /[^0-9,A-Za-z,\_]+/;
         if(username.length == 0)
         {
             document.getElementById("zhanghao").innerHTML = "请输入账号";
@@ -198,7 +195,7 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
         }
         else if(illegalchar.test(username))
         {
-            document.getElementById("zhanghao").innerHTML ="账号只能是数字";
+            document.getElementById("zhanghao").innerHTML ="账号不符合规范";
             document.register.username.focus();
             return false;
         }
@@ -214,9 +211,9 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
             document.register.mima2.focus();
             return false;
         }
-        else if(username.length<6)
+        else if(username.length<4)
         {
-            document.getElementById("zhanghao").innerHTML ="用户名至少6位";
+            document.getElementById("zhanghao").innerHTML ="用户名至少4位";
             document.register.username.focus();
             return false;
         }
@@ -240,6 +237,7 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
 			<h1 >Sign up</h1>
 
 			<form action="" method="POST" align="center" name="register">
+                {% csrf_token %}
 				<!-- 账号和密码组 -->
 				<div class="group">
 
@@ -272,19 +270,17 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
 
 				</div>
 
-				<div class="login" >
-		            <p  margin: 0px auto;>
-
-						<div>
-						<a href="../index" class="button">返回主页</a>
-						</div>
-		               
-						<div>
+				<div>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp
+					<div>
+					   <a href="../index" class="button">返回主页</a>
+					</div>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp
+					<div>
 						<a href="../login/" class="button">已有账号？登陆</a>	
-						</div>
-						 <!--<span class="text"></span>-->
-		            </p>
-		     	</div>
+					</div>
+						<!--<span class="text"></span>-->
+                    </div>
 				
 				{{ register_fail_notice }}
 

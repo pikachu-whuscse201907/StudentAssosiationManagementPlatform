@@ -15,7 +15,7 @@
         <!--导航栏-->
         <div>
             <div class="nav_menu box">
-                <div class="backbutton menuitem">主页</div>
+                
                 {% if name != none  %}
                 {#name变量传用户名，未登录则为空#}
                 <!--我的社团下拉菜单-->
@@ -45,33 +45,33 @@
         <div class="box"></div>
         <!--公告-->
         <div class="box showbox">
-            <table class="notic" style="margin: auto">
-                <tr>
+            <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px">
+       }}         <tr>
                     <td  colspan="2" style="height: 50px; width: 500px;background-color: rgba(245, 198, 198, 0.8)"><span style="font-size: 30px; color: red">公告栏</span></td>
                     
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px; "><a href=notic_url1>{{notic_title1}}</a></td>
+                    <td style="height: 30px; width: 500px; "><a href={{notic_url1}}>{{notic_title1}}</a></td>
                     <td style="height: 30px;width: 100px;">{{notic_date1}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href=notic_url2>{{notic_title2}}</a></td>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url2}}>{{notic_title2}}</a></td>
                     <td style="height: 30px;width: 100px;">{{notic_date2}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href=notic_url3>{{notic_title3}}</a></td>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url3}}>{{notic_title3}}</a></td>
                     <td style="height: 30px;width: 100px;">{{notic_date3}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href=notic_url4>{{notic_title4}}</a></td>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url4}}>{{notic_title4}}</a></td>
                     <td style="height: 30px;width: 100px;">{{notic_date4}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href=notic_url5>{{notic_title5}}</a></td>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url5}}>{{notic_title5}}</a></td>
                     <td style="height: 30px;width: 100px;">{{notic_date5}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href=notic_url6>{{notic_title6}}</a></td>
+                    <td style="height: 30px; width: 500px"><a href={{notic_url6}}>{{notic_title6}}</a></td>
                     <td style="height: 30px;width: 100px;">{{notic_date6}}</td>
                 </tr>
             </table>
