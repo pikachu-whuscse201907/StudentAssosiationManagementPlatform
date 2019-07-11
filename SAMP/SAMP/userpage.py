@@ -8,8 +8,9 @@ from .database.search import *
 
 def userpage(request):
     user = None
-    if request.COOKIES.get('id') is not None:
-        user = user_of_cookie(request.COOKIES.get('id'))# to be replaced
+    cookie_id = request.COOKIES.get('id', None)
+    if cookie_id is not None:
+        user = user_of_cookie(cookie_id)
     if user is None:
         return response_not_logged_in(request)
     context = {}
@@ -24,8 +25,8 @@ def userpage(request):
 
 def update_user_info(request):
     context = {}
-    user = None
-    if request.COOKIES.get('id') is not None:
-        user = user_of_cookie(request.COOKIES.get('id'))  # to be replaced
+    cookie_id = request.COOKIES.get('id', None)
+    if cookie_id is not None:
+        user = user_of_cookie(cookie_id)
     if user is None:
         return response_not_logged_in(request)

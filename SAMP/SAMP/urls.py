@@ -27,8 +27,8 @@ urlpatterns = [
     path('login/', view.login),
     path('logout/', view.logout),
     path('register/', view.register),
-    # path('creatclub/', view.creatclub),
-    # path('searchclub/', view.searchclub),
+    path('creatclub/', view.creatclub),
+    path('searchclub/', view.searchclub),
     path('userpage/', userpage.userpage),
     path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
 
