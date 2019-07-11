@@ -1,10 +1,42 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>学生社团管理平台</title>
+        <title>加入社团</title>
         <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
         <style type="text/css">
-
+            .searchbox
+            {
+                width: 800px;
+                height: 40px;
+                border-radius: 20px;
+                font-size: 20px;
+                text-indent: 2em;
+            }
+            .searchbutton
+            {
+                height: 40px;
+                width: 80px;
+                font-size: 20px;
+                color:white;
+                border-radius: 20px;
+                background-color:green;
+                border: solid 2px gray;
+            }
+            .searchbutton:hover
+            {
+                background-color:darkgreen;
+            }
+           td
+           {
+                width: 1150px;
+                height: 50px;
+                background-color:rgba(255, 255, 255, 0.8);
+           }
+           td:hover
+           {
+            background-color:rgba(200, 200, 200, 0.8);
+            box-shadow: 16px 8px 16px 8px rgba(0,0,0,0.2);
+           }
         </style>
     </head>
     <body>
@@ -15,7 +47,7 @@
         <!--导航栏-->
         <div>
             <div class="nav_menu box">
-                <div class="backbutton menuitem"><主页</div>
+                <div class="backbutton menuitem"><a href="../index"><主页</a></div>
                 
                 <!--我的社团下拉菜单-->
                 <div class="menuitem">
@@ -35,44 +67,46 @@
             </div>
         </div>
         <!--搜索框-->
-        <div class="box">
+        <div class="box" style="margin-top:50px; ">
             <form action="" >
-                <input type="search" name="search_context">
-                <input type="button" value="搜索">
+                <input  class="searchbox" type="search" name="search_context" placeholder="请输入社团ID">
+                <button class="searchbutton" type="submit" >搜索</button>
             </form>
         </div>
         <!--展示台-->
-        <div class="box"></div>
+        <div class="box" style="margin-top: 50px"></div>
         <!--公告-->
         <div class="box showbox">
             <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px;">
                 <tr>
-                    <td  colspan="2" style="height: 50px; width: 500px;background-color: rgba(245, 198, 198, 0.8)"><span style="font-size: 30px; color: red">公告栏</span></td>
-                    
+                    <td><a href="../clubinfo?iden={{clubid0}}">{{club0}}</a></td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px; "><a href={{notic_url1}}>{{notic_title1}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date1}}</td>
+                    <td><a href="../clubinfo?iden={{clubid1}}">{{club1}}</a></td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url2}}>{{notic_title2}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date2}}</td>
+                    <td><a href="../clubinfo?iden={{clubid2}}">{{club2}}</a></td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url3}}>{{notic_title3}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date3}}</td>
+                    <td><a href="../clubinfo?iden={{clubid3}}">{{club3}}</a></td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url4}}>{{notic_title4}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date4}}</td>
+                    <td><a href="../clubinfo?iden={{clubid4}}">{{club4}}</a></td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url5}}>{{notic_title5}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date5}}</td>
+                    <td><a href="../clubinfo?iden={{clubid5}}">{{club5}}</a></td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url6}}>{{notic_title6}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date6}}</td>
+                    <td><a href="../clubinfo?iden={{clubid5}}">{{club6}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="../clubinfo?iden={{clubid5}}">{{club7}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="../clubinfo?iden={{clubid5}}">{{club8}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="../clubinfo?iden={{clubid5}}">{{club9}}</a></td>
                 </tr>
             </table>
         </div>

@@ -184,13 +184,11 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
         else if(passwordone.length==0)
         {
             document.getElementById("mima1").innerHTML = "请输入密码";
-            document.register.mima1.focus();
             return false;
         }
         else if(passwordtwo.length==0)
         {
             document.getElementById("mima2").innerHTML = "请再次输入密码";
-            document.register.mima2.focus();
             return false;
         }
         else if(illegalchar.test(username))
@@ -202,13 +200,11 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
         else if(username == passwordone)
         {
             document.getElementById("mima1").innerHTML ="账号和密码相同！";
-            document.register.mima1.focus();
             return false;
         }
         else if(passwordtwo != passwordone)
         {
             document.getElementById("mima2").innerHTML ="两次密码不一致！";
-            document.register.mima2.focus();
             return false;
         }
         else if(username.length<4)
@@ -220,7 +216,6 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
         else if(passwordone.length<6)
         {
             document.getElementById("mima1").innerHTML ="密码至少6位";
-            document.register.mima1.focus();
             return false;
         }
 
@@ -236,7 +231,7 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
 
 			<h1 >Sign up</h1>
 
-			<form action="" method="POST" align="center" name="register">
+			<form action="" method="POST" align="center" name="register" onsubmit ="return str_filter()">
                 {% csrf_token %}
 				<!-- 账号和密码组 -->
 				<div class="group">
@@ -265,7 +260,7 @@ border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466B
 		        
 		        <div class="register">
 					
-					<button type="submit" onclick="return str_filter()">注册</button>
+					<button type="submit" >注册</button>
 
 
 				</div>
