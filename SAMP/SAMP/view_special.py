@@ -4,13 +4,14 @@ from django.http import *
 
 def page_not_found(request,exception):
     context={}
-    context['notice']=''
-    response=HttpResponse(render(request, '404.html',context))
+    context['title'] = '404 Not Found'
+    context['url'] = '../index/'
+    response = HttpResponse(render(request, 'jump.html', context))
     return response
-
 
 def page_internal_error(request,exception):
     context = {}
-    context['notice'] = ''
-    response = HttpResponse(render(request, '500.html', context))
+    context['title'] = '500 Internal Error'
+    context['url'] = '../index/'
+    response = HttpResponse(render(request, 'jump.html', context))
     return response
