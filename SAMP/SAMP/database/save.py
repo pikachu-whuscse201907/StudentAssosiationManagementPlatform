@@ -1,21 +1,30 @@
-# -*- coding: utf-8 -*-
 from django.db import models
-from SAMP.view import *
+from ..view import *
 from people.models import Person
 from ..Cookie import *
+from .delete import *
+from .save import *
+from .search import *
 
 
 # 存储注册设置的用户名和密码
 def save_name_pswd(username, password1):
-    test = Person(name=username, pswd=password1)
-    test.save()
+	User = Person.objects.create(name=username, pswd=password1)
+	User.save()
 
 
-# 存储cookie_id
-def save_cookie_id(cookie_id, username):
-    Person.objects.filter(name=username).update(cookie_id=cookie_id)
+# 用户登录时存储Cookie
+def save_cookie(User,cookie):
+	User.cookie_id=cookie.cookie_id
+	User.cookie_expire=cookie.expire
+	User.cookie_create_time=cookie.create_time
+	User.save()
 
 
-# 存储expire time
-def save_cookie_expire(username, expire):
-    Person.objects.filter(name=username).update(cookie_expire=expire)
+# 更新页面时，更新Cookie
+def update_cookie(User, cookie):
+	response = Person.objects.filter(cookie_id=cookie.cookie_id)
+	if len(response) == 0:
+		return False
+	else:
+		save_cookie(response[0],cookie)
