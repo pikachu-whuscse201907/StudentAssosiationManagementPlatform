@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+        {{title}}
+        {#标签栏标题，如：页面找不到了，注册成功等#}
+        </title>
+        <style type="text/css">
+        </style>
+        <script>
+            window.onload = window.setTimeout(jump,3000);
+            function jump()
+            {
+               window.location.href='{{url}}';
+            }
+        </script>
+    </head>
+    <body>
+        <div style="margin: 100px auto;width: 1180px;"> 
+            <p>
+            <span style="font-size: 50px">{{error_code}}{#错误代码#}<span>
+            &nbsp;&nbsp;
+            <span style="font-size: 20px">{{error_msg}}{#提示信息#}<span>
+            </p>
+            <p>页面将在3秒后跳转</p>
+            <a href={{url}}{#跳转地址#}>立即跳转</a>
+        </div>
+    </body>
+</html>
