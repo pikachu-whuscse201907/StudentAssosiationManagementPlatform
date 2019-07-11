@@ -3,6 +3,9 @@ from django.http import *
 from .Cookie import *
 from .check_valid import *
 from .verify import *
+from .database.delete import *
+from .database.save import *
+from .database.search import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import *
 import time
@@ -17,14 +20,14 @@ def login(request):
     username=request.POST.get('username', None)
     pswd=request.POST.get('pswd', None)
     if username is not None and pswd is not None:
-        user = get_user_from_username_pswd(username, pswd)
-        if user is None:
+        if not pswd_correct(username, pswd):
             context['login_fail_notice'] = 'Wrong Username or Password!'
             return HttpResponse(render(request, 'login.html', context))
         context['title'] = 'Login Success'
         context['url'] = '../index/'
         response = HttpResponse(render(request, 'jump.html', context))
         cookie = Cookie()
+        save_cookie_id(cookie.cookie_id, username)
         response.set_cookie('id', cookie.cookie_id, expires=cookie.expire)
         return response
     else:
@@ -39,16 +42,15 @@ def logout(request):
     context['url'] = '../index/'
     response = HttpResponse(render(request, 'jump.html', context))
     response.delete_cookie('id')
-    if request.COOKIES.get('id',None) is not None:
-        user = get_user_from_cookie(request.COOKIES['id'])
-        if user is not None:
-            #delete cookie from database(user)
-            ''
+    username = request.COOKIES.get('id',None)
+    if username is not None:
+        if not user_existing(username):
+            delete_cookie_id(username)
+            delete_cookie_expire(username)
     return response
 
 
 def index(request):
-
     context = {}
     user=None
     if request.COOKIES.get('id') is not None:
@@ -58,7 +60,7 @@ def index(request):
     if user is not None:
         context['name'] = user.name
         cookie = Cookie()
-        write_cookie(user, cookie)
+        save_cookie_id(cookie.cookie_id, user.name)
         response.set_cookie('id', cookie.cookie_id, expires=cookie.expire)
 
     response.content = render(request, 'index.html', context)
@@ -74,7 +76,7 @@ def register(request):
     if username is not None and password1 is not None and password2 is not None:
         verify_result = veri(username, password1, password2)
         if veri(username, password1, password2) == True:
-            # write info into database
+            save_name_pswd(username, password1)
             context['title']='Register Success'
             context['url']='../login/'
             return HttpResponse(render(request, 'jump.html', context))

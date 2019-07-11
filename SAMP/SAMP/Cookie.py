@@ -10,6 +10,7 @@ COOKIE_AGE_HOURS = 3
 class Cookie:
     def __init__(self):
         self.cookie_id = gen_rand_hex(128)
+        print("id:",self.cookie_id)
         self.create_time = datetime.datetime.now()
         self.expire = (datetime.datetime.now()+datetime.timedelta(hours=COOKIE_AGE_HOURS))
 
@@ -17,8 +18,9 @@ class Cookie:
 def gen_rand_hex(len):
     ans = ''
     for i in range(len):
-        ans.join(random.choice('0123456789abcdef'))
+        ans+=(random.choice('0123456789abcdef'))
     return ans
+
 
 def get_user_from_cookie(_cookie_id):
     p=Person.objects.filter(cookie_id=_cookie_id)
@@ -38,7 +40,7 @@ def get_user_from_cookie(_cookie_id):
         p[0].cookie_expire = None
     return p[0]
 
-
+'''
 def get_user_from_username_pswd(_username,_pswd):
     p = Person.objects.filter(name=_username,pswd=_pswd)
     if len(p) == 0:
@@ -56,3 +58,5 @@ def write_cookie(user, cookie):
 def new_user(_username,_password):
     p=Person.objects.create(name=_username,pswd=_password)
     p.save()
+    
+'''
