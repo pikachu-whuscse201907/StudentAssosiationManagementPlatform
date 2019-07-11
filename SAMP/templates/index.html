@@ -22,12 +22,11 @@
         }
         </style>
     </head>
-
-    <body>
+    <body style="margin: 0px;">
         <!--导航栏-->
-        <div class="navbar" >
-            <div class="box" style="height: 21px;background-color: gold">
-                <div style="width: 360px;float: left;">学生社团管理平台</div>
+        <div class="navbar" style="background-color:darkgreen;">
+            <div class="box" style="height: 40px;">
+                <div style="width: 360px;float: left;margin-top:5px; "><span style="color: white;font-family:'Times New Roman', Times, serif;font-size: 30px;">学生社团管理平台</span></div>
                 <div style="width: 200px;float: right;">
                     {% if name != none  %}
                     {#name变量传用户名，未登录则为空#}
@@ -38,6 +37,7 @@
                                 <div><a href="../searchclub">加入社团</a></div>
                                 <div><a href="../creatclub">创建社团</a></div>
                                 <div><a href="#">管理社团</a></div>
+                                <div><a href="../logout">登出</a></div>
                             </div>
                         </div>
                     

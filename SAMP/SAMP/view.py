@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import *
 from .Cookie import *
 from .check_valid import *
+from .verify import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import *
 import time
@@ -63,14 +64,17 @@ def index(request):
 
 def register(request):
     context = {}
-    username=request.POST.get('username', None)
-    password1=request.POST.get('password1', None)
+    username = request.POST.get('username', None)
+    password1 = request.POST.get('password1', None)
     password2 = request.POST.get('password2', None)
     if username is not None and password1 is not None and password2 is not None:
-        if valid_username_pswds(username, password1, password2):
-            #write info into database
-            return HttpResponseRedirect('login/')
-        context['register_fail_notice'] = 'Invalid Username or Password!'
+        verify_result = veri(username, password1, password2)
+        if veri(username, password1, password2) == True:
+            # write info into database
+            return HttpResponseRedirect('../login/')
+            # Redirect to a jump page.
+        else:
+            context['register_fail_notice'] = verify_result
         return HttpResponse(render(request, 'register.html', context))
     else:
         return HttpResponse(render(request, 'register.html'))
@@ -89,8 +93,18 @@ def searchclub(request):
 
 
 def userpage(request):
-    context={}
-    response=HttpResponse(render(request, 'userpage.html'))
+    user = None
+    if request.COOKIES.get('id') is not None:
+        user = get_user_from_cookie(request.COOKIES.get('id'))# to be replaced
+    if user is None:
+        return HttpResponseRedirect('../login/')
+    context = {}
+    context['name']=user.name
+    # context['year']=
+    # context['mon']=
+    # context['motto']=
+    # context['sex']=
+    response=HttpResponse(render(request, 'userpage.html',context))
     return response
 
 
