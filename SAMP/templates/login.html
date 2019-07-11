@@ -13,7 +13,7 @@
     {
         var username = document.login.username.value;
         var pswd = document.login.pswd.value; 
-        var illegalchar = /[^0-9]+/;
+        var illegalchar = /[^0-9a-zA-Z]+/;
         if(username.length == 0)
         {
             document.getElementById("text_username").innerHTML = "请输入账号";
@@ -27,19 +27,7 @@
         }
         else if(illegalchar.test(username))
         {
-            document.getElementById("text_username").innerHTML ="账号只能是数字";
-            document.login.username.focus();
-            return false;
-        }
-        else if(username == pswd)
-        {
-            document.getElementById("text_username").innerHTML ="账号和密码相同！";
-            document.login.username.focus();
-            return false;
-        }
-        else if(username.length<6||pswd.length<6)
-        {
-            document.getElementById("text_username").innerHTML ="用户名或密码太短";
+            document.getElementById("text_username").innerHTML ="账号含有非法字符";
             document.login.username.focus();
             return false;
         }

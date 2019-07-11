@@ -31,8 +31,6 @@ def get_user_from_cookie(_cookie_id):
     if p[0].cookie_expire is not None:
 
         now=now.replace(tzinfo=pytz.timezone('UTC'))
-        print(now.tzinfo)
-        print(p[0].cookie_expire.tzinfo)
         delta = now - p[0].cookie_expire
     if delta is None or delta > datetime.timedelta(seconds=1):
         p[0].cookie_id = ''
