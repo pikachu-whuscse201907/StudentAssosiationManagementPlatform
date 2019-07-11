@@ -1,9 +1,19 @@
 index.html
 变量名                  类型                备注
     name                字符串              用户姓名，没有登陆时为空
+    notic_title*        字符串              公告标题
+    notic_date*         字符串              公告日期
+    notic_url*          字符串              公告详情链接
 
 userpage.html
     motto               字符串              个性签名
     year                数字或字符           生日年
     year                数字或字符           生日月
     sex                 字符                性别
+
+jump.html
+    title               字符串              标签页标题
+    url                 字符串              跳转地址
+    error_code          字符串或数字        错误代码，可以为空
+    error_msg           字符串              错误信息或跳转信息
+    
