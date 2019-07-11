@@ -5,10 +5,10 @@ from .check_valid import *
 from .verify import *
 from .database.delete import *
 from .database.save import *
-from .database.search import *
+from .database.search import user_of_cookie, user_of_username
+from .database import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import *
-import time
 
 
 def redir_to_index(request):
@@ -53,8 +53,9 @@ def logout(request):
 def index(request):
     context = {}
     user=None
-    if request.COOKIES.get('id') is not None:
-        user = user_of_cookie(request.COOKIES.get('id'))
+    cookie_id=request.COOKIES.get('id',None)
+    if cookie_id is not None:
+        user = user_of_cookie(cookie_id)
 
     response = HttpResponse()
     if user is not None:
@@ -94,4 +95,16 @@ def response_not_logged_in(request):
     context['url'] = '../login/'
     context['error_msg'] = 'You are not logged, please log in!'
     response = HttpResponse(render(request, 'jump.html', context))
+    return response
+
+
+def creatclub(request):
+    context = {}
+    response = HttpResponse(render(request, 'creatclub.html', context))
+    return response
+
+
+def searchclub(request):
+    context = {}
+    response = HttpResponse(render(request, 'searchclub.html', context))
     return response
