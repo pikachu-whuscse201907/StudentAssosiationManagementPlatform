@@ -41,9 +41,9 @@
     <form name="login" action="./" onsubmit="return str_filter()" method="POST">
     {% csrf_token %}
     <input  type="text" name="username" placeholder="用户名">
-    <p id="text_username" style="height:21px;"></p>
+    <p id="text_username" style="height:21px;color:red;"></p>
     <input  type="password" name="pswd" placeholder="密码">
-    <p id="text_pwsd" style="height:21px;"></p>
+    <p id="text_pwsd" style="height:21px;color:red;"></p>
     <button type="submit"  >登录</button>
 
 
