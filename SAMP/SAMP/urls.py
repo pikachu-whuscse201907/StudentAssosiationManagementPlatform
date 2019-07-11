@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
+from django.contrib.staticfiles.views import serve
 from . import view
 from . import view_special
 
@@ -28,6 +29,7 @@ urlpatterns = [
     path('creatclub/', view.creatclub),
     path('searchclub/', view.searchclub),
     path('userpage/', view.userpage),
+    path('favicon.ico', serve, {'path': '../static/pictures/pikachu.jpg'}),
 
     #re_path(r'.', view.redir_to_index),
 

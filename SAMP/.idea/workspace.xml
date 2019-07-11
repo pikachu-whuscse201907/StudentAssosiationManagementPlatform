@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a522b4c-3b38-4f1b-b8b0-430e55e2cb7d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SAMP/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SAMP/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SAMP/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SAMP/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SAMP/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/SAMP/view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/SAMP/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="28" column="41" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
+              <caret line="31" column="41" lean-forward="true" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
               <folding>
                 <element signature="e#628#660#0" expanded="true" />
               </folding>
@@ -45,22 +45,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SAMP/view.py">
+        <entry file="file://$PROJECT_DIR$/SAMP/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-946">
-              <caret line="45" column="14" selection-start-line="45" selection-start-column="14" selection-end-line="45" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="361">
+              <caret line="124" column="6" lean-forward="true" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="6" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SAMP/settings.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SAMP/view.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="-528">
+              <caret line="82" column="30" lean-forward="true" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,25 +77,9 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/frame.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SAMP/Cookie.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-323">
-              <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/interface.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -113,6 +97,7 @@
       <find>redir_to_index</find>
       <find>jump</find>
       <find>del</find>
+      <find>Login</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,11 +114,12 @@
         <option value="$PROJECT_DIR$/SAMP/Cookie.py" />
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/SAMP/settings.py" />
-        <option value="$PROJECT_DIR$/SAMP/urls.py" />
         <option value="$PROJECT_DIR$/templates/500.html" />
         <option value="$PROJECT_DIR$/templates/404.html" />
         <option value="$PROJECT_DIR$/SAMP/view_special.py" />
         <option value="$PROJECT_DIR$/SAMP/view.py" />
+        <option value="$PROJECT_DIR$/SAMP/urls.py" />
+        <option value="$PROJECT_DIR$/templates/index.html" />
       </list>
     </option>
   </component>
@@ -255,12 +241,12 @@
       <workItem from="1562720081486" duration="6763000" />
       <workItem from="1562738333999" duration="18530000" />
       <workItem from="1562815363640" duration="4935000" />
-      <workItem from="1562827252786" duration="3921000" />
+      <workItem from="1562827252786" duration="5037000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37528000" />
+    <option name="totallyTimeSpent" value="38644000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="66" y="-7" width="1478" height="878" extended-state="6" />
@@ -386,13 +372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="54" column="29" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/500.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -407,54 +386,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/interface.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/frame.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SAMP/Cookie.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
-          <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SAMP/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="28" column="41" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
-          <folding>
-            <element signature="e#628#660#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/jump.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#548#554#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/pictures/bk.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/SAMP/view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-946">
-          <caret line="45" column="14" selection-start-line="45" selection-start-column="14" selection-end-line="45" selection-end-column="14" />
+        <state relative-caret-position="-528">
+          <caret line="82" column="30" lean-forward="true" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -471,12 +409,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/pictures/pikachu.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/SAMP/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="361">
+          <caret line="124" column="6" lean-forward="true" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="6" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAMP/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="31" column="41" lean-forward="true" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
+          <folding>
+            <element signature="e#628#660#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/jump.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1000">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAMP/Cookie.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-323">
+          <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-end-line="4" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/frame.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/interface.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
