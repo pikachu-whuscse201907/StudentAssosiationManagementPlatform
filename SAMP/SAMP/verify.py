@@ -1,5 +1,7 @@
 from people.models import Person
-
+from .database.delete import *
+from .database.save import *
+from .database.search import *
 
 def veri(username, password, conpass):
     "verify the validity"
@@ -21,9 +23,6 @@ def veri(username, password, conpass):
                 continue
             else:
                 return "Your username includes invalid char!"
-    person = Person.objects.filter(name=username)
-    if len(person) == 0:
-        pass
-    else:
+    if user_existing(username):
         return "The username has been registered!"
     return True
