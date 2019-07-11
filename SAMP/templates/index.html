@@ -2,91 +2,79 @@
 <html>
     <head>
         <title>学生社团管理平台</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
         <style type="text/css">
-        a
-        {
-            text-decoration: none;
-        }
-        .box
-        {
-            width: 1180px;
-            margin: auto;
-        }
-        .menuitem .submenu
-        {
-        display: none;
-        }
-        .menuitem:hover .submenu
-        {
-        display: block;
-        }
-        .bk
-        {
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            position: absolute;
-        }
+
         </style>
     </head>
-    <body style="margin: 0px;">
+    <body>
         <!--背景图-->
         <div class = "bk">
-            <img src="../static/pictures/bk.jpg" style="width: 100%;height: 100%;">
+            <img src="../static/pictures/bk.jpg" class="bkimg">
         </div>
         <!--导航栏-->
-        <div class="navbar">
-            <div class="box" style="height: 40px;">
-                <div>学生社团管理平台</div>
-                <div style="width: 200px;float: right;">
-                    {% if name != none  %}
-                    {#name变量传用户名，未登录则为空#}
-                        <!--我的社团下拉菜单-->
-                        <div class="menuitem" style="float: left;margin-right: 10px">
-                            <div>我的社团</div>
-                            <div class="submenu" style="float: left;">
-                                <div><a href="../searchclub">加入社团</a></div>
-                                <div><a href="../creatclub">创建社团</a></div>
-                                <div><a href="#">管理社团</a></div>
-                                <div><a href="../logout">登出</a></div>
-                            </div>
-                        </div>
-                    
-                        <div><a href="../userpage">我的主页</a></div>
-                    {% else %}
-                        <a href="../register">注册</a>
-                        <a href="../login">登录</a>
-                        
-                    {% endif %}
+        <div>
+            <div class="nav_menu box">
+                <div class="backbutton menuitem">主页</div>
+                {% if name != none  %}
+                {#name变量传用户名，未登录则为空#}
+                <!--我的社团下拉菜单-->
+                <div class="menuitem">
+                    <div>我的主页</div>
+                    <div class="submenu"><a href="../userpage">个人信息</a></div>
+                    <div class="submenu"><a href="../logout">登出</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
                 </div>
+                <div class="menuitem">
+                    <div>我的社团</div>
+                    <div class="submenu"><a href="../searchclub">加入社团</a></div>
+                    <div class="submenu"><a href="../creatclub">创建社团</a></div>
+                    <div class="submenu"><a href="#">管理社团</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
+                </div>
+                {% else %}
+                <div class="menuitem"><a href="../register">注册</a></div>
+                <div class="menuitem"><a href="../login">登录</a></div>
+                {% endif %}
             </div>
         </div>
-
-        <!--展示部分-->
-        <div class="showbox">
-            <div class="box">
-                <h1>精彩活动剪影</h1>
-               
-                    <img src="#" style="width: 200px"> 
-                    <img src="#" style="width: 200px"> 
-                    <img src="#" style="width: 200px"> 
-                    <img src="#" style="width: 200px"> 
-                    <img src="#"> 
-                    <img src="#"> 
-                    <img src="#"> 
-                
-                
-            </div>
-        </div>
-
-        <!--公告部分-->
-        <div class="noticbox">
-            <div class="box">
-                <h1>公告栏</h1>
-                <p>公告1</p>
-                <p>公告2</p>
-                <p>公告3</p>
-            </div>
+        <!--内容显示-->
+        
+        <!--中：搜索框之类-->
+        <div class="box"></div>
+        <!--下：内容显示-->
+        <div class="box showbox">
+            <table class="notic">
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>

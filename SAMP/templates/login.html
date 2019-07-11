@@ -14,20 +14,12 @@
         var username = document.login.username.value;
         var pswd = document.login.pswd.value; 
         var illegalchar = /[^0-9a-zA-Z]+/;
-<<<<<<< HEAD
-        if(username.length == 0 || pswd.length==0)
-=======
         if(username.length == 0)
->>>>>>> 5c465df8bb949068d41f7c82ad213440655a8829
         {
             document.getElementById("text_username").innerHTML = "请输入账号";
             document.login.username.focus();
             return false;
         }
-<<<<<<< HEAD
-        else if(illegalchar.test(username)) {
-            alert("账号含有非法字符");
-=======
         else if(pswd.length==0)
         {
             document.getElementById("text_pwsd").innerHTML = "请输入密码";
@@ -36,7 +28,6 @@
         else if(illegalchar.test(username))
         {
             document.getElementById("text_username").innerHTML ="账号含有非法字符";
->>>>>>> 5c465df8bb949068d41f7c82ad213440655a8829
             document.login.username.focus();
             return false;
         }
