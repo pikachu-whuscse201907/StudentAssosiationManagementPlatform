@@ -70,8 +70,9 @@ def register(request):
     if username is not None and password1 is not None and password2 is not None:
         verify_result = veri(username, password1, password2)
         if veri(username, password1, password2) == True:
-            #write info into database
+            # write info into database
             return HttpResponseRedirect('../login/')
+            # Redirect to a jump page.
         else:
             context['register_fail_notice'] = verify_result
         return HttpResponse(render(request, 'register.html', context))
@@ -92,8 +93,18 @@ def searchclub(request):
 
 
 def userpage(request):
-    context={}
-    response=HttpResponse(render(request, 'userpage.html'))
+    user = None
+    if request.COOKIES.get('id') is not None:
+        user = get_user_from_cookie(request.COOKIES.get('id'))# to be replaced
+    if user is None:
+        return HttpResponseRedirect('../login/')
+    context = {}
+    context['name']=user.name
+    # context['year']=
+    # context['mon']=
+    # context['motto']=
+    # context['sex']=
+    response=HttpResponse(render(request, 'userpage.html',context))
     return response
 
 
