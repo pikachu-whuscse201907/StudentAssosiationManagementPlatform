@@ -2,10 +2,12 @@ a
 {
     text-decoration: none;
     display: block;
+    color: black;
 }
 body
 {
-    margin-top:0; 
+    margin-top:0;
+    margin: 0px;
 }
 .bk
 {
