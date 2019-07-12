@@ -1,67 +1,130 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>
-        创建社团
-        </title>
+        <title>创建社团</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <style type="text/css">
-            a
+            .infobox
             {
-                text-decoration: none;
-            }
-            .box
-            {
-                width: 1180px;
                 margin: auto;
+                width: 600px;
             }
-            .menuitem .submenu
+            #photobox
             {
-            display: none;
+                width: 120px;
+                height: 120px;
+                background-color: wheaT;
+                margin: auto;
+                border: solid 1px gray;
+                border-radius: 60px;
+                overflow: hidden;
             }
-            .menuitem:hover .submenu
+            #photobox:hover
             {
-            display: block;
+                box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.2);
+            }
+            #photo
+            {
+                width: 120px;
+                height: 120px;
+            }
+            #lookbutton
+            {
+                opacity: 0;
+            }
+            .inputbox
+            {
+                margin-top:10px;
+                width:400px ;
+                height: 30px;
+                font-size: 22px;
+                border-radius: 10px;
+                text-indent: 0.5em;
+                border: 1px solid black;   
+                position: relative;
+            }
+            .inputbox:focus
+            {
+                border: 2px solid green;
+            }
+            #subbutton
+            {
+                text-align: center;
+                display: block;
+                margin: auto;
+                height: 40px;
+                width: 80px;
+                background-color: green;
+                font-size: 20px;
+                margin-top:10px;
+                border-radius: 10px;
             }
         </style>
         <script>
-            
+            function showphoto(obj)
+            {
+                //预览头像
+                var file = obj.files[0];
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img = document.getElementById("photo");
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+                
+            }
         </script>
     </head>
-
     <body>
+        <!--背景图-->
+        <div class = "bk">
+            <img src="../static/pictures/bk.jpg" class="bkimg">
+        </div>
         <!--导航栏-->
-        <div class="navbar" >
-            <div class="box" style="height: 21px;background-color: gold">
-                <div style="width: 360px;float: left;"><a href="../index">学生社团管理平台</a></div>
-                <div style="width: 200px;float: right;">
-                    <!--我的社团下拉菜单-->
-                    <div class="menuitem" style="float: left;margin-right: 10px">
-                        <div>我的社团</div>
-                        <div class="submenu" style="float: left;">
-                            <div><a href="../searchclub">加入社团</a></div>
-                            <div>创建社团</div>
-                            <div><a href="#">管理社团</a></div>
-                            <div><a href="../logout">登出</a></div>
-                        </div>
-                    </div>
-                
-                    <div><a href="../userpage">我的主页</a></div>
+        <div>
+            <div class="nav_menu box">
+            <div class="backbutton menuitem"><a href="../index"><主页</a></div>
+                <!--我的社团下拉菜单-->
+                <div class="menuitem">
+                    <div>我的主页</div>
+                    <div class="submenu"><a href="../userpage">个人信息</a></div>
+                    <div class="submenu"><a href="../logout">登出</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
+                </div>
+                <div class="menuitem">
+                    <div>我的社团</div>
+                    <div class="submenu"><a href="../searchclub">加入社团</a></div>
+                    <div class="submenu"><a href="../creatclub">创建社团</a></div>
+                    <div class="submenu"><a href="#">管理社团</a></div>
+                    <div class="submenu"><a href="#">submenu</a></div>
                 </div>
             </div>
         </div>
-        <div>
-            <div style="padding-top: 40px;margin-right: auto;margin-left: auto;width: 1180px;height: 600px;background-color: bisque ;">
-                <div style="float: left;margin-left:20px;">
-                    <h1>社团资料</h1>
-                    <form>
-                        社团名称：<input type="text" name="社团名称"><br>
-                        <input type="submit" name="register" value="下一步">
-                    </form>
-                </div>
-                <div>
-
-                </div>
-            </div>
+        <!--内容显示-->
+        
+        <!--展示台-->
+        <div class="box"><h1>创建社团</h1></div>
+        <!--公告-->
+        <div class="box showbox">
+            <h2 style="position: relative;top:10px;left:10px;">填写社团资料</h2>
+            <div class="infobox">
+                <label for="lookbutton" id="lookbutton_t">
+                        <div id="photobox">
+                                <img src="../static/pictures/org.jpg" id="photo">
+                        </div>
+                </label>
+                <form action="" name="org_info" method="POST" style="font-size: 20px">
+                <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);"><br>
+                <span>社团名称：&nbsp;&nbsp;</span><input type="text" class="inputbox" name="org_name"><br>
+                <span>xxxx</span><input type="text" class="inputbox" name=""><br>
+                <span>xxxx</span><input type="text" class="inputbox" name=""><br>
+                <span>xxxx</span><input type="text" class="inputbox" name=""><br>
+                <span>xxxx</span><input type="text" class="inputbox" name=""><br>
+                <button type="submit" id="subbutton">提交</button>
+                </form>
+            </div> 
         </div>
     </body>
 </html>
