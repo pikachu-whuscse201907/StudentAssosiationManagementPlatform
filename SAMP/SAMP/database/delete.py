@@ -1,15 +1,25 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from SAMP.view import *
+from ..view import *
 from people.models import Person
 from ..Cookie import *
+from .delete import *
+from .save import *
+from .search import *
 
 
-#清空cookie_id
-def delete_cookie_id(username):
-    Person.objects.filter(name=username).update(cookie_id=None)
+# 退出登录，清空Cookie
+def delete_cookie(_cookie_id):
+	response = Person.objects.filter(cookie_id=_cookie_id)
+	if len(response)==0:
+		return False
+	else:
+		clear_cookie(response[0])
+		return True
 
 
-#清空expire time
-def delete_cookie_expire(username):
-    Person.objects.filter(name=username).update(cookie_expire=None)
+def clear_cookie(User):
+	User.cookie_id=None
+	User.cookie_create_time=None
+	User.cookie_expire=None
+	User.save()

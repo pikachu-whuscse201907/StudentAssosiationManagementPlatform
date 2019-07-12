@@ -18,6 +18,7 @@ from django.urls import path, re_path
 from django.contrib.staticfiles.views import serve
 from . import view
 from . import view_special
+from . import userpage
 
 urlpatterns = [
     path('', view.index),
@@ -28,8 +29,8 @@ urlpatterns = [
     path('register/', view.register),
     path('creatclub/', view.creatclub),
     path('searchclub/', view.searchclub),
-    path('userpage/', view.userpage),
-    path('favicon.ico', serve, {'path': '../static/pictures/pikachu.jpg'}),
+    path('userpage/', userpage.userpage),
+    path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
 
     #re_path(r'.', view.redir_to_index),
 

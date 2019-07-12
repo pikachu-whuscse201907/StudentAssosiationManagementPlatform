@@ -22,41 +22,12 @@ def gen_rand_hex(len):
     return ans
 
 
-def get_user_from_cookie(_cookie_id):
-    p=Person.objects.filter(cookie_id=_cookie_id)
-    if len(p) == 0:
-        # No such cookie in database.
+def expire(cookie_expire):
+    if cookie_expire is None:
         return None
-
     now = datetime.datetime.now()
-    delta = None
-    if p[0].cookie_expire is not None:
-
-        now=now.replace(tzinfo=pytz.timezone('UTC'))
-        delta = now - p[0].cookie_expire
-    if delta is None or delta > datetime.timedelta(seconds=1):
-        p[0].cookie_id = ''
-        p[0].cookie_create_time = None
-        p[0].cookie_expire = None
-    return p[0]
-
-'''
-def get_user_from_username_pswd(_username,_pswd):
-    p = Person.objects.filter(name=_username,pswd=_pswd)
-    if len(p) == 0:
-        # No such user in database.
-        return None
-    return p[0]
+    now = now.replace(tzinfo=pytz.timezone('UTC'))
+    delta = now - cookie_expire
+    return (delta > datetime.timedelta(seconds=1))
 
 
-def write_cookie(user, cookie):
-    user.cookie_id = cookie.cookie_id
-    user.cookie_create_time = cookie.create_time
-    user.cookie_expire = cookie.expire
-    user.save()
-
-def new_user(_username,_password):
-    p=Person.objects.create(name=_username,pswd=_password)
-    p.save()
-    
-'''
