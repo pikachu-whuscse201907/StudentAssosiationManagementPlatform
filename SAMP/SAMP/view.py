@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import *
 from .Cookie import *
-from .check_valid import *
 from .verify import *
 from .database.delete import *
 from .database.save import *
@@ -59,6 +58,7 @@ def index(request):
 
     response = HttpResponse()
     if user is not None:
+        context['islogin']=True
         context['name'] = user.name
         cookie = Cookie()
         save_cookie(user, cookie)

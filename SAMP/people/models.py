@@ -17,7 +17,7 @@ class Person(models.Model):
 class User_info(models.Model):
     name = models.ForeignKey(Person,'on_delete=models.CASCADE()')
     motto = models.CharField(max_length=100)
-    sex = models.IntegerField(choices=((1, "男"), (2, "女")), default=1)
+    gender = models.IntegerField(choices=((0, "unknow"), (1, "male"),(2,"female")), default=0)
     birth_year = models.IntegerField(default=2019)
     birth_month = models.SmallIntegerField(default=12)
     birth_date = models.DateField()
