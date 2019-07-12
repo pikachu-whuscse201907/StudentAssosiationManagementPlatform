@@ -59,6 +59,7 @@ def index(request):
 
     response = HttpResponse()
     if user is not None:
+        context['islogin']=True
         context['name'] = user.name
         cookie = Cookie()
         save_cookie(user, cookie)
