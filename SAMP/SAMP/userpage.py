@@ -1,5 +1,4 @@
 from .Cookie import *
-from .check_valid import *
 from .verify import *
 from .database.delete import *
 from .database.save import *
@@ -24,6 +23,7 @@ def userpage(request):
     info = result['info']
 
     context['islogin'] = True
+    context['name']=info['user_name']
     context['sex']= info['gender']
     context['motto']= info['motto']
     context['birth_date']= info['birth_date']

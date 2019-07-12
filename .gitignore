@@ -2,5 +2,7 @@
 __pycache__/
 *.py[cod]
 db.sqlite3
-.idea/
 workspace.xml
+venv/
+.idea/
+
