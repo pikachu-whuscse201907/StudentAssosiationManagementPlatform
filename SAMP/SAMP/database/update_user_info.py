@@ -2,6 +2,7 @@
 from django.db import models
 from ..view import *
 from people.models import Person
+from people.models import User_info
 from ..Cookie import *
 from .delete import *
 from .save import *
