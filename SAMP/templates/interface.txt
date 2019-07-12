@@ -1,9 +1,9 @@
 index.html
 变量名                  类型                备注
     name                字符串              用户姓名，没有登陆时为空
-    notic_title*        字符串              公告标题
-    notic_date*         字符串              公告日期
-    notic_url*          字符串              公告详情链接
+    notic_title1-6        字符串              公告标题
+    notic_date1-6         字符串              公告日期
+    notic_url1-6          字符串              公告详情链接
 
 userpage.html
     motto               字符串              个性签名
@@ -16,4 +16,16 @@ jump.html
     url                 字符串              跳转地址
     error_code          字符串或数字        错误代码，可以为空
     error_msg           字符串              错误信息或跳转信息
+
+searchclub.html
+    clubid0-9           数字或字符串        社团id
+    club0-9             字符串              社团名
+    clubcount           数字                搜到的社团总数
+    search_fail_notic   字符串              搜索失败信息
+
+login.html
+    login_fail_notice   字符串              登录失败信息
+
+register.html
+    register_fail_notice 字符串             注册失败信息
     

@@ -5,10 +5,10 @@ from .check_valid import *
 from .verify import *
 from .database.delete import *
 from .database.save import *
-from .database.search import *
+from .database.search import user_of_cookie, user_of_username
+from .database import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import *
-import time
 
 
 def redir_to_index(request):
@@ -25,9 +25,10 @@ def login(request):
             return HttpResponse(render(request, 'login.html', context))
         context['title'] = 'Login Success'
         context['url'] = '../index/'
+        context['error_msg'] = 'You have logged in successfully!'
         response = HttpResponse(render(request, 'jump.html', context))
         cookie = Cookie()
-        save_cookie_id(cookie.cookie_id, username)
+        save_cookie(user_of_username(username),cookie)
         response.set_cookie('id', cookie.cookie_id, expires=cookie.expire)
         return response
     else:
@@ -40,27 +41,28 @@ def logout(request):
     context={}
     context['title'] = 'Logout Success'
     context['url'] = '../index/'
+    context['error_msg'] = 'You have logged out successfully!'
     response = HttpResponse(render(request, 'jump.html', context))
     response.delete_cookie('id')
-    username = request.COOKIES.get('id',None)
-    if username is not None:
-        if not user_existing(username):
-            delete_cookie_id(username)
-            delete_cookie_expire(username)
+    cookie_id = request.COOKIES.get('id',None)
+    if cookie_id is not None:
+        delete_cookie(cookie_id)
     return response
 
 
 def index(request):
     context = {}
     user=None
-    if request.COOKIES.get('id') is not None:
-        user = get_user_from_cookie(request.COOKIES.get('id'))
+    cookie_id=request.COOKIES.get('id',None)
+    if cookie_id is not None:
+        user = user_of_cookie(cookie_id)
 
     response = HttpResponse()
     if user is not None:
+        context['islogin']=True
         context['name'] = user.name
         cookie = Cookie()
-        save_cookie_id(cookie.cookie_id, user.name)
+        save_cookie(user, cookie)
         response.set_cookie('id', cookie.cookie_id, expires=cookie.expire)
 
     response.content = render(request, 'index.html', context)
@@ -79,6 +81,7 @@ def register(request):
             save_name_pswd(username, password1)
             context['title']='Register Success'
             context['url']='../login/'
+            context['error_msg'] = 'You have registered successfully!'
             return HttpResponse(render(request, 'jump.html', context))
         else:
             context['register_fail_notice'] = verify_result
@@ -87,45 +90,22 @@ def register(request):
         return HttpResponse(render(request, 'register.html'))
 
 
-def creatclub(request):
-    context={}
-    response=HttpResponse(render(request, 'creatclub.html'))
-    return response
-
-
-def searchclub(request):
-    context={}
-    response=HttpResponse(render(request, 'searchclub.html'))
-    return response
-
-
-def userpage(request):
-    user = None
-    if request.COOKIES.get('id') is not None:
-        user = get_user_from_cookie(request.COOKIES.get('id'))# to be replaced
-    if user is None:
-        return response_not_logged_in(request)
-    context = {}
-    context['name']=user.name
-    # context['year']=
-    # context['mon']=
-    # context['motto']=
-    # context['sex']=
-    response=HttpResponse(render(request, 'userpage.html',context))
-    return response
-
-def update_user_info(request):
-    context = {}
-    user = None
-    if request.COOKIES.get('id') is not None:
-        user = get_user_from_cookie(request.COOKIES.get('id'))  # to be replaced
-    if user is None:
-        return response_not_logged_in(request)
-
-
 def response_not_logged_in(request):
     context = {}
     context['title'] = 'Not logged in'
     context['url'] = '../login/'
+    context['error_msg'] = 'You are not logged, please log in!'
     response = HttpResponse(render(request, 'jump.html', context))
+    return response
+
+
+def creatclub(request):
+    context = {}
+    response = HttpResponse(render(request, 'creatclub.html', context))
+    return response
+
+
+def searchclub(request):
+    context = {}
+    response = HttpResponse(render(request, 'searchclub.html', context))
     return response
