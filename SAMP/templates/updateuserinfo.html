@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
         <title>
         {{name}}的主页
         {#name变量填用户名#}
         </title>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
         <style type="text/css">
     a{
     text-decoration: none;
@@ -110,6 +109,20 @@ body
 
 }
 
+.message input {
+    width: 180px;
+
+    height: 30px;
+
+    border: 1px solid #ddd;/*输入框的边框*/
+
+    padding: 0px 0px 0px 10px;/*左边内边距为10px，显得美观*/
+
+    font-size: 18px;/*字体大小*/
+
+    border-radius:10px;
+}
+
 .circle {
     display: inline-block;
 
@@ -136,24 +149,73 @@ body
     min-height:100%;
 }
 
-.change {
+.change button{
     text-align: center;
-    width: 200px;
-    margin: 50px auto;
+    width: 150px;
+    margin: 50px;
+    
+    border-radius:10px;
 
 
     line-height: 50px;
     
-    font-size: 22px;
+    font-size: 20px;
 
-    background-color:rgba(255, 255,255, 0.3) ;
-    box-shadow: 16px 8px 16px 8px rgba(0,0,0,0.2);
+    border: 1px solid #CC865E;
+    background-color:rgba(255, 255,255, 0.2) ;
+
+
+}
+.change button:hover{
+
+    box-shadow: 12px 8px 12px 8px rgba(0,0,0,0.2);
+}
+#lookbutton
+            {
+                opacity: 0;
+            }
+
+.select1 {
+    background: rgba(0,0,0,0.2);/*背景色和透明度，可以设置为url地址的图片*/
+    width: 190px;/*宽度*/
+    height: 40px;/*高度*/
+    margin: 0px auto;
+    font-size: 18px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
+.select1 select{
+    background: transparent;/*透明*/
+    border: none;
+    padding-left: 10px;
+    width: 190px;/*比上面设置的略宽*/
+    height: 100%;
+    border-radius: 10px;
+    color: black;
+    /*font-family: "微软雅黑";*/
+}
+
+
         </style>
+
         <script>
-            
+            function showphoto(obj)
+            {
+                //预览头像
+                var file = obj.files[0];
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img = document.getElementById("photo");
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+                
+            }
+
+
         </script>
+
     </head>
 
     <body>
@@ -184,27 +246,35 @@ body
 
             <div class="message">
 
-                
+                <form name="change", method="POST">
+                    {% csrf_token %}
+                </form>
 
                 <!--<table border="black solid" align="center">-->
                 <table align="center">
-                    <col align="right" width="100px" />
-                    <col align="left" width="300px" />
+                    <col width="100px" />
+                    <col width="300px" />
                     <tr>
                         <td colspan="2">
                             
-                                <div class="circle">
-                            <!--{% for i in img %}
-                            <img src="../static/register_background.jpg" id="photo">
-                            {% endfor %}-->
-                                
-                                <img src="{{img}}">
-                                
-                                
-               
-                            </div>
                             
-                            <!--<input type="file" id="changeimg" name="photo" readonly="">-->
+                            <!--{% for i in img %} {% for i in img %} {% endfor %}
+                            
+                            {% endfor %}-->
+                                <label for="lookbutton" id="lookbutton_t">
+                                
+                                <div class="circle">
+                                    <!--<img src="../static/register_background.jpg" id="photo">-->
+                                    
+                                    <img src="{{img}}" id="photo">
+                                    
+                                </div>
+                                </label>
+                                <br>
+                                <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);">
+
+                            
+                            <!---->
                         </td>
                     </tr>
 
@@ -214,20 +284,36 @@ body
                     </tr>
                     <tr>
                         <td><p>个性签名：</p></td>
-                        <td>{{motto}}</td>
+                        <td><input type="text" name="motto" placeholder="请输入新的签名"></td>
                     </tr>
                     <tr>
                         <td><p>性别:</p></td>
-                        <td>{{sex}}</td>
+                        <td>
+                            <div class="select1">
+                            <select name="gender">
+                                <option value="0">保密</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td><p>出生年月：</p></td>
-                        <td>{{birth_date}}</td>
+                        <td><input type="date" name="birth_date"></td>
                     </tr>
                 </table>
 
                 <div class="change">
-                    <a href="../updateuserinfo">修改个人信息</a>
+                    <button type="submit">确认修改</button>
+                    <button><a href="../userpage/">返回信息页</a></button>
+
+                    
+                <!--<button type="submit">修改个人信息</button>
+                <button onclick="javascrtpt:window.location.href='www.baidu.com'">返回主页</button>-->
+                </div>
+                <div class="change">
+                    
                 <!--<button type="submit">修改个人信息</button>-->
                 </div>
         
