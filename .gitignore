@@ -2,5 +2,10 @@
 __pycache__/
 *.py[cod]
 db.sqlite3
+<<<<<<< HEAD
 workspace.xml
 venv/
+=======
+.idea/
+workspace.xml
+>>>>>>> 79790ca6aaddf0f54b123b86758b3f499a6f2fe6
