@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import *
 from .Cookie import *
-from .check_valid import *
 from .verify import *
 from .database.delete import *
 from .database.save import *
