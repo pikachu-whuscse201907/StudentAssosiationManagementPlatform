@@ -125,6 +125,7 @@
                 </div>
 
                 <form action="" name="org_info" method="POST" style="font-size: 20px">
+                {% csrf_token %}
                 <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);"><br>
                 <table>
                     <tr>
