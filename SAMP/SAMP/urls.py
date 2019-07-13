@@ -32,10 +32,11 @@ urlpatterns = [
     path('creatclub/', view.creatclub),
     path('searchclub/', view.searchclub),
     path('userpage/', userpage.userpage),
+    path('updateuserinfo/', userpage.updateuserinfo),
     path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
 
     #re_path(r'.', view.redir_to_index),
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
-# handler500 = view.
+handler500 = view_special.page_internal_error
 handler404 = view_special.page_not_found

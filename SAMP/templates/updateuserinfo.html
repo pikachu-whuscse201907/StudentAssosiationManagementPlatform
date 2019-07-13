@@ -228,7 +228,7 @@ body
         <div>
             <div class="nav_menu box">
                 <div class="backbutton menuitem"><a href="../index">主页</a></div>
-                <div class="menuitem"><a href="#">登出</a></div>
+                <div class="menuitem"><a href="../logout">登出</a></div>
                 <div class="menuitem">
                     <div>我的社团</div>
                     <div class="submenu"><a href="#">查找社团</a></div>
@@ -246,9 +246,9 @@ body
 
             <div class="message">
 
-                <form name="change", method="POST">
+                <form action="./" name="change", method="POST">
                     {% csrf_token %}
-                </form>
+
 
                 <!--<table border="black solid" align="center">-->
                 <table align="center">
@@ -280,7 +280,7 @@ body
 
                     <tr>
                         <td><p>用户账号：</p></td>
-                        <td>{{username}}</td>
+                        <td>{{name}}</td>
                     </tr>
                     <tr>
                         <td><p>个性签名：</p></td>
@@ -308,7 +308,7 @@ body
                     <button type="submit">确认修改</button>
                     <button><a href="../userpage/">返回信息页</a></button>
 
-                    
+
                 <!--<button type="submit">修改个人信息</button>
                 <button onclick="javascrtpt:window.location.href='www.baidu.com'">返回主页</button>-->
                 </div>
@@ -316,6 +316,8 @@ body
                     
                 <!--<button type="submit">修改个人信息</button>-->
                 </div>
+                </form>
+            </div>
         
         </div>
 
