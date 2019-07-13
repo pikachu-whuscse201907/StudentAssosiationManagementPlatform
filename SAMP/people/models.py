@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 import os
-from SAMP.settings import MEDIA_ROOT
 
 
 # Create your models here.
@@ -10,7 +9,7 @@ class Person(models.Model):
     pswd = models.CharField(max_length=256,null=False)
     cookie_id = models.CharField(max_length=256,null=True)
     cookie_create_time = models.DateTimeField(blank=True,null=True)
-    cookie_expire=models.DateTimeField(blank=True,null=True)
+    cookie_expire = models.DateTimeField(blank=True,null=True)
 
     def __str__(self):
         return self.name
@@ -21,21 +20,24 @@ def user_logo_path(instance, filename):
     filename = '{}.{}'.format('userlogo_'+instance.name.name, ext)
     # return the whole path to the file
     ans = os.path.join(instance.name.name, "logo", filename)
-    print("ans: ",ans)
+    print("ans: ", ans)
     return ans
+# Ending of function user_logo_path(instance, filename)
 
-#personal information
+
+# personal information
 class User_info(models.Model):
-    name = models.OneToOneField(Person, on_delete=models.CASCADE)
-    motto = models.CharField(max_length=100)
-    gender = models.IntegerField(choices=((0, "unknow"), (1, "male"), (2, "female")), default=0)
-    birth_date = models.DateTimeField(null=True)
-    profile = models.ImageField(upload_to=user_logo_path, null=True)
+    name = models.OneToOneField(Person, on_delete = models.CASCADE)
+    motto = models.CharField(max_length = 100)
+    gender = models.IntegerField(choices = ((0, "unknow"), (1, "male"), (2, "female")), default=0)
+    birth_date = models.DateTimeField(null = True)
+    profile = models.ImageField(upload_to = user_logo_path, null = True)
 
     def __str__(self):
         return self.name
 
-#organization information
+
+# organization information
 class Organizations(models.Model):
     number = models.BigAutoField(primary_key=True)
     organization_name = models.CharField(max_length=30, null=False)
