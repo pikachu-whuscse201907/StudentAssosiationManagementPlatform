@@ -19,11 +19,12 @@ jump.html
     error_msg           字符串              错误信息或跳转信息
 
 searchclub.html
-    clubs               元素为自定义类的列表    搜索的所有社团
-      |--.id            字符或数字              社团id
-      |--.info          字符串                  社团描述信息
+    clubs               二维元组列表        搜索的所有社团信息
+      |--元素0           字符或数字              社团id
+      |--.元素1        字符串                  社团描述信息
     clubcount           数字                搜到的社团总数
-    search_fail_notic   字符串              搜索失败信息
+    error               字符串              搜索失败信息
+
 
 login.html
     login_fail_notice   字符串              登录失败信息

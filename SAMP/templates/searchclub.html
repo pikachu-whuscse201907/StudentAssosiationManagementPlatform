@@ -114,9 +114,10 @@
         <!--公告-->
         <div class="box showbox"> 
             <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px;" id="table_result">
+                {{error}}
                 {%for club in clubs %}
                 <tr>
-                    <td><a href="../clubinfo?iden={{club.id}}">{{club.info}}</a></td>
+                    <td><a href="../clubinfo?iden={{club[0]}}">{{club[1]}}</a></td>
                 </tr>
                 {%endfor%}
             </table>
