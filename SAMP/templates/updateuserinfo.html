@@ -250,7 +250,9 @@ body
 
             <div class="message">
 
-                <form action="./" name="change" method="POST" enctype="multipart/form-data">
+
+                <form enctype="multipart/form-data" action="./" name="change", method="POST">
+
                     {% csrf_token %}
 
 
@@ -321,7 +323,7 @@ body
                     </tr>
                     <tr>
                         <td><p>出生年月：</p></td>
-                        <td><input type="date" name="birth_date"></td>
+                        <td><input type="date" name="birth_date" value="{{ birth_date }}"></td>
                     </tr>
                 </table>
 

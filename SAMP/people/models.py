@@ -16,15 +16,15 @@ class Person(models.Model):
         return self.name
 
 
-#personal information
 def user_logo_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = '{}.{}'.format('userlogo_'+instance.name.name, ext)
     # return the whole path to the file
-    ans = os.path.join(MEDIA_ROOT, instance.name.name, "logo", filename)
+    ans = os.path.join(instance.name.name, "logo", filename)
+    print("ans: ",ans)
     return ans
 
-
+#personal information
 class User_info(models.Model):
     name = models.OneToOneField(Person, on_delete=models.CASCADE)
     motto = models.CharField(max_length=100)
