@@ -44,7 +44,7 @@ body
     text-align: center;
     position: relative;
     z-index: 1000;
-    font-size: 22px;
+    font-size: 20px;
     
 }
 .submenu 
@@ -54,7 +54,7 @@ body
     width: 100%;
     float: left;
     line-height: 50px;
-    font-size: 22px;
+    font-size: 20px;
     
 }
 .menuitem:hover
@@ -250,7 +250,7 @@ body
 
             <div class="message">
 
-                <form action="./" name="change", method="POST">
+                <form action="./" name="change" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
 
 
@@ -271,7 +271,7 @@ body
                                     <!--<img src="../static/register_background.jpg" id="photo">-->
                                     
 
-                                    <img src="..{{MEDIA_URL}}{{img}}" id="photo">
+                                    <img height="100%" width="100%" src="..{{MEDIA_URL}}{{img}}" id="photo">
 
                                     
                                 </div>
@@ -290,17 +290,32 @@ body
                     </tr>
                     <tr>
                         <td><p>个性签名：</p></td>
-                        <td><input type="text" name="motto" placeholder="请输入新的签名"></td>
+                        <td><input type="text" name="motto" placeholder="请输入新的签名" value="{{ motto }}"></td>
                     </tr>
                     <tr>
                         <td><p>性别:</p></td>
                         <td>
                             <div class="select1">
-                            <select name="gender">
-                                <option value="0">保密</option>
-                                <option value="1">男</option>
-                                <option value="2">女</option>
-                            </select>
+                                {% if sex==0 %}
+                                    <select name="gender">
+                                        <option value="0">保密</option>
+                                        <option value="1">男</option>
+                                        <option value="2">女</option>
+                                    </select>
+                                {% elif sex==1 %}
+                                    <select name="gender">
+                                        <option value="1">保密</option>
+                                        <option value="0">男</option>
+                                        <option value="2">女</option>
+                                    </select>
+                                {% else sex==2 %}
+                                    <select name="gender">
+                                        <option value="2">保密</option>
+                                        <option value="1">男</option>
+                                        <option value="1">女</option>
+                                    </select>
+                                {% endif %}
+
                             </div>
                         </td>
                     </tr>

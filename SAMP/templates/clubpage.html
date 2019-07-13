@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>创建社团</title>
-        <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <style type="text/css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {{org_name}}
+        {#变量填社团名#}
+    </title>
+    <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <style type="text/css">
             .infobox
             {
                 margin: auto;
                 width: 600px;
+                text-align: center;
+                font-size: 20px;
             }
             #photobox
             {
@@ -44,7 +49,7 @@
                 font-size: 22px;
                 border-radius: 10px;
                 text-indent: 0.5em;
-                border: 1px solid black;   
+                border: 1px solid black;
                 position: relative;
             }
             .inputbox:focus
@@ -67,24 +72,33 @@
             {
                 background-color: darkgreen;
             }
-        </style>
-        <script>
-            function showphoto(obj)
-            {
-                //预览头像
-                var file = obj.files[0];
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var img = document.getElementById("photo");
-                    img.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-                
-            }
-        </script>
-    </head>
-    <body>
-        <!--背景图-->
+
+        button{
+            text-align: center;
+            width: 120px;
+            margin: 0px auto;
+
+            border-radius:10px;
+
+
+            line-height: 50px;
+
+            font-size: 20px;
+
+            border: 1px solid #CC865E;
+            background-color:rgba(255, 255,255, 0.2) ;
+
+
+        }
+        button:hover{
+
+            box-shadow: 12px 8px 12px 8px rgba(0,0,0,0.2);
+        }
+
+    </style>
+</head>
+<body>
+    <!--背景图-->
         <div class = "bk">
             <img src="../static/pictures/bk.jpg" class="bkimg">
         </div>
@@ -110,47 +124,59 @@
             </div>
         </div>
         <!--内容显示-->
-        
+
         <!--展示台-->
-        <div class="box"><h1>创建社团</h1></div>
+        <div class="box"><h1>{{org_name}}</h1></div>
         <!--公告-->
         <div class="box showbox">
-            <h2 style="position: relative;top:10px;left:10px;">填写社团资料</h2>
+            <h2 style="position: relative;top:30px;left:40px;font-size: 26px">社团基本信息</h2>
             <div class="infobox">
-               
+
                 <div id="photobox">
                     <label for="lookbutton" id="lookbutton_t">
                         <img src="../static/pictures/org.jpg" id="photo">
                     </label>
                 </div>
 
-                <form enctype="multipart/form-data" action="" name="org_info" method="POST" style="font-size: 20px">
                 <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);"><br>
                 <table>
-                    <tr>
-                        <td>社团名称：</td>
-                        <td><input type="text" class="inputbox" name="org_name"></td>
+                    <tr style="height: 46px">
+                        <td style="width: 102px">社团名称：</td>
+                        <td style="width: 408px">{{ org_name }}</td>
                     </tr>
-                    <tr>
-                        <td>当前会长：</td>
-                        <td><input type="text" class="inputbox" name="org_master"></td>
+                    <tr style="height: 46px">
+                        <td style="width: 102px">当前会长：</td>
+                        <td style="width: 408px">{{ org_master }}</td>
                     </tr>
-                    <tr>
-                        <td>xxxx</td>
-                        <td><input type="text" class="inputbox" name=""></td>
+                    <tr style="height: 46px">
+                        <td style="width: 102px">xxxx</td>
+                        <td style="width: 408px">{{  }}</td>
                     </tr>
-                    <tr>
-                        <td>xxxx</td>
-                        <td><input type="text" class="inputbox" name=""></td>
+                    <tr style="height: 46px">
+                        <td style="width: 102px">xxxx</td>
+                        <td style="width: 408px">{{  }}</td>
                     </tr>
-                    <tr>
-                        <td>社团描述：</td>
-                        <td><textarea class="inputbox" name="org_description"style="height: 100px"></textarea></td>
+                    <tr style="height: 100px">
+                        <td style="width: 102px">社团描述：</td>
+                        <td style="width: 408px">{{ org_description }}</td>
                     </tr>
                 </table>
-                <button type="submit" id="subbutton">提交</button>
-                </form>
-            </div> 
+
+                    <div>
+
+                        <form name="join" method="POST" action="">
+                            <button><a href="../searchclub/">返回</a></button>&nbsp;&nbsp;
+                            <!--显示是加入社团还是退出-->
+                            {% if isjoin %}
+                            <button type="submit" value="0">退出社团</button>
+                            {% else %}
+                            <button type="submit" value="1">加入社团</button>
+                            {% endif %}
+                        </form>
+                    </div>
+
+            </div>
         </div>
-    </body>
+</body>
 </html>
+
