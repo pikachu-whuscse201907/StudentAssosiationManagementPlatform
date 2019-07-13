@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django.http import *
 from .Cookie import *
-from .check_valid import *
 from .verify import *
-from .database.delete import *
-from .database.save import *
+from .database.delete import delete_cookie
+from .database.save import save_cookie
 from .database.search import user_of_cookie, user_of_username
-from .database import *
+from .database.function import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import *
 
@@ -77,8 +76,11 @@ def register(request):
     password2 = request.POST.get('password2', None)
     if username is not None and password1 is not None and password2 is not None:
         verify_result = veri(username, password1, password2)
-        if veri(username, password1, password2) == True:
+        if verify_result == True:
             save_name_pswd(username, password1)
+
+            save_default_user_info(username)
+
             context['title']='Register Success'
             context['url']='../login/'
             context['error_msg'] = 'You have registered successfully!'
