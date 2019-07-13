@@ -8,22 +8,22 @@ from .save import save_cookie
 from .search import user_of_username
 
 
-#修改用户信息
-def update_user_info(cookie_id,info):
+# 修改用户信息
+def update_user_info(cookie_id, info):
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result = {}
 	if len(response)==0:
-		result['success']=False
-		result['notice']='The cookie_id is not exist.'
+		result['success'] = False
+		result['notice'] = 'The cookie_id is not exist.'
 		return result
 	elif expire(response[0].cookie_expire):
-		result['success']=False
-		result['notice']='The cookie_id is out of date.'
+		result['success'] = False
+		result['notice'] = 'The cookie_id is out of date.'
 		return result
 	else:
 		user_info_set = User_info.objects.filter(name=response[0])
-		if 0<len(user_info_set):
-			user_info=user_info_set[0]
+		if 0 < len(user_info_set):
+			user_info = user_info_set[0]
 		else:
 			user_info = User_info.objects.create(name=response[0])
 		user_info.gender = info['gender']
@@ -34,8 +34,9 @@ def update_user_info(cookie_id,info):
 
 		user_info.save()
 
-		result['success']=True
+		result['success'] = True
 		return result
+	# Ending of function update_user_info(cookie_id, info)
 
 
 def save_default_user_info(username):
@@ -44,9 +45,10 @@ def save_default_user_info(username):
 	default_user_info = {'gender': 0, 'motto': '', 'birth_date': None}
 	update_user_info(cookie.cookie_id, default_user_info)
 	delete_cookie(cookie.cookie_id)
+	# Ending of function save_default_user_info(username)
 
 
-#查看用户信息
+# 查看用户信息
 def get_user_info(cookie_id):
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result = {}
@@ -74,12 +76,12 @@ def get_user_info(cookie_id):
 			result['info']['user_logo'] = user_info[0].profile
 
 		return result
+	# Ending of function get_user_info(cookie_id)
 
 
 
 
-
-#创建社团
+# 创建社团
 def create_org(cookie_id, org_info):
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result={}
@@ -98,10 +100,7 @@ def create_org(cookie_id, org_info):
 		return result
 
 
-
-
-
-#搜索社团
+# 搜索社团
 def search_org(cookie_id, search_content):
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result={}
@@ -126,15 +125,10 @@ def search_org(cookie_id, search_content):
 		return result
 
 
-
-#加入社团
-
+# 加入社团
 
 
-
-
-
-#群主删除成员，提交群主的cookie_id
+# 群主删除成员，提交群主的cookie_id
 def delete_member(cookie_id, org_id):
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result={}
@@ -153,6 +147,4 @@ def delete_member(cookie_id, org_id):
 		members.remove('name')
 
 
-
-
-#成员退出社团，提交成员的cookie_id
+# 成员退出社团，提交成员的cookie_id
