@@ -1,8 +1,8 @@
 from .Cookie import *
 from .verify import *
-from .database.delete import *
-from .database.save import *
-from .database.search import *
+from .database.delete import delete_cookie
+from .database.save import save_cookie
+from .database.search import user_of_username
 from .database.function import *
 from .view import *
 
@@ -25,6 +25,10 @@ def userpage(request):
         context['birth_date'] = 'Not Specified'
     else:
         context['birth_date']= info['birth_date'].strftime('%Y-%m-%d')
+    context['img'] = info['user_logo']
+    if context['img'] is None:
+        context['img'] = '../favicon.ico'
+
     response=HttpResponse(render(request, 'userpage.html',context))
     return response
 
@@ -44,16 +48,19 @@ def updateuserinfo(request):
     birth_date = request.POST.get('birth_date', None)
     if gender is None or motto is None or birth_date is None:
         context['name']=user.name
+        context['img'] = get_user_info(cookie_id)['info']['user_logo']
+        if context['img'] is None:
+            context['img'] = '../favicon.ico'
         response = HttpResponse(render(request,'updateuserinfo.html',context))
         return response
 
-
     info = {}
+    info['user_logo'] = request.POST.get('user_photo', None)
     try:
         info['gender']=int(gender)
         info['birth_date'] = datetime.datetime.strptime(birth_date, '%Y-%m-%d')
         info['motto']=motto
-    except:
+    except ValueError:
         fail_notice = 'Illegal data format!'
         context['title'] = fail_notice
         context['url'] = '../updateuserinfo/'
