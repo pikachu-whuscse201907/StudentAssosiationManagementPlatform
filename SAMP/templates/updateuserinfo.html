@@ -250,7 +250,7 @@ body
 
             <div class="message">
 
-                <form action="./" name="change", method="POST">
+                <form enctype="multipart/form-data" action="./" name="change", method="POST">
                     {% csrf_token %}
 
 
@@ -288,7 +288,7 @@ body
                     </tr>
                     <tr>
                         <td><p>个性签名：</p></td>
-                        <td><input type="text" name="motto" placeholder="请输入新的签名"></td>
+                        <td><input type="text" name="motto" placeholder="请输入新的签名" value="{{ motto }}"></td>
                     </tr>
                     <tr>
                         <td><p>性别:</p></td>
@@ -304,7 +304,7 @@ body
                     </tr>
                     <tr>
                         <td><p>出生年月：</p></td>
-                        <td><input type="date" name="birth_date"></td>
+                        <td><input type="date" name="birth_date" value="{{ birth_date }}"></td>
                     </tr>
                 </table>
 
