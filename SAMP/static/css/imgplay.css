@@ -1,0 +1,36 @@
+/*图片展示框 一张图片的宽度*/
+.frame
+{
+    width: 1180px;
+    height: 400px;
+    overflow: hidden;
+    position: absolute;
+}
+
+/*图片容器，所有图片的总宽度*/
+.container
+{
+    position: absolute;
+    width: 3540px;
+    height: 400px;
+    overflow: hidden;
+    animation: imgplay 10s infinite;
+    top:10px;
+    left: 0;
+}
+.container img
+{
+    width: 1180px;
+    float: left;
+}
+@keyframes imgplay
+{
+    /*动画过程*/
+    0% {left: 0px;}
+    30%{left: 0px;}
+    35%{left: -1180px;}
+    65% {left:-1180px;}
+    70%{left: -2360px;}
+    95%{left: -2360px;}
+    100%{left: 0px;}
+}
