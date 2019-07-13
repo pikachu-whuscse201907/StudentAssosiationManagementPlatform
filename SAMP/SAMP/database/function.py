@@ -5,8 +5,11 @@ from people.models import Person, User_info, Organizations
 from ..Cookie import *
 from .delete import delete_cookie
 from .save import save_cookie
+from .search import user_of_username
 
 
+def logo_path(username):
+	''
 
 
 #修改用户信息
@@ -22,7 +25,7 @@ def update_user_info(cookie_id,info):
 		result['notice']='The cookie_id is out of date.'
 		return result
 	else:
-		user_info_set = response[0].user_info_set.all()
+		user_info_set = User_info.objects.filter(name=response[0])
 		if 0<len(user_info_set):
 			user_info=user_info_set[0]
 		else:
@@ -30,6 +33,11 @@ def update_user_info(cookie_id,info):
 		user_info.gender = info['gender']
 		user_info.motto = info['motto']
 		user_info.birth_date = info['birth_date']
+		if info['user_logo'] is not None:
+			user_info.profile = info['user_logo']
+			print('not None')
+		else:
+			print('None')
 		user_info.save()
 
 		result['success']=True
@@ -39,7 +47,7 @@ def update_user_info(cookie_id,info):
 def save_default_user_info(username):
 	cookie = Cookie()
 	save_cookie(user_of_username(username), cookie)
-	default_user_info = {'gender': 0, 'motto': '', 'birth_date': None}
+	default_user_info = {'gender': 0, 'motto': '', 'birth_date': None, 'user_logo': None}
 	update_user_info(cookie.cookie_id, default_user_info)
 	delete_cookie(cookie.cookie_id)
 
@@ -60,15 +68,16 @@ def get_user_info(cookie_id):
 	else:
 		result['success']=True
 		result['info']['user_name'] = response[0].name
-		user_info_set = response[0].user_info_set.all()
+		user_info_set = User_info.objects.filter(name=response[0])
 		if 0 == len(user_info_set):
 			save_default_user_info(response[0].name)
-			result['info'] = {'gender': 0, 'motto': '', 'birth_date': None}
+			result['info'] = {'gender': 0, 'motto': '', 'birth_date': None, 'user_logo': None}
 		else:
 			user_info = User_info.objects.filter(name=response[0])
-			result['info']['gender']=user_info[0].gender
-			result['info']['motto']=user_info[0].motto
-			result['info']['birth_date']=user_info[0].birth_date
+			result['info']['gender'] = user_info[0].gender
+			result['info']['motto'] = user_info[0].motto
+			result['info']['birth_date'] = user_info[0].birth_date
+			result['info']['user_logo'] = user_info[0].profile
 
 		return result
 
