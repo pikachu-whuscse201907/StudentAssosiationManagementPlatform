@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+import os
+from SAMP.settings import MEDIA_ROOT
 
 
 # Create your models here.
@@ -13,13 +15,22 @@ class Person(models.Model):
     def __str__(self):
         return self.name
 
+
 #personal information
+def user_logo_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format('userlogo_'+instance.name.name, ext)
+    # return the whole path to the file
+    ans = os.path.join(MEDIA_ROOT, instance.name.name, "logo", filename)
+    return ans
+
+
 class User_info(models.Model):
-    name = models.ForeignKey(Person, on_delete=models.CASCADE)
+    name = models.OneToOneField(Person, on_delete=models.CASCADE)
     motto = models.CharField(max_length=100)
     gender = models.IntegerField(choices=((0, "unknow"), (1, "male"), (2, "female")), default=0)
     birth_date = models.DateTimeField(null=True)
-    profile = models.ImageField(null=True)
+    profile = models.ImageField(upload_to=user_logo_path, null=True)
 
     def __str__(self):
         return self.name

@@ -193,12 +193,12 @@ body
                     <tr>
                         <td colspan="2">
                             
-                                <div class="circle">
-                            <!--{% for i in img %}
+                            <div class="circle">
+                            <!--
                             <img src="../static/register_background.jpg" id="photo">
-                            {% endfor %}-->
+                            -->
                                 
-                                <img src="{{img}}">
+                                <img height="100%" width="100%" src="..{{MEDIA_URL}}{{img}}">
                                 
                                 
                
@@ -230,7 +230,7 @@ body
                     <a href="../updateuserinfo">修改个人信息</a>
                 <!--<button type="submit">修改个人信息</button>-->
                 </div>
-        
+            </div>
         </div>
 
 <!--<input type="password" name="pswd" placeholder="{{birthday}}">-->
