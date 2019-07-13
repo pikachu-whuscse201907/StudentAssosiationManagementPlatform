@@ -262,20 +262,22 @@ body
                         <td colspan="2">
                             
                             
-                            <!--{% for i in img %} {% for i in img %} {% endfor %}
+                            <!--
                             
-                            {% endfor %}-->
+                            -->
                                 <label for="lookbutton" id="lookbutton_t">
                                 
                                 <div class="circle">
                                     <!--<img src="../static/register_background.jpg" id="photo">-->
                                     
-                                    <img height=100% width=100% src="{{img}}" id="photo">
+
+                                    <img src="..{{MEDIA_URL}}{{img}}" id="photo">
+
                                     
                                 </div>
                                 </label>
                                 <br>
-                                <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);">
+                                <input type="file" id="lookbutton" name="user_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);">
 
                             
                             <!---->
