@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>创建社团</title>
         <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -32,6 +33,8 @@
             #lookbutton
             {
                 opacity: 0;
+                width: 0px;
+                height: 0px;
             }
             .inputbox
             {
@@ -59,6 +62,10 @@
                 font-size: 20px;
                 margin-top:10px;
                 border-radius: 10px;
+            }
+            #subbutton:hover
+            {
+                background-color: darkgreen;
             }
         </style>
         <script>
@@ -110,18 +117,37 @@
         <div class="box showbox">
             <h2 style="position: relative;top:10px;left:10px;">填写社团资料</h2>
             <div class="infobox">
-                <label for="lookbutton" id="lookbutton_t">
-                        <div id="photobox">
-                                <img src="../static/pictures/org.jpg" id="photo">
-                        </div>
-                </label>
+               
+                <div id="photobox">
+                    <label for="lookbutton" id="lookbutton_t">
+                        <img src="../static/pictures/org.jpg" id="photo">
+                    </label>
+                </div>
+
                 <form action="" name="org_info" method="POST" style="font-size: 20px">
                 <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);"><br>
-                <span>社团名称：&nbsp;&nbsp;</span><input type="text" class="inputbox" name="org_name"><br>
-                <span>xxxx</span><input type="text" class="inputbox" name=""><br>
-                <span>xxxx</span><input type="text" class="inputbox" name=""><br>
-                <span>xxxx</span><input type="text" class="inputbox" name=""><br>
-                <span>xxxx</span><input type="text" class="inputbox" name=""><br>
+                <table>
+                    <tr>
+                        <td>社团名称：</td>
+                        <td><input type="text" class="inputbox" name="org_name"></td>
+                    </tr>
+                    <tr>
+                        <td>xxxx</td>
+                        <td><input type="text" class="inputbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td>xxxx</td>
+                        <td><input type="text" class="inputbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td>xxxx</td>
+                        <td><input type="text" class="inputbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td>社团描述：</td>
+                        <td><textarea class="inputbox" name="org_description"style="height: 100px"></textarea></td>
+                    </tr>
+                </table>
                 <button type="submit" id="subbutton">提交</button>
                 </form>
             </div> 
