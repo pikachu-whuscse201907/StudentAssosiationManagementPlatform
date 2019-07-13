@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>加入社团</title>
         <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+        <script type="text/javascript" src="../static/js/page.js"></script>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <style type="text/css">
             .searchbox
@@ -48,6 +49,30 @@
             background-color:rgba(200, 200, 200, 0.8);
             box-shadow: 16px 8px 16px 8px rgba(0,0,0,0.2);
            }
+           #barcon
+           {
+               position: absolute;
+               width: 1180px;
+               height: 40px;
+               line-height: 40px;
+               top: 550px;
+               text-align: center;
+           }
+           .table_a
+           {
+               width: 80px;
+               float: left;
+               margin-left: 10px;
+               background-color: rgba(255, 255, 255, 0.8)
+           }
+           .table_a:hover
+           {
+               background-color: green;
+           }
+           .cur_page
+           {
+               background-color: green;
+           }
         </style>
     </head>
     <body>
@@ -87,39 +112,18 @@
         <!--展示台-->
         <div class="box" style="margin-top: 50px"></div>
         <!--公告-->
-        <div class="box showbox">
-            <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px;">
+        <div class="box showbox"> 
+            <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px;" id="table_result">
+                {%for club in clubs %}
                 <tr>
-                    <td><a href="../clubinfo?iden={{clubid0}}">{{club0}}</a></td>
+                    <td><a href="../clubinfo?iden={{club.id}}">{{club.info}}</a></td>
                 </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid1}}">{{club1}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid2}}">{{club2}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid3}}">{{club3}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid4}}">{{club4}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid5}}">{{club5}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid5}}">{{club6}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid5}}">{{club7}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid5}}">{{club8}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="../clubinfo?iden={{clubid5}}">{{club9}}</a></td>
-                </tr>
+                {%endfor%}
             </table>
+            <div id="barcon">&nbsp;</div>
         </div>
+        <script>
+                window.onload = goPage(1,9);       
+        </script>
     </body>
 </html>
