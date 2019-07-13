@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>
         {{name}}的主页
         {#name变量填用户名#}
@@ -43,7 +44,7 @@ body
     text-align: center;
     position: relative;
     z-index: 1000;
-    font-size: 22px;
+    font-size: 20px;
     
 }
 .submenu 
@@ -53,7 +54,7 @@ body
     width: 100%;
     float: left;
     line-height: 50px;
-    font-size: 22px;
+    font-size: 20px;
     
 }
 .menuitem:hover
@@ -173,6 +174,9 @@ body
 #lookbutton
             {
                 opacity: 0;
+                width: 0px;
+
+                height: 0px;
             }
 
 .select1 {
@@ -228,7 +232,7 @@ body
         <div>
             <div class="nav_menu box">
                 <div class="backbutton menuitem"><a href="../index">主页</a></div>
-                <div class="menuitem"><a href="#">登出</a></div>
+                <div class="menuitem"><a href="../logout">登出</a></div>
                 <div class="menuitem">
                     <div>我的社团</div>
                     <div class="submenu"><a href="#">查找社团</a></div>
@@ -246,9 +250,11 @@ body
 
             <div class="message">
 
-                <form name="change", method="POST">
+
+                <form enctype="multipart/form-data" action="./" name="change", method="POST">
+
                     {% csrf_token %}
-                </form>
+
 
                 <!--<table border="black solid" align="center">-->
                 <table align="center">
@@ -258,20 +264,22 @@ body
                         <td colspan="2">
                             
                             
-                            <!--{% for i in img %} {% for i in img %} {% endfor %}
+                            <!--
                             
-                            {% endfor %}-->
+                            -->
                                 <label for="lookbutton" id="lookbutton_t">
                                 
                                 <div class="circle">
                                     <!--<img src="../static/register_background.jpg" id="photo">-->
                                     
-                                    <img src="{{img}}" id="photo">
+
+                                    <img height="100%" width="100%" src="..{{MEDIA_URL}}{{img}}" id="photo">
+
                                     
                                 </div>
                                 </label>
                                 <br>
-                                <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);">
+                                <input type="file" id="lookbutton" name="user_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);">
 
                             
                             <!---->
@@ -280,27 +288,42 @@ body
 
                     <tr>
                         <td><p>用户账号：</p></td>
-                        <td>{{username}}</td>
+                        <td>{{name}}</td>
                     </tr>
                     <tr>
                         <td><p>个性签名：</p></td>
-                        <td><input type="text" name="motto" placeholder="请输入新的签名"></td>
+                        <td><input type="text" name="motto" placeholder="请输入新的签名" value="{{ motto }}"></td>
                     </tr>
                     <tr>
                         <td><p>性别:</p></td>
                         <td>
                             <div class="select1">
-                            <select name="gender">
-                                <option value="0">保密</option>
-                                <option value="1">男</option>
-                                <option value="2">女</option>
-                            </select>
+                                {% if sex == 0 %}
+                                    <select name="gender">
+                                        <option value="0">保密</option>
+                                        <option value="1">男</option>
+                                        <option value="2">女</option>
+                                    </select>
+                                {% elif sex == 1 %}
+                                    <select name="gender">
+                                        <option value="1">男</option>
+                                        <option value="0">保密</option>
+                                        <option value="2">女</option>
+                                    </select>
+                                {% elif sex == 2 %}
+                                    <select name="gender">
+                                        <option value="2">女</option>
+                                        <option value="0">保密</option>
+                                        <option value="1">男</option>
+                                    </select>
+                                {% endif %}
+
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td><p>出生年月：</p></td>
-                        <td><input type="date" name="birth_date"></td>
+                        <td><input type="date" name="birth_date" value="{{ birth_date }}"></td>
                     </tr>
                 </table>
 
@@ -308,7 +331,7 @@ body
                     <button type="submit">确认修改</button>
                     <button><a href="../userpage/">返回信息页</a></button>
 
-                    
+
                 <!--<button type="submit">修改个人信息</button>
                 <button onclick="javascrtpt:window.location.href='www.baidu.com'">返回主页</button>-->
                 </div>
@@ -316,6 +339,8 @@ body
                     
                 <!--<button type="submit">修改个人信息</button>-->
                 </div>
+                </form>
+            </div>
         
         </div>
 

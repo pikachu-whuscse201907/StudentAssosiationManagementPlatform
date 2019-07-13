@@ -11,7 +11,7 @@ def page_not_found(request, exception):
     return response
 
 
-def page_internal_error(request, exception):
+def page_internal_error(request):
     context = {}
     context['title'] = '500 Internal Error'
     context['url'] = '../index/'

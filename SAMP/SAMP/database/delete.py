@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from ..view import *
-from people.models import Person
+from people.models import Person,User_info,Organizations
 from ..Cookie import *
 from .delete import *
 from .save import *
