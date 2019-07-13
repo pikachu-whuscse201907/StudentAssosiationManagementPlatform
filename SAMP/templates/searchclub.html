@@ -117,7 +117,7 @@
                 {{error}}
                 {%for club in clubs %}
                 <tr>
-                    <td><a href="../clubinfo?iden={{club[0]}}">{{club[1]}}</a></td>
+                    <td><a href="../clubinfo?iden={{club.iden}}">{{club.info}}</a></td>
                 </tr>
                 {%endfor%}
             </table>
