@@ -1,8 +1,8 @@
 from .Cookie import *
 from .verify import *
-from .database.delete import *
-from .database.save import *
-from .database.search import *
+from .database.delete import delete_cookie
+from .database.save import save_cookie
+from .database.search import user_of_username
 from .database.function import *
 from .view import *
 
