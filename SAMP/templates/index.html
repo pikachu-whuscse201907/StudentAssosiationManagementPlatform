@@ -4,9 +4,23 @@
         <meta charset="UTF-8">
         <title>学生社团管理平台</title>
         <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../static/css/imgplay.css" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <style type="text/css">
-
+            .td1
+            {
+                width: 900px;
+                height: 30px;
+                background-color: rgba(255, 255, 255, 0.6);
+                overflow: scroll;
+            }
+            .td2
+            {
+                width: 260px;
+                height: 30px;
+                background-color: rgba(255, 255, 255, 0.6);
+                overflow: hidden;
+            }
         </style>
     </head>
     <body>
@@ -44,37 +58,46 @@
         <!--内容显示-->
         
         <!--展示台-->
-        <div class="box"></div>
+        <div class="box">
+            <div class="frame">
+                <div class="container">
+                        <img src="../static/pictures/pikachu1.jpg">
+                        <img src="../static/pictures/pikachu5.jpg">
+                        <img src="../static/pictures/pikachu7.jpg">
+                </div>
+            </div>
+            
+        </div>
         <!--公告-->
-        <div class="box showbox">
-            <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px">
+        <div class="box showbox" style="height: 400px;margin-top:430px">
+            <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px ;width: 1160px; background-color: ">
                 <tr>
                     <td  colspan="2" style="height: 50px; width: 500px;background-color: rgba(245, 198, 198, 0.8)"><span style="font-size: 30px; color: red">公告栏</span></td>
                     
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px; "><a href={{notic_url1}}>{{notic_title1}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date1}}</td>
+                    <td class="td1" "><a href={{notic_url1}}>{{notic_title1}}</a></td>
+                    <td class="td2">{{notic_date1}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url2}}>{{notic_title2}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date2}}</td>
+                    <td class="td1"><a href={{notic_url2}}>{{notic_title2}}</a></td>
+                    <td class="td2">{{notic_date2}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url3}}>{{notic_title3}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date3}}</td>
+                    <td class="td1"><a href={{notic_url3}}>{{notic_title3}}</a></td>
+                    <td class="td2">{{notic_date3}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url4}}>{{notic_title4}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date4}}</td>
+                    <td class="td1"><a href={{notic_url4}}>{{notic_title4}}</a></td>
+                    <td class="td2">{{notic_date4}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url5}}>{{notic_title5}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date5}}</td>
+                    <td class="td1"><a href={{notic_url5}}>{{notic_title5}}</a></td>
+                    <td class="td2">{{notic_date5}}</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; width: 500px"><a href={{notic_url6}}>{{notic_title6}}</a></td>
-                    <td style="height: 30px;width: 100px;">{{notic_date6}}</td>
+                    <td class="td1"><a href={{notic_url6}}>{{notic_title6}}</a></td>
+                    <td class="td2">{{notic_date6}}</td>
                 </tr>
             </table>
         </div>
