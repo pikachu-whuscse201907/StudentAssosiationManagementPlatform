@@ -26,10 +26,6 @@
                 border-radius: 60px;
                 overflow: hidden;
             }
-            #photobox:hover
-            {
-                box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.2);
-            }
             #photo
             {
                 width: 120px;
@@ -132,14 +128,16 @@
             <h2 style="position: relative;top:30px;left:40px;font-size: 26px">社团基本信息</h2>
             <div class="infobox">
 
-                <div id="photobox">
-                    <label for="lookbutton" id="lookbutton_t">
-                        <img src="../static/pictures/org.jpg" id="photo">
-                    </label>
-                </div>
+                
 
-                <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);"><br>
                 <table>
+                    <tr style="height: 46px" >
+                        <td colspan="2">
+                            <div id="photobox">
+                                    <img src={{image}} id="photo">
+                            </div>
+                        </td>
+                    </tr>
                     <tr style="height: 46px">
                         <td style="width: 102px">社团名称：</td>
                         <td style="width: 408px">{{ org_name }}</td>
