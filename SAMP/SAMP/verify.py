@@ -26,3 +26,24 @@ def veri(username, password, conpass):
     if user_existing(username):
         return "The username has been registered!"
     return True
+
+def verifyclub(name, des, iden):
+    if name == "":
+        return "You should input your name!"
+    elif des == "":
+        return "You should input your club's description!"
+    elif iden == "":
+        return "You should input your club's name!"
+    else:
+        for each in iden:
+            if each >= 'A' and each <= 'Z':
+                continue
+            elif each >= "a" and each <= "z":
+                continue
+            elif each >= '0' and each <= '9':
+                continue
+            elif each == "_":
+                continue
+            else:
+                return "Your username includes invalid char!"
+        return True
