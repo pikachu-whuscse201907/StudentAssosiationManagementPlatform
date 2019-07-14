@@ -21,6 +21,7 @@ from . import view
 from . import view_special
 from . import userpage
 from . import settings
+from . import createclub, searchclub
 
 urlpatterns = [
     path('', view.index),
@@ -29,11 +30,12 @@ urlpatterns = [
     path('login/', view.login),
     path('logout/', view.logout),
     path('register/', view.register),
-    path('creatclub/', view.creatclub),
-    path('searchclub/', view.searchclub),
+    path('creatclub/', createclub.createclub),
+    path('searchclub/', searchclub.searchclub),
     path('userpage/', userpage.userpage),
     path('updateuserinfo/', userpage.updateuserinfo),
     path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
+    path('clubinfo', searchclub.clubinfo),
 
     #re_path(r'.', view.redir_to_index),
 
