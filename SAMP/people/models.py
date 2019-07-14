@@ -37,12 +37,20 @@ class User_info(models.Model):
         return self.name
 
 
-# organization information
+class Orgimg(models.Model):
+    img = models.ImageField(upload_to='img')
+    name = models.CharField(max_length=20)
+    def __str__(self):
+        return self.name
+
+#organization information
 class Organizations(models.Model):
     number = models.BigAutoField(primary_key=True)
     organization_name = models.CharField(max_length=30, null=False)
     creater = models.ForeignKey(User_info, related_name='organization1', on_delete=models.CASCADE)
     member = models.ManyToManyField(User_info, related_name='organization2')
-
+    description = models.CharField(max_length=1000)
+    create_date = models.DateTimeField(null=True, blank=True)
+    img = models.ForeignKey(Orgimg, on_delete=models.CASCADE)
     def __str__(self):
         return self.number
