@@ -6,6 +6,7 @@ from ..Cookie import *
 from .delete import delete_cookie
 from .save import save_cookie
 from .search import user_of_username
+import time
 
 
 # 修改用户信息
@@ -81,51 +82,61 @@ def get_user_info(cookie_id):
 
 
 
-# 创建社团
-def create_org(cookie_id, org_info):
-	response = Person.objects.filter(cookie_id=cookie_id)
-	result={}
-	if len(response)==0:
-		result['success']=False
-		result['notice']='The cookie_id is not exist.'
-		return result
-	elif expire(response[0].cookie_expire):
-		result['success']=False
-		result['notice']='The cookie_id is out of date.'
-		return result
-	else:
-		org=Organizations()
-		result['success']=True
-		get_org_info(org, org_info)
-		return result
+#创建社团
+def create_org(cookie_id, creator, org_name, org_description, img):
+        response = Person.objects.filter(cookie_id=cookie_id)
+        result = {}
+        if len(response)==0:
+                result['success']=False
+                result['notice']='The cookie_id is not exist.'
+                return result
+        elif expire(response[0].cookie_expire):
+                result['success']=False
+                result['notice']='The cookie_id is out of date.'
+                return result
+        else:
+                org_info=Organizations.objects.filter(organization_name=org_name)
+                if len(org_info)!=0:
+                        result['success']=False
+                        result['notice']='This organization name has been used.'
+                        return result
+                else:
+                        if response[0].name != creator:
+                                result['success']=False
+                                result['notice']='{0} haven\'t log in! Please log in first!'.format(creator)
+                                return result
+                        user_info = User_info.objects.get(name = response[0])
+                        imgiden = "img_" + org_name
+                        image = Orgimg(img = img, name = imgiden)
+                        image.save()                        
+                        org_create = Organizations.objects.create(organization_name=org_name, description=org_description, creater=user_info, img = image)
+                        org_create.create_data=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                        org_create.save()
+                        result['success']=True
+                        return result
 
 
-# 搜索社团
+#搜索社团
 def search_org(cookie_id, search_content):
-	response = Person.objects.filter(cookie_id=cookie_id)
-	result={}
-	if len(response)==0:
-		result['success']=False
-		result['notice']='The cookie_id is not exist.'
-		return result
-	elif expire(response[0].cookie_expire):
-		result={}
-		result['success']=False
-		result['notice']='The cookie_id is out of date.'
-		return result
-	else:
-		result['success']=True
-		org_info = Organizations.objects.filter(organization_name__icontains=search_content)
-		org_list = {}
-		org_list['id']=org_info.number
-		org_list['organization_name']=org_info.organization_name
-		org_list['creater']=org_info.creater
-		org_list['number_of_members']=len(org_info.member)
-		result['organizations']=org_list
-		return result
-
-
-# 加入社团
+        response = Person.objects.filter(cookie_id=cookie_id)
+        result={}
+        if len(response)==0:
+                result['success']=False
+                result['notice']='The cookie_id is not exist.'
+                return result
+        elif expire(response[0].cookie_expire):
+                result={}
+                result['success']=False
+                result['notice']='The cookie_id is out of date.'
+                return result
+        else:
+                result['success']=True
+                org_info = Organizations.objects.filter(organization_name__icontains=search_content)
+                org_list = []
+                for each in org_info:
+                        org_list.append((each.number, each.organization_name, each.creater))
+                result['org_list']=org_list
+                return result
 
 
 # 群主删除成员，提交群主的cookie_id
