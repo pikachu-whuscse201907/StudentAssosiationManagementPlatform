@@ -30,14 +30,14 @@ urlpatterns = [
     path('login/', view.login),
     path('logout/', view.logout),
     path('register/', view.register),
-    path('creatclub/', createclub.createclub),
+    path('createclub/', createclub.createclub),
     path('searchclub/', searchclub.searchclub),
     path('userpage/', userpage.userpage),
     path('updateuserinfo/', userpage.updateuserinfo),
     path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
-    path('clubinfo', searchclub.clubinfo),
+    path('clubinfo/', searchclub.clubinfo),
 
-    #re_path(r'.', view.redir_to_index),
+    # re_path(r'.', view.redir_to_index),
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 handler500 = view_special.page_internal_error
