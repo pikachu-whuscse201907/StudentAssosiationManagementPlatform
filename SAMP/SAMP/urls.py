@@ -17,11 +17,10 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.staticfiles.views import serve
 from django.conf.urls.static import static
-from . import view
-from . import view_special
+from . import view, view_special
 from . import userpage
 from . import settings
-from . import createclub, searchclub
+from . import createclub, searchclub, clubbulletin
 
 urlpatterns = [
     path('', view.index),
@@ -36,11 +35,14 @@ urlpatterns = [
     path('updateuserinfo/', userpage.updateuserinfo),
     path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
     path('clubinfo/', searchclub.clubinfo),
+    path('clubbulletin/', clubbulletin.clubbulletin),
+    path('addpronounce/', clubbulletin.addpronounce),
+    # path('showclubmembers/',)
     # path('joinclub/',)
     # path('quitclub/',)
 
     # re_path(r'.', view.redir_to_index),
 
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 handler500 = view_special.page_internal_error
 handler404 = view_special.page_not_found
