@@ -71,6 +71,7 @@ def clubinfo(request):
 			context['create_date'] = 'Not Recorded'
 		else:
 			context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
+		context["org_master"] = org_info['org_master']
 		context["creator"] = org_info['creator']
 		context["member_num"] = org_info['member_num']
 	

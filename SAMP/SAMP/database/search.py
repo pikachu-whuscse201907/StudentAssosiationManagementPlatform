@@ -7,8 +7,11 @@ from .delete import *
 from .save import *
 from .search import *
 
+
 # 查询用户注册/登录时输入的用户名是否已存在
 def user_existing(username):
+	if username is None:
+		return False
 	response = Person.objects.filter(name=username)
 	if len(response) == 0:
 		return False    #该用户名不存在
@@ -29,15 +32,39 @@ def pswd_correct(username, password):
 
 
 def user_of_username(_username):
-	p=Person.objects.filter(name=_username)
+	if _username is None:
+		return None
+	p = Person.objects.filter(name=_username)
 	if len(p) == 0:
 		return None
 	else:
 		return p[0]
 
 
+def user_info_of_user(_user):
+	if _user is None:
+		return None
+	p = User_info.objects.filter(name=_user)
+	if len(p) == 0:
+		return None
+	else:
+		return p[0]
+
+
+def user_info_of_username(_username):
+	if _username is None:
+		return None
+	user = user_of_username(_username)
+	if user is None:
+		return None
+	user_info = user_info_of_user(user)
+	return user_info
+
+
 def user_of_cookie(_cookie_id):
-	p=Person.objects.filter(cookie_id=_cookie_id)
+	if _cookie_id is None:
+		return None
+	p = Person.objects.filter(cookie_id=_cookie_id)
 	if len(p) == 0:
 		return None
 	elif expire(p[0].cookie_expire):
@@ -60,6 +87,7 @@ def get_org_info(org_name):
 	org_info['org_name'] = response_1[0].organization_name
 	org_info['org_description'] = response_1[0].description
 	org_info['create_date'] = response_1[0].create_date
+	org_info['org_master'] = response_1[0].master.name.name
 	org_info['creator'] = response_1[0].creator.name.name
 	org_info['member_num'] = len(response_1[0].members.all())
 	org_info['org_logo'] = response_1[0].org_logo
