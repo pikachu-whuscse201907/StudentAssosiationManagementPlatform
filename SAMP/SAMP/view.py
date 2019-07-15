@@ -96,4 +96,5 @@ def response_not_logged_in(request):
     context['url'] = '../login/'
     context['error_msg'] = 'You are not logged, please log in!'
     response = HttpResponse(render(request, 'jump.html', context))
+    response.set_cookie('id')
     return response

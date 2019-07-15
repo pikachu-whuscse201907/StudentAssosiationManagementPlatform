@@ -5,20 +5,30 @@
         <title>社团成员</title>
        
 
-        </style>
+        <style></style>
     </head>
     <body>
     <p>简陋版，测试用</p>
-
-    {%for pronounce in pronounces%}
-    <p>pronounce</p>
-    {%endfor%}
+    {%if not have_pronounce %}
+    无公告
+    {%endif%}
+    <table>
+        {%for pronounce in pronounces%}
+        <tr>
+            <td>{{pronounce.title}}</td>
+            <td>{{pronounce.content}}</td>
+            <td>{{pronounce.date}}</td>
+        </tr>
+        {%endfor%}
+    </table>
     
-    {%if ismanger%}
-    {% csrf_token %}
+    
+    {%if ismanager%}
     <form action="../addpronounce/" method="POST">
-        <input type="text" name="{{org_name}}" style="display: none"><br>
-        公告内容<input type="textarea" name="pronounce">
+        {% csrf_token %}
+        <input type="text" name="org_name" value="{{ org_name }}" style="display: none"><br>
+        公告标题<input type="textarea" name="pronounce_title">
+        公告内容<input type="textarea" name="pronounce_content">
         <button type="submit">提交</button>
     </form>
     {%endif%}
