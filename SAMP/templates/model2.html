@@ -40,7 +40,7 @@
 
         <div id="navbar-collapse" class="navbar-collapse collapse">
 			
-
+		{% if islogin  %}
           <ul class="nav navbar-nav navbar-right">
             <li><a href="../index">Home</a></li>
 
@@ -89,7 +89,38 @@
             <li class="probootstra-cta-button"><a href="../logout">Log out</a></li>
             <!--<li class="probootstra-cta-button"><a href="../logout" class="btn" data-toggle="modal" data-target="#loginModal">Log out</a></li>-->
           </ul>
-
+			
+		{% else %}
+			<ul class="nav navbar-nav navbar-right">
+            <li><a href="../index">Home</a></li>
+<!--
+            <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Pages</a>
+              <ul class="dropdown-menu">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li class="dropdown-submenu dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span>Sub Menu</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                  </ul>
+                </li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">个人中心</a></li>
+-->
+            <li class="probootstra-cta-button"><a href="../login">Log in</a></li>
+            <li class="probootstra-cta-button last"><a href="../register">Sign up</a></li>
+            <!--<li class="probootstra-cta-button"><a href="../login" class="btn" data-toggle="modal" data-target="#loginModal">Log in</a></li>
+            <li class="probootstra-cta-button last"><a href="../register" class="btn btn-ghost" data-toggle="modal" data-target="#signupModal">Sign up</a></li> --> 
+          </ul>
+			
+		{% endif %}
 			
         </div>
       </div>
@@ -99,8 +130,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 text-left probootstrap-hero-text">
-            <h1 class="probootstrap-animate" data-animate-effect="fadeIn">Create Club</h1>
-            <p class="probootstrap-animate" data-animate-effect="fadeIn">填写相关信息，创建自己的社团！</p>
+            <h1 class="probootstrap-animate" data-animate-effect="fadeIn">Contact Us</h1>
+            <p class="probootstrap-animate" data-animate-effect="fadeIn">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
           </div>
         </div>
       </div>
