@@ -134,7 +134,7 @@
                     <tr style="height: 46px" >
                         <td colspan="2">
                             <div id="photobox">
-                                    <img src={{image}} id="photo">
+                                    <img src="..{{MEDIA_URL}}{{org_logo}}" id="photo">
                             </div>
                         </td>
                     </tr>
@@ -151,8 +151,12 @@
                         <td style="width: 408px">{{ creator }}</td>
                     </tr>
                     <tr style="height: 46px">
-                        <td style="width: 102px">xxxx</td>
-                        <td style="width: 408px">{{  }}</td>
+                        <td style="width: 102px">创建时间：</td>
+                        <td style="width: 408px">{{ create_date }}</td>
+                    </tr>
+                    <tr style="height: 46px">
+                        <td style="width: 102px">社团人数：</td>
+                        <td style="width: 408px">{{ member_num }}</td>
                     </tr>
                     <tr style="height: 100px">
                         <td style="width: 102px">社团描述：</td>

@@ -1,13 +1,11 @@
 from django.shortcuts import render
-from django.http import *
+from django.http import HttpResponse,HttpResponseRedirect
 from .Cookie import *
 from .verify import *
 from .database.delete import delete_cookie
 from .database.save import save_cookie
 from .database.search import user_of_cookie, user_of_username
 from .database.function import *
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import *
 
 
 def redir_to_index(request):
@@ -98,16 +96,4 @@ def response_not_logged_in(request):
     context['url'] = '../login/'
     context['error_msg'] = 'You are not logged, please log in!'
     response = HttpResponse(render(request, 'jump.html', context))
-    return response
-
-
-def creatclub(request):
-    context = {}
-    response = HttpResponse(render(request, 'creatclub.html', context))
-    return response
-
-
-def searchclub(request):
-    context = {}
-    response = HttpResponse(render(request, 'searchclub.html', context))
     return response
