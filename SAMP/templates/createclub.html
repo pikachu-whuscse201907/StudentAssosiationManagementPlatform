@@ -103,7 +103,7 @@
         <!--导航栏-->
         <div>
             <div class="nav_menu box">
-            <div class="backbutton menuitem"><a href="../index"><主页</a></div>
+            <div class="backbutton menuitem"><a href="../index">主页</a></div>
                 <!--我的社团下拉菜单-->
                 <div class="menuitem">
                     <div>我的主页</div>
@@ -145,14 +145,6 @@
                         <td><input type="text" class="inputbox" name="org_name"></td>
                     </tr>
                     <tr>
-                        <td>当前会长：</td>
-                        <td><input type="text" class="inputbox" name="org_master"></td>
-                    </tr>
-                    <tr>
-                        <td>创建者：</td>
-                        <td><input type="text" class="inputbox" name="creator"></td>
-                    </tr>
-                    <tr>
                         <td>xxxx</td>
                         <td><input type="text" class="inputbox" name=""></td>
                     </tr>
@@ -162,6 +154,7 @@
                     </tr>
                 </table>
                 <button type="submit" id="subbutton">提交</button>
+                    {{ createclub_fail_notice }}
                 </form>
             </div> 
         </div>

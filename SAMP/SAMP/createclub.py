@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . import verify, imgop
+from . import verify
 from .database import function,search
 from . import view
 from django.http import HttpResponse,HttpResponseRedirect
@@ -19,7 +19,6 @@ def createclub(request):
 	context['islogin'] = True
 	context['name'] = info['user_name']
 	
-	creator_name = request.POST.get("creator", None)
 	creator_name = info['user_name']
 	des = request.POST.get("org_description", None)
 	iden = request.POST.get("org_name", None)
@@ -31,7 +30,8 @@ def createclub(request):
 	
 	check = verify.verifyclub(creator_name, des, iden)
 	if check != True:
-		return render(request, "createclub.html", {"error": check})
+		context['createclub_fail_notice'] = check
+		return render(request, "createclub.html",context)
 	result = function.create_org(cookie_id, creator_name, iden, des, image)
 	if result["success"] == False:
 		context['error'] = result["notice"]

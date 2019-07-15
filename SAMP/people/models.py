@@ -46,13 +46,13 @@ def org_logo_path(instance, filename):
 
 # organization information
 class Organizations(models.Model):
-    number = models.BigAutoField(primary_key=True)
-    organization_name = models.CharField(max_length=30, null=False)
-    creator = models.ForeignKey(User_info, related_name='organization1', on_delete=models.CASCADE)
-    member = models.ManyToManyField(User_info, related_name='organization2')
-    description = models.CharField(max_length=1000)
+    organization_name = models.CharField(primary_key=True,max_length=30, null=False)
+    creator = models.ForeignKey(User_info, related_name='organization_creator', on_delete=models.DO_NOTHING)
+    master = models.ForeignKey(User_info, related_name='organization_master', on_delete=models.CASCADE)
+    members = models.ManyToManyField(User_info, related_name='organization_members')
+    description = models.CharField(max_length=1000, null=True)
     create_date = models.DateTimeField(null=True, blank=True)
-    org_logo = models.ImageField(upload_to = org_logo_path, null = True)
+    org_logo = models.ImageField(upload_to=org_logo_path, null=True)
     
     def __str__(self):
         return self.number
