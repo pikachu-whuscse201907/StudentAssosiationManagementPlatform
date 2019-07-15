@@ -168,7 +168,7 @@
                             <button><a href="../searchclub/">返回</a></button>&nbsp;&nbsp;
                             <!--显示是加入社团还是退出-->
                             {% if isjoin %}
-                            <button><a href="../quitclub">退出社团</a></button>
+                            <button><a href="../quitclub/?iden={{org_name}}">退出社团</a></button>
                             {% else %}
                             <button><a href="../joinclub/?iden={{org_name}}">加入社团</a></button>
                             <button><a href="../clubbulletin/?iden={{org_name}}">查看社团公告</a></button>
