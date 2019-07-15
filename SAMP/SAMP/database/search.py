@@ -93,10 +93,10 @@ def get_org_info(org_name, cookie_id):
 	response = Person.objects.filter(cookie_id=cookie_id)
 	user_info = User_info.objects.filter(name=response[0])
 	c=response_1[0].members.all()
-	if list(user_info)[0] in list(c):
+	if user_info[0] in c:
 		org_info['isjoin'] = True
 	else:
-                org_info["isjoin"] = False
+		org_info["isjoin"] = False
 	result['org_info'] = org_info
 	result['success'] = True
 	return result
