@@ -81,6 +81,18 @@
                 reader.readAsDataURL(file);
                 
             }
+            function checkimg()
+            {
+                if(document.getElementById("lookbutton").value=="")
+                {
+                    (alert("还没有选择头像哦"));
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
         </script>
     </head>
     <body>
@@ -124,7 +136,7 @@
                     </label>
                 </div>
 
-                <form enctype="multipart/form-data" action="" name="org_info" method="POST" style="font-size: 20px">
+                <form enctype="multipart/form-data" action="" name="org_info" method="POST" style="font-size: 20px"  onsubmit=" return checkimg();">
                 {% csrf_token %}
                 <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);"><br>
                 <table>
