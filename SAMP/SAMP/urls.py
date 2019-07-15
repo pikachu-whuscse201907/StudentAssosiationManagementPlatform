@@ -30,7 +30,7 @@ urlpatterns = [
     path('login/', view.login),
     path('logout/', view.logout),
     path('register/', view.register),
-    path('creatclub/', createclub.createclub),
+    path('createclub/', createclub.createclub),
     path('searchclub/', searchclub.searchclub),
     path('userpage/', userpage.userpage),
     path('updateuserinfo/', userpage.updateuserinfo),
