@@ -44,6 +44,12 @@ def org_logo_path(instance, filename):
 # Ending of function org_logo_path(instance, filename)
 
 
+class ClubPronounces(models.Model):
+    title = models.CharField(null=False, blank=False, max_length=20)
+    create_date = models.DateTimeField(null=False, blank=False)
+    content = models.CharField(null=False, blank=False, max_length=100)
+    
+    
 # organization information
 class Organizations(models.Model):
     organization_name = models.CharField(primary_key=True,max_length=30, null=False)
@@ -53,6 +59,7 @@ class Organizations(models.Model):
     description = models.CharField(max_length=1000, null=True)
     create_date = models.DateTimeField(null=True, blank=True)
     org_logo = models.ImageField(upload_to=org_logo_path, null=True)
+    pronounces = models.ManyToManyField(ClubPronounces, related_name='organization_pronounces')
     
     def __str__(self):
-        return self.number
+        return self.organization_name
