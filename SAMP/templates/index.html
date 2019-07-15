@@ -1,105 +1,509 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>学生社团管理平台</title>
-        <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
-        <link rel="stylesheet" type="text/css" href="../static/css/imgplay.css" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <style type="text/css">
-            .td1
-            {
-                width: 900px;
-                height: 30px;
-                background-color: rgba(255, 255, 255, 0.6);
-                overflow: hidden;
-            }
-            .td2
-            {
-                width: 260px;
-                height: 30px;
-                background-color: rgba(255, 255, 255, 0.6);
-                overflow: hidden;
-            }
-        </style>
-    </head>
-    <body>
-        <!--背景图-->
-        <div class = "bk">
-            <img src="../static/pictures/bk.jpg" class="bkimg">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>
+	  PKC主页
+	  </title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">-->
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+    <!-- Fixed navbar -->
+    <!-- navbar-fixed-top  -->
+    
+    
+    <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html" title="uiCookies:Inspire">Inspire</a>
         </div>
-        <!--导航栏-->
-        <div>
-            <div class="nav_menu box">
-                
-                {% if islogin  %}
-                {#name变量传用户名，未登录则为空#}
-                <!--我的社团下拉菜单-->
-                <div class="menuitem">
-                    <div>我的主页</div>
-                    <div class="submenu"><a href="../userpage">个人信息</a></div>
-                    <div class="submenu"><a href="../logout">登出</a></div>
-                    <div class="submenu"><a href="#">submenu</a></div>
-                    <div class="submenu"><a href="#">submenu</a></div>
-                </div>
-                <div class="menuitem">
-                    <div>我的社团</div>
-                    <div class="submenu"><a href="../searchclub">加入社团</a></div>
-                    <div class="submenu"><a href="../createclub">创建社团</a></div>
-                    <div class="submenu"><a href="#">管理社团</a></div>
-                    <div class="submenu"><a href="#">submenu</a></div>
-                </div>
-                {% else %}
-                <div class="menuitem"><a href="../register">注册</a></div>
-                <div class="menuitem"><a href="../login">登录</a></div>
-                {% endif %}
-            </div>
-        </div>
-        <!--内容显示-->
-        
-        <!--展示台-->
-        <div class="box">
-            <div class="frame">
-                <div class="container">
-                        <img src="../static/pictures/pikachu1.jpg">
-                        <img src="../static/pictures/pikachu5.jpg">
-                        <img src="../static/pictures/pikachu7.jpg">
-                </div>
-            </div>
+
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+			
+		{% if islogin  %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../index">Home</a></li>
+
+            <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">我的社团</a>
+              <ul class="dropdown-menu">
+                <li><a href="../searchclub">加入社团</a></li>
+                <li><a href="../creatclub">创建社团</a></li>
+                <!--按钮保留
+				<li class="dropdown-submenu dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span>Sub Menu</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                  </ul>
+                </li>-->
+                <li><a href="">管理社团</a></li>
+                <!--按钮保留
+				<li><a href="pricing.html">Pricing</a></li>-->
+              </ul>
+            </li>
             
+			<li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
+              <ul class="dropdown-menu">
+                <li><a href="../userpage">我的信息</a></li>
+                <li><a href="../creatclub">修改信息</a></li>
+                <!--按钮保留
+				<li class="dropdown-submenu dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span>Sub Menu</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                  </ul>
+                </li>-->
+                <li><a href="">修改密码</a></li>
+                <!--按钮保留
+				<li><a href="pricing.html">Pricing</a></li>-->
+              </ul>
+            </li>
+			  
+            <li class="probootstra-cta-button"><a href="../logout">Log out</a></li>
+            <!--<li class="probootstra-cta-button"><a href="../logout" class="btn" data-toggle="modal" data-target="#loginModal">Log out</a></li>-->
+          </ul>
+			
+		{% else %}
+			<ul class="nav navbar-nav navbar-right">
+            <li><a href="../index">Home</a></li>
+<!--
+            <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Pages</a>
+              <ul class="dropdown-menu">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li class="dropdown-submenu dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span>Sub Menu</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                  </ul>
+                </li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">个人中心</a></li>
+-->
+            <li class="probootstra-cta-button"><a href="../login">Log in</a></li>
+            <li class="probootstra-cta-button last"><a href="../register">Sign up</a></li>
+            <!--<li class="probootstra-cta-button"><a href="../login" class="btn" data-toggle="modal" data-target="#loginModal">Log in</a></li>
+            <li class="probootstra-cta-button last"><a href="../register" class="btn btn-ghost" data-toggle="modal" data-target="#signupModal">Sign up</a></li> --> 
+          </ul>
+			
+		{% endif %}
+			
         </div>
-        <!--公告-->
-        <div class="box showbox" style="height: 400px;margin-top:430px">
-            <table class="notic" style="position: absolute;top: 10px;left: 10px;border: solid 1px ;width: 1160px;">
-                <tr>
-                    <td  colspan="2" style="height: 50px; width: 500px;background-color: rgba(245, 198, 198, 0.8)"><span style="font-size: 30px; color: red">公告栏</span></td>
+      </div>
+    </nav>
+
+    
+
+    <section class="probootstrap-hero">
+      <div class="container">
+        <div class="row"> </div>
+
+        <div class="row probootstrap-feature-showcase">
+          <div class="col-md-4 col-md-push-8 probootstrap-showcase-nav probootstrap-animate">
+            <ul>
+              <li class="active">
+                <a href="#">Responsive Design</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Business Solution</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Brand Identity</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Creative Ideas</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Search Engine Friendly</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Easy Customization</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-8 col-md-pull-4 probootstrap-animate" style="position: relative;">
+            <div class="probootstrap-home-showcase-wrap">
+              <div class="probootstrap-home-showcase-inner">
+                <div class="probootstrap-chrome">
+                  <div><span></span><span></span><span></span></div>
+                </div>
+
+                <div class="probootstrap-image-showcase">
+                  <ul class="probootstrap-images-list">
+                    <li class="active"><img src="../static/img/img_showcase_2.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_1.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_2.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_1.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_2.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_1.jpg" alt="Image" class="img-responsive"></li>
+                  </ul>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="probootstrap-section probootstrap-bg-white probootstrap-zindex-above-showcase">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center section-heading probootstrap-animate" data-animate-effect="fadeIn">
+            <h2>Platform Features</h2>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+          </div>
+        </div>
+        <!-- END row -->
+        <div class="row probootstrap-gutter60">
+          <div class="col-md-4 probootstrap-animate" data-animate-effect="fadeInLeft">
+            <div class="service text-center">
+              <div class="icon"><i class="icon-mobile3"></i></div>
+              <div class="text">
+                <h3>Responsive Design</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </div>  
+            </div>
+          </div>
+          <div class="col-md-4 probootstrap-animate" data-animate-effect="fadeIn">
+            <div class="service text-center">
+              <div class="icon"><i class="icon-presentation"></i></div>
+              <div class="text">
+                <h3>Business Solutions</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 probootstrap-animate" data-animate-effect="fadeInRight">
+            <div class="service text-center">
+              <div class="icon"><i class="icon-circle-compass"></i></div>
+              <div class="text">
+                <h3>Brand Identity</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 probootstrap-animate" data-animate-effect="fadeInLeft">
+            <div class="service text-center">
+              <div class="icon"><i class="icon-lightbulb"></i></div>
+              <div class="text">
+                <h3>Creative Ideas</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </div>  
+            </div>
+          </div>
+          <div class="col-md-4 probootstrap-animate">
+            <div class="service text-center">
+              <div class="icon"><i class="icon-magnifying-glass2"></i></div>
+              <div class="text">
+                <h3>Search Engine Friendly</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 probootstrap-animate" data-animate-effect="fadeInRight">
+            <div class="service text-center">
+              <div class="icon"><i class="icon-browser2"></i></div>
+              <div class="text">
+                <h3>Easy Customization</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="probootstrap-section pb0">
+      <div class="container">
+        <div class="row probootstrap-feature-showcase probootstrap-animate">
+          <div class="col-md-4 probootstrap-showcase-nav">
+            <ul>
+              <li class="active">
+                <a href="#">Responsive Design</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Business Solution</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Brand Identity</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Creative Ideas</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Search Engine Friendly</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+              <li>
+                <a href="#">Easy Customization</a>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-8 probootstrap-animate" style="position: relative;">
+            <div class="probootstrap-home-showcase-wrap">
+              <div class="probootstrap-home-showcase-inner">
+                <div class="probootstrap-chrome">
+                  <div><span></span><span></span><span></span></div>
+                </div>
+                <div class="probootstrap-image-showcase">
+                  <ul class="probootstrap-images-list">
+                    <li class="active"><img src="../static/img/img_showcase_2.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_1.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_2.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_1.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_2.jpg" alt="Image" class="img-responsive"></li>
+                    <li><img src="../static/img/img_showcase_1.jpg" alt="Image" class="img-responsive"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="probootstrap-section probootstrap-bg-white probootstrap-zindex-above-showcase">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center section-heading probootstrap-animate">
+            <h2>More Features</h2>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+          </div>
+        </div>
+        <!-- END row -->
+        <div class="row">
+          <div class="col-md-7 col-md-push-5 probootstrap-animate"  data-animate-effect="fadeInRight">
+
+            <div class="owl-carousel owl-carousel-fullwidth border-rounded">
+              <div class="item">
+                <img src="../static/img/img_showcase_1.jpg" alt="Free HTML5 Bootstrap Template by GetTemplates.co">
+              </div>
+              <div class="item">
+                <img src="../static/img/img_showcase_2.jpg" alt="Free HTML5 Bootstrap Template by GetTemplates.co">
+              </div>
+              <div class="item">
+                <img src="../static/img/img_showcase_1.jpg" alt="Free HTML5 Bootstrap Template by GetTemplates.co">
+              </div>
+              <div class="item">
+                <img src="../static/img/img_showcase_2.jpg" alt="Free HTML5 Bootstrap Template by GetTemplates.co">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-md-5 col-md-pull-7">
+            <div class="service left-icon probootstrap-animate" data-animate-effect="fadeInLeft">
+              <div class="icon"><i class="icon-mobile3"></i></div>
+              <div class="text">
+                <h3>Responsive Design</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit iusto provident.</p>
+              </div>  
+            </div>
+            <div class="service left-icon probootstrap-animate" data-animate-effect="fadeInLeft">
+              <div class="icon"><i class="icon-presentation"></i></div>
+              <div class="text">
+                <h3>Business Solutions</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit iusto provident.</p>
+              </div>
+            </div>
+            <div class="service left-icon probootstrap-animate" data-animate-effect="fadeInLeft">
+              <div class="icon"><i class="icon-circle-compass"></i></div>
+              <div class="text">
+                <h3>Brand Identity</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit iusto provident.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="probootstrap-section probootstrap-border-top probootstrap-bg-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center section-heading probootstrap-animate">
+            <h2>What People Says</h2>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident qui tempore natus quos quibusdam soluta at.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 probootstrap-animate" data-animate-effect="fadeIn">
+            <div class="probootstrap-testimony-wrap text-center">
+              <figure>
+                <img src="../static/img/person_1.jpg" alt="Free Bootstrap Template">
+              </figure>
+              <blockquote class="quote">&ldquo;Design must be functional and functionality must be translated into visual aesthetics, without any reliance on gimmicks that have to be explained.&rdquo; <cite class="author">&mdash; Ferdinand A. Porsche <br> <span>Design Lead at AirBNB</span></cite></blockquote>
+
+            </div>
+          </div>
+          <div class="col-md-4 probootstrap-animate" data-animate-effect="fadeIn">
+            <div class="probootstrap-testimony-wrap text-center">
+              <figure>
+                <img src="../static/img/person_2.jpg" alt="Free Bootstrap Template">
+              </figure>
+              <blockquote class="quote">&ldquo;Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn’t really do it, they just saw something. It seemed obvious to them after a while.&rdquo; <cite class="author">&mdash; Steve Jobs <br> <span>Co-Founder Square</span></cite></blockquote>
+            </div>
+          </div>
+          <div class="col-md-4 probootstrap-animate" data-animate-effect="fadeIn">
+            <div class="probootstrap-testimony-wrap text-center">
+              <figure>
+                <img src="../static/img/person_3.jpg" alt="Free Bootstrap Template">
+              </figure>
+              <blockquote class="quote">&ldquo;I think design would be better if designers were much more skeptical about its applications. If you believe in the potency of your craft, where you choose to dole it out is not something to take lightly.&rdquo; <cite class="author">&mdash; Frank Chimero <br> <span>Creative Director at Twitter</span></cite></blockquote>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+ <!--Modal login -->
+ <!--   <div class="modal fadeInUp probootstrap-animated" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog modal-md vertical-align-center">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
+            <div class="probootstrap-modal-flex">
+              <div class="probootstrap-modal-figure" style="background-image: url(img/modal_bg.jpg);"></div>
+              <div class="probootstrap-modal-content">
+                <form action="#" class="probootstrap-form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username">
+                  </div> 
+                  <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password">
+                  </div> 
+					
+					
+                  <div class="form-group clearfix mb40">
+					  忘记密码，记住用户
+                    <label for="remember" class="probootstrap-remember"><input type="checkbox" id="remember"> Remember Me</label>
+                    <a href="#" class="probootstrap-forgot">Forgot Password?</a>
+
+                  </div>
+
+                  <div class="form-group text-left">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary btn-block" value="Sign In">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group probootstrap-or"> </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-12"> </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+	</div>-->
+    <!-- END modal login -->
+    
+    <!-- Modal signup -->
+  <!--   <div class="modal fadeInUp probootstrap-animated" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog modal-md vertical-align-center">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
+            <div class="probootstrap-modal-flex">
+              <div class="probootstrap-modal-figure" style="background-image: url(img/modal_bg.jpg);"></div>
+              <div class="probootstrap-modal-content">
+                <form action="#" class="probootstrap-form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username">
+                  </div> 
+                  <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password">
+                  </div> 
+                  <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Re-type Password">
+                  </div> 
+                  <div class="form-group clearfix mb40">
+					  
+					
+                    <label for="remember" class="probootstrap-remember"><input type="checkbox" id="remember"> Remember Me</label>
+                    <a href="#" class="probootstrap-forgot">Forgot Password?</a>
+
+                  </div>
+                  <div class="form-group text-left">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary btn-block" value="Sign Up">
+                      </div>
+                    </div>
                     
-                </tr>
-                <tr>
-                    <td class="td1" "><a href={{notic_url1}}>{{notic_title1}}</a></td>
-                    <td class="td2">{{notic_date1}}</td>
-                </tr>
-                <tr>
-                    <td class="td1"><a href={{notic_url2}}>{{notic_title2}}</a></td>
-                    <td class="td2">{{notic_date2}}</td>
-                </tr>
-                <tr>
-                    <td class="td1"><a href={{notic_url3}}>{{notic_title3}}</a></td>
-                    <td class="td2">{{notic_date3}}</td>
-                </tr>
-                <tr>
-                    <td class="td1"><a href={{notic_url4}}>{{notic_title4}}</a></td>
-                    <td class="td2">{{notic_date4}}</td>
-                </tr>
-                <tr>
-                    <td class="td1"><a href={{notic_url5}}>{{notic_title5}}</a></td>
-                    <td class="td2">{{notic_date5}}</td>
-                </tr>
-                <tr>
-                    <td class="td1"><a href={{notic_url6}}>{{notic_title6}}</a></td>
-                    <td class="td2">{{notic_date6}}</td>
-                </tr>
-            </table>
+                  </div>
+                  <div class="form-group probootstrap-or"> </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-12"> </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </body>
+      </div>
+    </div>-->
+    <!-- END modal signup -->
+
+
+    <script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+  </body>
 </html>
