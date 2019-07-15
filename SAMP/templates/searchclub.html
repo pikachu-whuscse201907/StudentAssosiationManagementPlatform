@@ -83,7 +83,7 @@
         <!--导航栏-->
         <div>
             <div class="nav_menu box">
-                <div class="backbutton menuitem"><a href="../index"><主页</a></div>
+                <div class="backbutton menuitem"><a href="../index">主页</a></div>
                 
                 <!--我的社团下拉菜单-->
                 <div class="menuitem">
@@ -96,7 +96,7 @@
                 <div class="menuitem">
                     <div>我的社团</div>
                     <div class="submenu"><a>加入社团</a></div>
-                    <div class="submenu"><a href="../creatclub">创建社团</a></div>
+                    <div class="submenu"><a href="../createclub">创建社团</a></div>
                     <div class="submenu"><a href="#">管理社团</a></div>
                     <div class="submenu"><a href="#">submenu</a></div>
                 </div>
@@ -105,8 +105,8 @@
         <!--搜索框-->
         <div class="box" style="margin-top:50px; ">
             
-            <form action="./" >
-                {% csrf_token %}
+            <form action="./" method="GET">
+                
                 <input  class="searchbox" type="search" name="search_context" placeholder="请输入社团ID">
                 <button class="searchbutton" type="submit" >搜索</button>
             </form>
@@ -119,7 +119,7 @@
                 {{error}}
                 {%for club in clubs %}
                 <tr>
-                    <td><a href="../clubinfo?iden={{club.iden}}">{{club.info}}</a></td>
+                    <td><a href="../clubinfo?iden={{club.org_name}}">{{club.org_name}}: {{club.descript}}</a></td>
                 </tr>
                 {%endfor%}
             </table>

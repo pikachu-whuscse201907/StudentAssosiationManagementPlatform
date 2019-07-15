@@ -17,10 +17,9 @@ class Person(models.Model):
 
 def user_logo_path(instance, filename):
     ext = filename.split('.')[-1]
-    filename = '{}.{}'.format('userlogo_'+instance.name.name, ext)
+    filename = '{}.{}'.format('user_logo_'+instance.name.name, ext)
     # return the whole path to the file
-    ans = os.path.join(instance.name.name, "logo", filename)
-    print("ans: ", ans)
+    ans = os.path.join("user_logo", instance.name.name, filename)
     return ans
 # Ending of function user_logo_path(instance, filename)
 
@@ -37,20 +36,23 @@ class User_info(models.Model):
         return self.name
 
 
-class Orgimg(models.Model):
-    img = models.ImageField(upload_to='img')
-    name = models.CharField(max_length=20)
-    def __str__(self):
-        return self.name
+def org_logo_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format('org_logo_'+instance.organization_name, ext)
+    ans = os.path.join("org_logo", instance.organization_name, filename)
+    return ans
+# Ending of function org_logo_path(instance, filename)
 
-#organization information
+
+# organization information
 class Organizations(models.Model):
-    number = models.BigAutoField(primary_key=True)
-    organization_name = models.CharField(max_length=30, null=False)
-    creater = models.ForeignKey(User_info, related_name='organization1', on_delete=models.CASCADE)
-    member = models.ManyToManyField(User_info, related_name='organization2')
-    description = models.CharField(max_length=1000)
+    organization_name = models.CharField(primary_key=True,max_length=30, null=False)
+    creator = models.ForeignKey(User_info, related_name='organization_creator', on_delete=models.DO_NOTHING)
+    master = models.ForeignKey(User_info, related_name='organization_master', on_delete=models.CASCADE)
+    members = models.ManyToManyField(User_info, related_name='organization_members')
+    description = models.CharField(max_length=1000, null=True)
     create_date = models.DateTimeField(null=True, blank=True)
-    img = models.ForeignKey(Orgimg, on_delete=models.CASCADE)
+    org_logo = models.ImageField(upload_to=org_logo_path, null=True)
+    
     def __str__(self):
         return self.number
