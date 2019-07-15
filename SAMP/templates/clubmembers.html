@@ -5,16 +5,16 @@
         <title>社团成员</title>
        
 
-        </style>
+        <style></style>
     </head>
     <body>
     <p>简陋版，测试用</p>
     {%for member in members%}
     <div style="float: left;">
-        <img src={{member.avatar_url}} style="width: 100px ; height: 100px">
+        <img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 100px ; height: 100px">
         
     </div>
-    <div><p>{{member.name}}</p></div>
+    <div><p>{{member.name.name}}</p></div>
     {%endfor%}
     </body>
 </html>

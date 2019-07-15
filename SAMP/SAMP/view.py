@@ -1,12 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from .Cookie import *
+from .Cookie import Cookie
 from .verify import *
-from .database.delete import delete_cookie
-from .database.save import save_cookie
-from .database.search import user_of_cookie, user_of_username
-from .database.function import *
-
+from .database import function, delete, search, save
 
 def redir_to_index(request):
     return HttpResponseRedirect('index/')
@@ -14,8 +10,8 @@ def redir_to_index(request):
 
 def login(request):
     context = {}
-    username=request.POST.get('username', None)
-    pswd=request.POST.get('pswd', None)
+    username = request.POST.get('username', None)
+    pswd = request.POST.get('pswd', None)
     if username is not None and pswd is not None:
         if not pswd_correct(username, pswd):
             context['login_fail_notice'] = 'Wrong Username or Password!'
@@ -25,23 +21,23 @@ def login(request):
         context['error_msg'] = 'You have logged in successfully!'
         response = HttpResponse(render(request, 'jump.html', context))
         cookie = Cookie()
-        save_cookie(user_of_username(username),cookie)
+        save.save_cookie(search.user_of_username(username), cookie)
         response.set_cookie('id', cookie.cookie_id, expires=cookie.expire)
         return response
     else:
-        response=HttpResponse(render(request, 'login.html'))
+        response = HttpResponse(render(request, 'login.html'))
         response.delete_cookie('id')
         return response
 
 
 def logout(request):
-    context={}
+    context = {}
     context['title'] = 'Logout Success'
     context['url'] = '../index/'
     context['error_msg'] = 'You have logged out successfully!'
     response = HttpResponse(render(request, 'jump.html', context))
     response.delete_cookie('id')
-    cookie_id = request.COOKIES.get('id',None)
+    cookie_id = request.COOKIES.get('id', None)
     if cookie_id is not None:
         delete_cookie(cookie_id)
     return response
@@ -49,17 +45,17 @@ def logout(request):
 
 def index(request):
     context = {}
-    user=None
-    cookie_id=request.COOKIES.get('id',None)
+    user = None
+    cookie_id = request.COOKIES.get('id', None)
     if cookie_id is not None:
-        user = user_of_cookie(cookie_id)
+        user = search.user_of_cookie(cookie_id)
 
     response = HttpResponse()
     if user is not None:
-        context['islogin']=True
+        context['islogin'] = True
         context['name'] = user.name
         cookie = Cookie()
-        save_cookie(user, cookie)
+        save.save_cookie(user, cookie)
         response.set_cookie('id', cookie.cookie_id, expires=cookie.expire)
 
     response.content = render(request, 'index.html', context)
@@ -77,10 +73,10 @@ def register(request):
         if verify_result == True:
             save_name_pswd(username, password1)
 
-            save_default_user_info(username)
+            function.save_default_user_info(username)
 
-            context['title']='Register Success'
-            context['url']='../login/'
+            context['title'] = 'Register Success'
+            context['url'] = '../login/'
             context['error_msg'] = 'You have registered successfully!'
             return HttpResponse(render(request, 'jump.html', context))
         else:
