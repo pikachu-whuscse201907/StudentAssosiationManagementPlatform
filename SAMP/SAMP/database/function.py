@@ -51,6 +51,8 @@ def save_default_user_info(username):
 
 # 查看用户信息
 def get_user_info(cookie_id):
+	if cookie_id is None:
+		return None
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result = {}
 	result['info'] = {}

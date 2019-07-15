@@ -2,22 +2,23 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>myclub</title>
+        <title>My Club</title>
        
 
-        </style>
+        <style></style>
     </head>
     <body>
     <p>简陋版，测试用</p>
-
+    {{ name }} 加入的社团：
     {%if hasclub == false%}
     还没有加入任何社团
     {%endif%}
     <table>
         {%for club in clubs%}
         <tr>
-            <td><img style="width:100px;height:100px;"  src={{club.img}}></td>
-            <td>{{club.name}}</td>
+            <td><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{club.org_logo}}"></td>
+            <td>{{club.organization_name}}</td>
+            <td>{{club.description}}</td>
         </tr>
         {%endfor%}
     </table>
