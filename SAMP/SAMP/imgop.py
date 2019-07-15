@@ -1,10 +1,10 @@
-from people.models import Orgimg, Organizations, Person
+from people.models import  Organizations, Person
 
 def update_org_logo(cookie_id, img, iden):
        imgiden = "img_" + iden
        result = {}
        try:
-              org = Association.objects.get(number = iden)
+              org = Organizations.objects.get(number = iden)
        except:
               result["success"] = False
               result["notice"] = "no such association"
