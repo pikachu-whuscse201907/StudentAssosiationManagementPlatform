@@ -56,7 +56,7 @@ def clubinfo(request):
 	
 	if "iden" in request.GET:
 		org_name = request.GET["iden"]
-		result = search.get_org_info(org_name)
+		result = search.get_org_info(org_name, cookie_id)
 
 		if result["success"] == False:
 			context["error"] = result["notice"]
@@ -73,8 +73,59 @@ def clubinfo(request):
 			context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
 		context["creator"] = org_info['creator']
 		context["member_num"] = org_info['member_num']
-	
+		context["isjoin"] = org_info['isjoin']
 		return render(request, "clubpage.html", context)
 	
 	return HttpResponseRedirect("../searchclub/")
+
+def joinclub(request):
+        result = function.join_org(request.COOKIES['id'], request.GET["iden"])
+        if result["success"] == False:
+                context = {}
+                context['islogin'] = True
+                org_name = request.GET["iden"]
+                result = search.get_org_info(org_name, request.COOKIES['id'])
+                if result["success"] == False:
+                        context["error"] = result["notice"]
+                        return render(request, "clubpage.html", context)
+                org_info = result["org_info"]
+                context["org_logo"] = org_info["org_logo"]
+                context["org_name"] = org_info['org_name']
+                context["org_description"] = org_info['org_description']
+                if org_info['create_date'] is None:
+                        context['create_date'] = 'Not Recorded'
+                else:
+                        context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
+                context["creator"] = org_info['creator']
+                context["member_num"] = org_info['member_num']
+                context["error"] = "You have joined the association!"
+                context["isjoin"] = org_info['isjoin']
+                return render(request, "clubpage.html", context)
+        return render(request, "jump.html", {"title": "join successfully!", "url": "../", "error_msg": "You have joined the association successfully!"})
+
+def quitclub(request):
+        result1 = function.exit_org(request.COOKIES['id'], request.GET["iden"])
+        if result1["success"] == False:
+                context = {}
+                context['islogin'] = True
+                org_name = request.GET["iden"]
+                result = search.get_org_info(org_name, request.COOKIES['id'])
+                if result["success"] == False:
+                        context["error"] = result["notice"]
+                        return render(request, "clubpage.html", context)
+                org_info = result["org_info"]
+                context["org_logo"] = org_info["org_logo"]
+                context["org_name"] = org_info['org_name']
+                context["org_description"] = org_info['org_description']
+                if org_info['create_date'] is None:
+                        context['create_date'] = 'Not Recorded'
+                else:
+                        context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
+                context["creator"] = org_info['creator']
+                context["member_num"] = org_info['member_num']
+                context["error"] = result1["notice"]
+                context["isjoin"] = org_info['isjoin']
+                return render(request, "clubpage.html", context)                
+        return render(request, "jump.html", {"title": "quit successfully!", "url": "../", "error_msg": "You have quited the association successfully!"})
+
 
