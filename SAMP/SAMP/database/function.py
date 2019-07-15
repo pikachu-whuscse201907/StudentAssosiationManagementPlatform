@@ -103,10 +103,12 @@ def create_org(cookie_id, creator, org_name, org_description, img):
 		result['success']=False
 		result['notice']='{0} haven\'t log in! Please log in first!'.format(creator)
 		return result
-	user_info = User_info.objects.get(name = response[0])
-	org_create = Organizations.objects.create(organization_name=org_name, description=org_description, creator=user_info, org_logo=img)
+	user_info = User_info.objects.get(name=response[0])
+	org_create = Organizations.objects.create(organization_name=org_name, description=org_description, master=user_info, creator=user_info, org_logo=img)
 	# org_create.create_data=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+	org_create.description = org_description
 	org_create.create_date = datetime.datetime.now()
+	org_create.members.add(user_info)
 	org_create.save()
 	result['success'] = True
 	return result
@@ -150,7 +152,7 @@ def delete_member(cookie_id, org_id):
 	else:
 		result['success']=True
 		name=response[0]['name']
-		members=Organizations.objects.filter(number=org_id)[0]['member']
+		members = Organizations.objects.filter(number=org_id)[0]['member']
 		members.remove('name')
 
 

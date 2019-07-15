@@ -46,7 +46,6 @@ def user_of_cookie(_cookie_id):
 		return p[0]
 
 
-# 创立社团，填入信息
 def get_org_info(org_name):
 	result = {}
 	org_info = {}  # result字典中key 'org_info'对应的value
@@ -62,7 +61,7 @@ def get_org_info(org_name):
 	org_info['org_description'] = response_1[0].description
 	org_info['create_date'] = response_1[0].create_date
 	org_info['creator'] = response_1[0].creator.name.name
-	org_info['member_num'] = len(response_1[0].member.all())
+	org_info['member_num'] = len(response_1[0].members.all())
 	org_info['org_logo'] = response_1[0].org_logo
 	
 	result['success'] = True
