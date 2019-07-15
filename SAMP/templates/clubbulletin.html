@@ -10,6 +10,9 @@
     <body>
     <p>简陋版，测试用</p>
 
+    {%if len(pronounces) == 0%}
+    无公告
+    {%endif%}
     {%for pronounce in pronounces%}
     <p>pronounce</p>
     {%endfor%}
