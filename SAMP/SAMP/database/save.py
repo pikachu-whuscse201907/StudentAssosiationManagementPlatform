@@ -46,14 +46,36 @@ def modify_info(user_info, info):
 
 
 #创立社团，填入信息
-def get_org_info(org, info):
-	if info.organization_name == None:
-		return False
+def get_org_info(cookie_id,org_id):
+	response = Person.objects.filter(cookie_id=cookie_id)
+	result={}
+	if len(response)==0:
+		result['success']=False
+		result['notice']='The cookie_id is not exist.'
+		result['number']=0
+		result['ord_list']=[]
+		return result
+	elif expire(response[0].cookie_expire):
+		result['success']=False
+		result['notice']='The cookie_id is out of date.'
+		result['number']=0
+		result['ord_list']=[]
+		return result
 	else:
-		org.number = info.number
-		org.organization_name = info.organization_name
-		org.creater = info.creater
-		org.save()
+		result['success']=True
+		response_1 = Organizations.objects.filter(number=org_id)
+		org_info_tuple={}#result字典中key 'org_info'对应的value
+		org_info_tuple['org_name']=response_1[0].organization_name
+		org_info_tuple['org_description']=response_1[0].description
+		#org_info_tuple['create_date']=response_1[0].create_date
+		org_info_tuple['creater']=response_1[0].creater.name.name
+		c=[]
+		c=response_1[0].member.all()
+		num=len(c)
+		org_info_tuple['member_num']=num
+		result['number']=len(org_info_tuple)
+		result['org_info']=org_info_tuple
+		return result
 
 
 
