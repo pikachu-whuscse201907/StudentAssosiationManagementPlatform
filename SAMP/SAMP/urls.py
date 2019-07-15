@@ -38,9 +38,10 @@ urlpatterns = [
     path('clubinfo/', searchclub.clubinfo),
     path('clubbulletin/', clubbulletin.clubbulletin),
     path('addpronounce/', clubbulletin.addpronounce),
+    path('joinclub/',searchclub.joinclub),
+    path('quitclub/',searchclub.quitclub),
     # path('showclubmembers/',)
-    # path('joinclub/',)
-    # path('quitclub/',)
+
 
     # re_path(r'.', view.redir_to_index),
 
