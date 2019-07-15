@@ -5,17 +5,18 @@ from .database.save import save_cookie
 from .database.search import user_of_username, user_of_cookie
 from .database.function import *
 import os
+from . import view
 
 
 def userpage(request):
 	context = {}
 	cookie_id = request.COOKIES.get('id', None)
 	if cookie_id is None:
-		return response_not_logged_in(request)
+		return view.response_not_logged_in(request)
 
 	result = get_user_info(cookie_id)  # call database
 	if not result['success']:
-		return response_not_logged_in(request)
+		return view.response_not_logged_in(request)
 	info = result['info']
 
 	context['islogin'] = True
@@ -41,11 +42,11 @@ def updateuserinfo(request):
 	context = {}
 	cookie_id = request.COOKIES.get('id', None)
 	if cookie_id is None:
-		return response_not_logged_in(request)
+		return view.response_not_logged_in(request)
 
 	result = get_user_info(cookie_id)  # call database
 	if not result['success']:
-		return response_not_logged_in(request)
+		return view.response_not_logged_in(request)
 	info = result['info']
 
 	context['islogin'] = True

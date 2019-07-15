@@ -27,6 +27,7 @@ def veri(username, password, conpass):
         return "The username has been registered!"
     return True
 
+
 def verifyclub(name, des, iden):
     if name == "":
         return "You should input your name!"
