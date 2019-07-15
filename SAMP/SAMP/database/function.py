@@ -32,9 +32,9 @@ def update_user_info(cookie_id, info):
 		user_info.birth_date = info['birth_date']
 		if 'user_logo' in info.keys():
 			user_info.profile = info['user_logo']
-
+		
 		user_info.save()
-
+		
 		result['success'] = True
 		return result
 	# Ending of function update_user_info(cookie_id, info)
@@ -75,68 +75,66 @@ def get_user_info(cookie_id):
 			result['info']['motto'] = user_info[0].motto
 			result['info']['birth_date'] = user_info[0].birth_date
 			result['info']['user_logo'] = user_info[0].profile
-
+		
 		return result
 	# Ending of function get_user_info(cookie_id)
 
 
-
-
-#创建社团
+# 创建社团
 def create_org(cookie_id, creator, org_name, org_description, img):
-        response = Person.objects.filter(cookie_id=cookie_id)
-        result = {}
-        if len(response)==0:
-                result['success']=False
-                result['notice']='The cookie_id is not exist.'
-                return result
-        elif expire(response[0].cookie_expire):
-                result['success']=False
-                result['notice']='The cookie_id is out of date.'
-                return result
-        else:
-                org_info=Organizations.objects.filter(organization_name=org_name)
-                if len(org_info)!=0:
-                        result['success']=False
-                        result['notice']='This organization name has been used.'
-                        return result
-                else:
-                        if response[0].name != creator:
-                                result['success']=False
-                                result['notice']='{0} haven\'t log in! Please log in first!'.format(creator)
-                                return result
-                        user_info = User_info.objects.get(name = response[0])
-                        imgiden = "img_" + org_name
-                        image = Orgimg(img = img, name = imgiden)
-                        image.save()                        
-                        org_create = Organizations.objects.create(organization_name=org_name, description=org_description, creater=user_info, img = image)
-                        org_create.create_data=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-                        org_create.save()
-                        result['success']=True
-                        return result
+	response = Person.objects.filter(cookie_id=cookie_id)
+	result = {}
+	if len(response)==0:
+		result['success']=False
+		result['notice']='The cookie_id is not exist.'
+		return result
+	elif expire(response[0].cookie_expire):
+		result['success']=False
+		result['notice']='The cookie_id is out of date.'
+		return result
+
+	org_info = Organizations.objects.filter(organization_name=org_name)
+	if len(org_info)!=0:
+		result['success']=False
+		result['notice']='The organization name has been used.'
+		return result
+
+	if response[0].name != creator:
+		result['success']=False
+		result['notice']='{0} haven\'t log in! Please log in first!'.format(creator)
+		return result
+	user_info = User_info.objects.get(name=response[0])
+	org_create = Organizations.objects.create(organization_name=org_name, description=org_description, master=user_info, creator=user_info, org_logo=img)
+	# org_create.create_data=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+	org_create.description = org_description
+	org_create.create_date = datetime.datetime.now()
+	org_create.members.add(user_info)
+	org_create.save()
+	result['success'] = True
+	return result
 
 
-#搜索社团
+# 搜索社团
 def search_org(cookie_id, search_content):
-        response = Person.objects.filter(cookie_id=cookie_id)
-        result={}
-        if len(response)==0:
-                result['success']=False
-                result['notice']='The cookie_id is not exist.'
-                return result
-        elif expire(response[0].cookie_expire):
-                result={}
-                result['success']=False
-                result['notice']='The cookie_id is out of date.'
-                return result
-        else:
-                result['success']=True
-                org_info = Organizations.objects.filter(organization_name__icontains=search_content)
-                org_list = []
-                for each in org_info:
-                        org_list.append((each.number, each.organization_name, each.creater))
-                result['org_list']=org_list
-                return result
+	response = Person.objects.filter(cookie_id=cookie_id)
+	result={}
+	if len(response)==0:
+		result['success']=False
+		result['notice']='The cookie_id is not exist.'
+		return result
+	elif expire(response[0].cookie_expire):
+		result={}
+		result['success']=False
+		result['notice']='The cookie_id is out of date.'
+		return result
+	else:
+		result['success']=True
+		org_info = Organizations.objects.filter(organization_name__icontains=search_content)
+		org_list = []
+		for each in org_info:
+			org_list.append((each.organization_name, each.description))
+		result['org_list']=org_list
+		return result
 
 
 # 群主删除成员，提交群主的cookie_id
@@ -154,7 +152,7 @@ def delete_member(cookie_id, org_id):
 	else:
 		result['success']=True
 		name=response[0]['name']
-		members=Organizations.objects.filter(number=org_id)[0]['member']
+		members = Organizations.objects.filter(number=org_id)[0]['member']
 		members.remove('name')
 
 
