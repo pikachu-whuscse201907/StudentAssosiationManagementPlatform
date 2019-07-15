@@ -13,9 +13,16 @@
     {%if len(pronounces) == 0%}
     无公告
     {%endif%}
-    {%for pronounce in pronounces%}
-    <p>pronounce</p>
-    {%endfor%}
+    <table>
+        {%for pronounce in pronounces%}
+        <tr>
+            <td>{{pronounce.title}}</td>
+            <td>{{pronounce.content}}</td>
+            <td>{{pronounce.date}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    
     
     {%if ismanger%}
     {% csrf_token %}
