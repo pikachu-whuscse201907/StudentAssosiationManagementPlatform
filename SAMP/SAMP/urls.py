@@ -37,11 +37,10 @@ urlpatterns = [
     path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
     path('clubinfo/', searchclub.clubinfo),
     path('clubbulletin/', clubbulletin.clubbulletin),
+    path('clubmembers/',clubbulletin.clubmembers),
     path('addpronounce/', clubbulletin.addpronounce),
     path('joinclub/',searchclub.joinclub),
     path('quitclub/',searchclub.quitclub),
-    # path('showclubmembers/',)
-
 
     # re_path(r'.', view.redir_to_index),
 
