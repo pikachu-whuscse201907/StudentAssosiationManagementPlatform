@@ -105,8 +105,8 @@
         <!--搜索框-->
         <div class="box" style="margin-top:50px; ">
             
-            <form action="./" >
-                {% csrf_token %}
+            <form action="./" method="GET">
+                
                 <input  class="searchbox" type="search" name="search_context" placeholder="请输入社团ID">
                 <button class="searchbutton" type="submit" >搜索</button>
             </form>
