@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>myclub</title>
+       
+
+        </style>
+    </head>
+    <body>
+    <p>简陋版，测试用</p>
+
+    {%if hasclub == false%}
+    还没有加入任何社团
+    {%endif%}
+    <table>
+        {%for club in clubs%}
+        <tr>
+            <td><img style="width:100px;height:100px;"  src={{club.img}}></td>
+            <td>{{club.name}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    
