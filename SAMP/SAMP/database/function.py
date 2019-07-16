@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from ..view import *
-from people.models import Person, User_info, Organizations, ClubPronounces
+from people.models import Person, User_info, Organizations, ClubAnnouncements
 from ..Cookie import *
 from .delete import delete_cookie
 from .save import save_cookie
 from .search import user_of_username
-import time
+import PIL.Image
 
 
 # 修改用户信息
@@ -43,6 +43,7 @@ def update_user_info(cookie_id, info):
 def save_default_user_info(username):
 	cookie = Cookie()
 	save_cookie(user_of_username(username), cookie)
+	
 	default_user_info = {'gender': 0, 'motto': '', 'birth_date': None}
 	update_user_info(cookie.cookie_id, default_user_info)
 	delete_cookie(cookie.cookie_id)
@@ -187,6 +188,7 @@ def join_org(cookie_id,org_id):
 				result['success']=True
 				return result
 
+#creator不能退出社团
 def exit_org(cookie_id,org_name):#退出社团
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result={}
@@ -199,9 +201,14 @@ def exit_org(cookie_id,org_name):#退出社团
 		result['notice']='The cookie_id is out of date.'
 		return result
 	else:
-		user_info=User_info.objects.filter(name=response[0])
 		response_1 = Organizations.objects.filter(organization_name=org_name)
-		response_1[0].members.remove(user_info[0])
-		result['success']=True
-		return result
+		if response[0].name == response_1[0].creator.name.name:
+			result['success']=False
+			result['notice']='The user is the creator.'
+			return result
+		else:
+			user_info=User_info.objects.filter(name=response[0])
+			response_1[0].members.remove(user_info[0])
+			result['success']=True
+			return result
 
