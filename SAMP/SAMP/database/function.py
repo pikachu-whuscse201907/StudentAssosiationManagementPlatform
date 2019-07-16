@@ -187,6 +187,7 @@ def join_org(cookie_id,org_id):
 				result['success']=True
 				return result
 
+#creator不能退出社团
 def exit_org(cookie_id,org_name):#退出社团
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result={}
@@ -199,9 +200,14 @@ def exit_org(cookie_id,org_name):#退出社团
 		result['notice']='The cookie_id is out of date.'
 		return result
 	else:
-		user_info=User_info.objects.filter(name=response[0])
 		response_1 = Organizations.objects.filter(organization_name=org_name)
-		response_1[0].members.remove(user_info[0])
-		result['success']=True
-		return result
+		if response[0].name == response_1[0].creator.name.name:
+			result['success']=False
+			result['notice']='The user is the creator.'
+			return result
+		else:
+			user_info=User_info.objects.filter(name=response[0])
+			response_1[0].members.remove(user_info[0])
+			result['success']=True
+			return result
 
