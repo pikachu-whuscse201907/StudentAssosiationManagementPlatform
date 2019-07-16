@@ -38,7 +38,7 @@ urlpatterns = [
     path('clubinfo/', searchclub.clubinfo),
     path('clubbulletin/', clubbulletin.clubbulletin),
     path('clubmembers/',clubbulletin.clubmembers),
-    path('addpronounce/', clubbulletin.addpronounce),
+    path('addannouncement/', clubbulletin.addannouncement),
     path('joinclub/',searchclub.joinclub),
     path('quitclub/',searchclub.quitclub),
 

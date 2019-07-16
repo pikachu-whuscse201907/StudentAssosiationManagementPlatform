@@ -9,26 +9,26 @@
     </head>
     <body>
     <p>简陋版，测试用</p>
-    {%if not have_pronounce %}
+    {%if not have_announcement %}
     无公告
     {%endif%}
     <table>
-        {%for pronounce in pronounces%}
+        {%for announcement in announcements%}
         <tr>
-            <td>{{pronounce.title}}</td>
-            <td>{{pronounce.content}}</td>
-            <td>{{pronounce.date}}</td>
+            <td>{{announcement.title}}</td>
+            <td>{{announcement.content}}</td>
+            <td>{{announcement.date}}</td>
         </tr>
         {%endfor%}
     </table>
     
     
     {%if ismanager%}
-    <form action="../addpronounce/" method="POST">
+    <form action="../addannouncement/" method="POST">
         {% csrf_token %}
         <input type="text" name="org_name" value="{{ org_name }}" style="display: none"><br>
-        公告标题<input type="textarea" name="pronounce_title">
-        公告内容<input type="textarea" name="pronounce_content">
+        公告标题<input type="textarea" name="announcement_title">
+        公告内容<input type="textarea" name="announcement_content">
         <button type="submit">提交</button>
     </form>
     {%endif%}
