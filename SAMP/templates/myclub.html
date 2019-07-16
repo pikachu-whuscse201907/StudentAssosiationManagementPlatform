@@ -27,12 +27,12 @@
     <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="../index" title="">Pikachu</a>
+          <a class="navbar-brand" href="../index/" title="">Pikachu</a>
         </div>
 
         <div id="navbar-collapse" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="probootstra-cta-button last"><a href="../logout" class="btn btn-ghost">Logout</a></li>
+            <li class="probootstra-cta-button last"><a href="../logout/" class="btn btn-ghost">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -41,7 +41,7 @@
     <!--左侧导航-->
     <div class="navbar-left">
             <div class="userbox">
-                <a href="../updateuserinfo" class="probootstrap-team">
+                <a href="../updateuserinfo/" class="probootstrap-team">
                 <img src="..{{MEDIA_URL}}{{img}}" alt="" class="avatar">
                 <div class="probootstrap-team-info">
                     <h3>修改头像</h3>
@@ -51,13 +51,13 @@
             </div>
         <div style="position: relative;top:150px;">
                 <ul class="nav nav-pills nav-stacked" >
-                  <li><a href="../userpage">个人信息</a></li>
-                  <li class="active"><a href="../myclubs">我的社团</a></li>
-                  <li><a href="../mybulletin">公告通知</a></li>
-                  <li><a href="../createclub">创建社团</a></li>
-                  <li><a href="../searchclub">加入社团</a></li>
-                  <li><a href="#">活动申请</a></li>
-                  <li><a href="../passwd">修改密码</a></li>
+                  <li><a href="../userpage/">个人信息</a></li>
+                  <li class="active"><a href="../myclub/">我的社团</a></li>
+                  <li><a href="../mybulletin/">公告通知</a></li>
+                  <li><a href="../createclub/">创建社团</a></li>
+                  <li><a href="../searchclub/">加入社团</a></li>
+                  <li><a href="../myactivity/">活动中心</a></li>
+                  <li><a href="../passwd/">修改密码</a></li>
                 </ul>
         </div>
     </div>
@@ -78,7 +78,7 @@
               </div>
               <div id="collapseOne" class="panel-collapse collapse in">
                   <div class="panel-body">
-                      {%if hasjoinedclub == false%}
+                      {%if not hasjoinedclub%}
                       还没有加入任何社团
                       {%endif%}
                       <table class="table">
@@ -137,7 +137,7 @@
               </div>
               <div id="collapseThree" class="panel-collapse collapse">
                   <div class="panel-body">
-                  {%if hasappliedclub == false%}
+                  {%if not hasappliedclub%}
                       还没有申请任何社团
                   {%endif%}
                   <table class="table">
