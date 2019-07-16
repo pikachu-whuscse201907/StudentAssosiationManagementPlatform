@@ -26,11 +26,11 @@ def user_logo_path(instance, filename):
 
 # personal information
 class User_info(models.Model):
-    name = models.OneToOneField(Person, on_delete = models.CASCADE)
-    motto = models.CharField(max_length = 100)
-    gender = models.IntegerField(choices = ((0, "unknow"), (1, "male"), (2, "female")), default=0)
-    birth_date = models.DateTimeField(null = True)
-    profile = models.ImageField(upload_to = user_logo_path, null = True)
+    name = models.OneToOneField(Person, on_delete=models.CASCADE)
+    motto = models.CharField(max_length=100, default='')
+    gender = models.IntegerField(choices=((0, "UNKNOWN"), (1, "MALE"), (2, "FEMALE")), default=0)
+    birth_date = models.DateTimeField(null=True)
+    profile = models.ImageField(upload_to=user_logo_path, null=False, default='default_user_logo.jpg')
 
     def __str__(self):
         return self.name
@@ -48,6 +48,7 @@ class ClubPronounces(models.Model):
     title = models.CharField(null=False, blank=False, max_length=20)
     create_date = models.DateTimeField(null=False, blank=False)
     content = models.CharField(null=False, blank=False, max_length=100)
+    publisher = models.ForeignKey(User_info, null=True, related_name='clubpronounce_publisher', on_delete=models.SET_NULL)
     
     
 # organization information
@@ -58,7 +59,7 @@ class Organizations(models.Model):
     members = models.ManyToManyField(User_info, related_name='organization_members')
     description = models.CharField(max_length=1000, null=True)
     create_date = models.DateTimeField(null=True, blank=True)
-    org_logo = models.ImageField(upload_to=org_logo_path, null=True)
+    org_logo = models.ImageField(upload_to=org_logo_path, null=False, default='default_org_logo.jpg')
     pronounces = models.ManyToManyField(ClubPronounces, related_name='organization_pronounces')
     
     def __str__(self):

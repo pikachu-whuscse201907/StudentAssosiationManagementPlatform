@@ -13,7 +13,7 @@ def login(request):
     username = request.POST.get('username', None)
     pswd = request.POST.get('pswd', None)
     if username is not None and pswd is not None:
-        if not pswd_correct(username, pswd):
+        if not search.pswd_correct(username, pswd):
             context['login_fail_notice'] = 'Wrong Username or Password!'
             return HttpResponse(render(request, 'login.html', context))
         context['title'] = 'Login Success'
@@ -39,7 +39,7 @@ def logout(request):
     response.delete_cookie('id')
     cookie_id = request.COOKIES.get('id', None)
     if cookie_id is not None:
-        delete_cookie(cookie_id)
+        delete.delete_cookie(cookie_id)
     return response
 
 
