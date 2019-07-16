@@ -101,7 +101,7 @@
         <!--导航栏-->
         <div>
             <div class="nav_menu box">
-            <div class="backbutton menuitem"><a href="../index"><主页</a></div>
+            <div class="backbutton menuitem"><a href="../index">主页</a></div>
                 <!--我的社团下拉菜单-->
                 <div class="menuitem">
                     <div>我的主页</div>
@@ -163,14 +163,14 @@
                         <td style="width: 408px">{{ org_description }}</td>
                     </tr>
                 </table>
-
+                    <div>{{ error }}</div>
                     <div>
                             <button><a href="../searchclub/">返回</a></button>&nbsp;&nbsp;
                             <!--显示是加入社团还是退出-->
                             {% if isjoin %}
                             <button><a href="../quitclub/?iden={{org_name}}">退出社团</a></button>
-                            <button><a href="../clubbulletin/?iden={{org_name}}">查看社团公告</a></button>
-                            <button><a href="../clubmembers/?iden={{org_name}}">查看社团成员</a></button>
+                            <button><a href="../clubbulletin/?iden={{org_name}}">查看公告</a></button>
+                            <button><a href="../clubmembers/?iden={{org_name}}">查看成员</a></button>
                             {% else %}
                             <button><a href="../joinclub/?iden={{org_name}}">加入社团</a></button>
                             {{error}}
