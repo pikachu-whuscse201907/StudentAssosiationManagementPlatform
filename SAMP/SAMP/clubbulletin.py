@@ -6,13 +6,6 @@ from people.models import Organizations, ClubAnnouncements
 import datetime
 
 
-class Announcement:
-    def __init__(self, title, date, content):
-        self.title = title
-        self.date = date
-        self.content = content
-
-
 def clubbulletin(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
@@ -32,7 +25,7 @@ def clubbulletin(request):
     
     if search.user_info_of_username(info['user_name']) not in org[0].members.all():
         context['title'] = 'Not Authorized.'
-        context['url'] = '../clubinfo/?iden='+org_name
+        context['url'] = '../clubpage/?iden='+org_name
         context['error_msg'] = 'Only club member can see the bulletin.'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
@@ -46,9 +39,18 @@ def clubbulletin(request):
     context['name'] = info['user_name']
     context['org_name'] = org_name
     context['announcements'] = []
-    for p in org[0].announcements.all():
-        context['announcements'].append(Announcement(p.title, p.create_date.strftime('%Y-%m-%d %H:%M:%S'), p.content))
+
+    class __Announcement:
+        def __init__(self, title, date, content):
+            self.title = title
+            self.date = date
+            self.content = content
     
+    for p in org[0].announcements.all():
+        context['announcements'].append(__Announcement
+                                        (p.title,
+                                         p.create_date.strftime('%Y-%m-%d %H:%M:%S'),
+                                         p.content))
     context['have_announcement'] = (len(context['announcements']) != 0)
     
     return HttpResponse(render(request, 'clubbulletin.html', context))
@@ -91,9 +93,9 @@ def addannouncement(request):
     context['islogin'] = True
     context['name'] = info['user_name']
     context['org_name'] = org_name
-    new_announcement = ClubAnnouncements.objects.create(title=announcement_title,\
-                                                  create_date=datetime.datetime.now(),\
-                                                  content=announcement_content)
+    new_announcement = ClubAnnouncements.objects.create(title=announcement_title,
+                                                        create_date=datetime.datetime.now(),
+                                                        content=announcement_content)
     org[0].announcements.add(new_announcement)
     org[0].save()
 
@@ -125,7 +127,7 @@ def clubmembers(request):
     user_info = search.user_info_of_username(info['user_name'])
     if search.user_info_of_username(info['user_name']) not in org[0].members.all():
         context['title'] = 'Not Authorized.'
-        context['url'] = '../clubinfo/?iden=' + org_name
+        context['url'] = '../clubpage/?iden=' + org_name
         context['error_msg'] = 'Only club member can see the members.'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
@@ -146,17 +148,18 @@ def clubmembers(request):
             self.status = status
             self.time = time
 
-    members_from_db = user_info.organization_members.all()  # status=
+    members_from_db = org[0].members.all()  # status=
     members = []
     for member in members_from_db:
         members.append(__Member(member.profile, member.name.name))
     context['has_members'] = (0 < len(members))
     context['members'] = members
 
-    applications_from_db = user_info.membershipapplication_org.all()  # status=
+    applications_from_db = org[0].membershipapplication_org.all()  # status=
     applying_members = []
     for application in applications_from_db:
-        members.append(__Member(user_logo=application.profile, name=application.name.name,
+        applying_members.append(__Member(user_logo=application.applicant.profile,
+                                name=application.applicant.name,
                                 time=application.apply_time.strftime('%Y-%m-%d %H:%M:%S'),
                                 status=application.application_status))
     context['has_applying_members'] = (0 < len(members))
@@ -164,3 +167,11 @@ def clubmembers(request):
     
     return HttpResponse(render(request, 'clubmembers.html', context))
 # Ending of function clubmembers(request)
+
+
+def approve(request):
+    ''
+
+
+def deny(request):
+    ''

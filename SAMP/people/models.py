@@ -11,6 +11,7 @@ class Person(models.Model):
     cookie_id = models.CharField(max_length=256,null=True)
     cookie_create_time = models.DateTimeField(blank=True, null=True)
     cookie_expire = models.DateTimeField(blank=True, null=True)
+    abc= models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return self.name
@@ -49,20 +50,27 @@ class ClubAnnouncements(models.Model):
     title = models.CharField(null=False, blank=False, max_length=20)
     create_date = models.DateTimeField(null=False, blank=False)
     content = models.CharField(null=False, blank=False, max_length=100)
-    publisher = models.ForeignKey(User_info, null=True, related_name='clubannouncement_publisher', on_delete=models.SET_NULL)
+    publisher = models.ForeignKey(User_info, null=True, related_name='clubannouncement_publisher',
+                                  on_delete=models.SET_NULL)
 
 
 # organization information
 class Organizations(models.Model):
-    create_status = models.IntegerField(choices=((0, "审核中"), (1, "已通过"), (2, "审核失败")), default=0)
-    organization_name = models.CharField(primary_key=True,max_length=30, null=False)
-    creator = models.ForeignKey(User_info, related_name='organization_creator', on_delete=models.DO_NOTHING)
-    master = models.ForeignKey(User_info, related_name='organization_master', on_delete=models.CASCADE)
-    members = models.ManyToManyField(User_info, related_name='organization_members')
+    create_status = models.IntegerField(choices=((0, "审核中"), (1, "已通过"), (2, "审核失败")),
+                                        default=0)
+    organization_name = models.CharField(primary_key=True, max_length=30, null=False)
+    creator = models.ForeignKey(User_info, related_name='organization_creator',
+                                on_delete=models.DO_NOTHING, blank=True)
+    master = models.ForeignKey(User_info, related_name='organization_master',
+                               on_delete=models.CASCADE, blank=True)
+    members = models.ManyToManyField(User_info, related_name='organization_members', blank=True)
     description = models.CharField(max_length=1000, null=True)
     create_date = models.DateTimeField(null=True, blank=True)
-    org_logo = models.ImageField(upload_to=org_logo_path, null=False, default='default_org_logo.jpg')
-    announcements = models.ManyToManyField(ClubAnnouncements, related_name='organization_announcements')
+    org_logo = models.ImageField(upload_to=org_logo_path, null=False,
+                                 default='default_org_logo.jpg')
+    announcements = models.ManyToManyField(ClubAnnouncements,
+                                           related_name='organization_announcements',
+                                           blank=True)
     
     def __str__(self):
         return self.organization_name
