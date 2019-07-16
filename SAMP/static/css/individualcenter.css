@@ -1,0 +1,38 @@
+.navbar-left
+{
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    top:0px;
+    left: 0px;
+
+    background-color:gray;
+}
+.contextbox
+{
+    position: absolute;;
+    
+    top:100px;
+    left: 200px;
+    margin: auto;
+    width: 100%;
+    min-width: 800px;
+}
+.avatar
+{
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    overflow: hidden;
+}
+.userbox
+{
+    position: relative;
+    top: 150px;
+    text-align: center;
+}
+.username
+{
+    color: white;
+    font-size: 20px;
+}
