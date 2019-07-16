@@ -35,12 +35,14 @@ urlpatterns = [
     path('myclub/', userpage.myclub),
     path('updateuserinfo/', userpage.updateuserinfo),
     path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
-    path('clubinfo/', searchclub.clubinfo),
+    path('clubpage/', searchclub.clubpage),
     path('clubbulletin/', clubbulletin.clubbulletin),
-    path('clubmembers/',clubbulletin.clubmembers),
+    path('clubmembers/', clubbulletin.clubmembers),
+    path('clubmembers/approve/', clubbulletin.approve),
+    path('clubmembers/deny/', clubbulletin.clubmembers),
     path('addannouncement/', clubbulletin.addannouncement),
-    path('joinclub/',searchclub.joinclub),
-    path('quitclub/',searchclub.quitclub),
+    path('joinclub/', searchclub.joinclub),
+    path('quitclub/', searchclub.quitclub),
 
     # re_path(r'.', view.redir_to_index),
 

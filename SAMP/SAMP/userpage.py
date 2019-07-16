@@ -20,8 +20,8 @@ def userpage(request):
     info = result['info']
     
     context['islogin'] = True
-    context['name']=info['user_name']
-    context['sex']= {
+    context['name'] = info['user_name']
+    context['sex'] = {
         1: 'MALE',
         2: 'FEMALE'
     }.get(info['gender'], 'UNKNOWN')
@@ -63,6 +63,8 @@ def updateuserinfo(request):
     gender = request.POST.get('gender', None)
     motto = request.POST.get('motto', None)
     birth_date = request.POST.get('birth_date', None)
+    print(type(birth_date))
+    print(birth_date)
     
     if gender is None or motto is None or birth_date is None:
         response = HttpResponse(render(request, 'updateuserinfo.html', context))
@@ -76,11 +78,14 @@ def updateuserinfo(request):
     
     try:
         info['gender'] = int(gender)
-        info['birth_date'] = datetime.datetime.strptime(birth_date, '%Y-%m-%d')
-        info['motto']=motto
+        if not 0 <= info['gender'] <= 2:
+            info['gender'] = 0
+        if 0 < len(birth_date):
+            info['birth_date'] = datetime.datetime.strptime(birth_date, '%Y-%m-%d')
+        info['motto'] = motto
     
     except ValueError:
-        fail_notice = 'Illegal data format!'
+        fail_notice = 'Update Failed'
         context['title'] = fail_notice
         context['url'] = '../updateuserinfo/'
         context['error_msg'] = fail_notice
