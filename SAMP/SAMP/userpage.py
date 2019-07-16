@@ -73,10 +73,9 @@ def updateuserinfo(request):
 	user_logo = request.FILES.get('user_photo', None)
 	if user_logo is not None:
 		info['user_logo'] = user_logo
-		print('user_logo is not None')
 
 	try:
-		info['gender']=int(gender)
+		info['gender'] = int(gender)
 		info['birth_date'] = datetime.datetime.strptime(birth_date, '%Y-%m-%d')
 		info['motto']=motto
 
