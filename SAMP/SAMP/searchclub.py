@@ -80,6 +80,9 @@ def clubinfo(request):
 	return HttpResponseRedirect("../searchclub/")
 
 def joinclub(request):
+        iden = request.GET.get('iden')
+        if iden is None:
+                return render(request, "searchclub.html")
         result = function.join_org(request.COOKIES['id'], request.GET["iden"])
         if result["success"] == False:
                 context = {}
@@ -102,9 +105,12 @@ def joinclub(request):
                 context["error"] = "You have joined the association!"
                 context["isjoin"] = org_info['isjoin']
                 return render(request, "clubpage.html", context)
-        return render(request, "jump.html", {"title": "join successfully!", "url": "../", "error_msg": "You have joined the association successfully!"})
+        return render(request, "jump.html", {"title": "join successfully!", "url": ("../clubinfo/?iden={0}".format(iden)), "error_msg": "You have joined the association successfully!"})
 
 def quitclub(request):
+        iden = request.GET.get('iden')
+        if iden is None:
+                return render(request, "jump.html", {"title": "error!", "url": "/", "error_msg": "You have failed quiting the association!"})
         result1 = function.exit_org(request.COOKIES['id'], request.GET["iden"])
         if result1["success"] == False:
                 context = {}
