@@ -82,7 +82,7 @@
                 
                 <input type="password" id="rawpsd" name="rawpsd" class="form-control" placeholder="原始密码" required autofocus>
                 <div class="alert-warning" id="warning1">
-                    密码错误。{{error}}
+                    原密码输入错误。
                 </div>
                 <label for="inputPassword" class="sr-only">新密码</label>
                 <input type="password" id="newpsd" name="newpsd" class="form-control" placeholder="新密码" required>
@@ -103,14 +103,52 @@
     <script>
         function checkpsd()
         {
-            var newpsd = document.getElementById("newpsd");
-            var cnewpsd = document.getElementById("cnewpsd");
+            var rawpsd = document.getElementById("rawpsd").value;
+            var newpsd = document.getElementById("newpsd").value;
+            var cnewpsd = document.getElementById("cnewpsd").value;
+            alert(rawpsd);
+            alert(newpsd);
+            alert(cnewpsd);
             if(newpsd != cnewpsd)
             {
                 $("#warning2").css("display","block");
                 return false;
             }
-            return true;
+            else
+            {
+              $.ajax(
+              {
+                url:'../checkpsd/',
+                type:'GET',
+                data:
+                {
+                  name:{{name}},
+                  pswd:rawpsd
+                },
+                success:function(data)
+                {
+                  alert("hello");
+                  if(data)
+                  {
+                    return true;
+                  }
+                  else
+                  {
+                    $("#warning1").css("display","block");
+                    return false;
+                  }
+                  
+                },
+                error:function()
+                {
+                  alert("请求失败！");
+                  return false;
+                }
+              })
+              alert("nihoa");
+            }
+            
+            return false;
         }
     </script>
   </body>
