@@ -1,34 +1,168 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>社团成员</title>
-       
+<html lang="en">
+  <head>
+    <title>{{org_name}}社团成员</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <style></style>
-    </head>
-    <body>
-    <p>简陋版，测试用</p>
-    <p>Members: </p>
-    {%for member in members%}
-    <div style="float: left;">
-        <img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 100px ; height: 100px">
-        <p>{{member.name.name}}</p>
-    </div>
-    <div></div>
-    {%endfor%}
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+    <link rel="stylesheet" href="../static/css/individualcenter.css">
 
-    {% if ismanager %}
-        <p>Applying Members: </p>
-        {%for member in applying_members%}
-        <div style="float: left;">
-            <img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 100px ; height: 100px">
-            <p>{{member.name}}</p>
-            <p>{{member.time}}</p>
-            <p>{{member.status}}</p>
+    <style type="text/css">
+       .table
+        {
+            width: 700px;
+            position: relative;
+            color:black;
+            left: 100px;
+            font-size: 20px;
+            margin: 0px 200px;
+        }
+        .col1
+        {
+            width: 200px;
+        }
+        .col2
+        {
+            width: 300px;
+        }
+        .col3
+        {
+            width: 200px;
+        }
+    </style>
+  </head>
+  <body>
+      <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="../index/" title="">Pikachu</a>
+            </div>
+
+            <div id="navbar-collapse" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a href="../index/">Home</a></li>
+
+                      <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">我的社团</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="../searchclub/">加入社团</a></li>
+                          <li><a href="../createclub/">创建社团</a></li>
+                          <li><a href="../myclub/">管理社团</a></li>
+                        </ul>
+                      </li>
+
+                      <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="../userpage/">我的信息</a></li>
+                          <li><a href="../updateuserinfo/">修改信息</a></li>
+                          <li><a href="">修改密码</a></li>
+                        </ul>
+                      </li>
+                <li class="probootstra-cta-button last"><a href="../logout/" class="btn btn-ghost">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+    <!--左侧导航-->
+    <div class="navbar-left">
+        <div class="userbox">
+            <!--<a href="../updateuserinfo/" class="probootstrap-team"></a>-->
+            <img src="..{{MEDIA_URL}}{{org_logo}}" alt="" class="avatar">
+            <!--<div class="probootstrap-team-info">
+                <h3>修改头像</h3>
+              </div>-->
+            <br>
+            <span class="username">{{ org_name }}</span>
         </div>
-        <div></div>
-        {%endfor%}
-    {% endif %}
-    </body>
+    <div style="position: relative;top:150px;">
+            <ul class="nav nav-pills nav-stacked" >
+
+              <!--是否是社团管理人-->
+              <!--{% if ismanager %}
+              <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
+              <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
+              <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
+              <li><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
+              <li><a href="../createclub/">创建社团</a></li>
+              <li><a href="../searchclub/">查找社团</a></li>-->
+              <!--{% else %}-->
+              <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
+              <li class="active"><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
+              <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
+              <li><a href="../createclub/">创建社团</a></li>
+              <li><a href="../searchclub/">查找社团</a></li>
+              <!--<li><a href="#">活动申请</a></li>
+              <li><a href="#">修改密码</a></li>-->
+              <!--{% endif %}-->
+            </ul>
+    </div>
+</div>
+
+
+
+    <div class="contextbox">
+        <table class="table ">
+            <thead>
+                <td colspan="3"><h1>社团成员</h1></td>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col1">成员：</td>
+                    <td class="col2">&nbsp;</td>
+                    <td class="col3">&nbsp;</td>
+                </tr>
+
+
+                {% if ismanager %}
+                    {%for member in members %}
+                    <tr style="height: 60px">
+                        <td class="col1"><img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
+                        <td class="col2"><p>{{member.name}}</p></td>
+                        <td class="col3">
+                            {% if member.num == 0 %}
+                            <p>审核
+                            <a class="btn btn-ghost" href="../clubmembers/?iden={{org_name}}&{{member.name}}">同意</a>
+                            <a class="btn btn-ghost" href="../clubmembers/?iden={{org_name}}&{{member.name}}">拒绝</a>
+                            </p>
+                            {% elif member.num == 1 %}
+                            <p>通过</p>
+                            {% elif member.num == 2 %}
+                            <p>拒绝</p>
+                            {% elif member.num == 3 %}
+                            <p>退出</p>
+                            {% elif member.num == 4 %}
+                            <p>踢出</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {%endfor%}
+                {% else %}
+                    {% for member in members %}
+                    {% if member.num==1 %}
+                    <tr style="height: 60px">
+                        <td class="col1"><img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
+                        <td colspan="2"><p>{{member.name}}</p></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+  </body>
 </html>

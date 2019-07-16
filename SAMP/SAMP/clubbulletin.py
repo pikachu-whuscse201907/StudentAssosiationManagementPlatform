@@ -167,3 +167,11 @@ def clubmembers(request):
     
     return HttpResponse(render(request, 'clubmembers.html', context))
 # Ending of function clubmembers(request)
+
+
+def approve(request):
+    ''
+
+
+def deny(request):
+    ''
