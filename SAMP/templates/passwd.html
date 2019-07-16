@@ -80,14 +80,14 @@
                 <h1 class="form-signin-heading">修改密码</h1>
                 <label for="inputPassword" class="sr-only">原始密码</label>
                 
-                <input type="password" id="rawpsd" name="rawpsd" class="form-control" placeholder="原始密码" required autofocus>
+                <input type="password" id="rawpsd" name="rawpsd" class="form-control" placeholder="原始密码" required autofocus  onfocus="clearwarning();">
                 <div class="alert-warning" id="warning1">
                     原密码输入错误。
                 </div>
                 <label for="inputPassword" class="sr-only">新密码</label>
-                <input type="password" id="newpsd" name="newpsd" class="form-control" placeholder="新密码" required>
+                <input type="password" id="newpsd" name="newpsd" class="form-control" placeholder="新密码" required  onfocus="clearwarning();">
                 <label for="inputPassword" class="sr-only">确认新密码</label>
-                <input type="password" id="cnewpsd" name="cnewpsd" class="form-control" placeholder="确认新密码" required>
+                <input type="password" id="cnewpsd" name="cnewpsd" class="form-control" placeholder="确认新密码" required  onfocus="clearwarning();">
                 <div class="alert-warning" id="warning2">
                 两次输入内容不一致！
                 </div>
@@ -116,39 +116,38 @@
             }
             else
             {
-              $.ajax(
+              var content ={
+                  name:"{{name}}",
+                  pswd:rawpsd,
+              };
+              var http_request = new XMLHttpRequest();
+              http_request.open('GET','../checkpsd/');
+              http_request.send(content);
+              if(http_request.readyState == 4 && http_request.status == 200)
               {
-                url:'../checkpsd/',
-                type:'GET',
-                data:
-                {
-                  name:{{name}},
-                  pswd:rawpsd
-                },
-                success:function(data)
-                {
-                  alert("hello");
-                  if(data)
+                  if(http_request.responseText == "true")
                   {
-                    return true;
+                      return true;
                   }
                   else
                   {
                     $("#warning1").css("display","block");
                     return false;
                   }
-                  
-                },
-                error:function()
-                {
-                  alert("请求失败！");
-                  return false;
-                }
-              })
-              alert("nihoa");
+              }
+              else
+              {
+                alert("请求失败");
+                return false;
+              }
             }
             
-            return false;
+            return true;
+        }
+        function clearwarning()
+        {
+          $("#warning2").css("display","none");
+          $("#warning1").css("display","none");
         }
     </script>
   </body>
