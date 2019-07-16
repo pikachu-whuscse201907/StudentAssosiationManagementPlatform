@@ -1,25 +1,203 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>My Club</title>
-       
+<html lang="en">
+  <head>
+    <title>{{name}}的主页</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <style></style>
-    </head>
-    <body>
-    <p>简陋版，测试用</p>
-    {{ name }} 加入的社团：
-    {%if hasclub == false%}
-    还没有加入任何社团
-    {%endif%}
-    <table>
-        {%for club in clubs%}
-        <tr>
-            <td><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{club.org_logo}}"></td>
-            <td>{{club.organization_name}}</td>
-            <td>{{club.description}}</td>
-        </tr>
-        {%endfor%}
-    </table>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+    <link rel="stylesheet" href="../static/css/individualcenter.css">
+    <style>
+      .td1
+      {
+        width: 150px;
+      }
+      .td2
+      {
+        width: 700px;
+      }
+    </style>
+  </head>
+  <body>
     
+    <!-- Fixed navbar -->
+    <!-- navbar-fixed-top  -->
+    <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index" title="">Pikachu</a>
+        </div>
+
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="probootstra-cta-button last"><a href="../logout" class="btn btn-ghost">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!--左侧导航-->
+    <div class="navbar-left">
+            <div class="userbox">
+                <a href="../updateuserinfo" class="probootstrap-team">
+                <img src="..{{MEDIA_URL}}{{img}}" alt="" class="avatar">
+                <div class="probootstrap-team-info">
+                    <h3>修改头像</h3>
+                  </div>
+                </a>
+                <span class="username">{{name|truncatewords:"15"}}</span>
+            </div>
+        <div style="position: relative;top:150px;">
+                <ul class="nav nav-pills nav-stacked" >
+                  <li><a href="../userpage">个人信息</a></li>
+                  <li class="active"><a href="../myclubs">我的社团</a></li>
+                  <li><a href="../mybulletin">公告通知</a></li>
+                  <li><a href="../createclub">创建社团</a></li>
+                  <li><a href="../searchclub">加入社团</a></li>
+                  <li><a href="#">活动申请</a></li>
+                  <li><a href="../passwd">修改密码</a></li>
+                </ul>
+        </div>
+    </div>
+    <div class="contextbox">
+      <div class="page-header" style="margin-left: 150px">
+        <h1>我的社团</h1>
+      </div>
+
+      <div class="panel-group" id="accordion" style="margin-left: 150px;width: 1000px">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseOne">
+                      我加入的社团
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                      {%if not hasjoinedclub%}
+                      还没有加入任何社团
+                      {%endif%}
+                      <table class="table">
+                          {%for club in joinedclubs%}
+                          <tr>
+                              <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{club.org_logo}}">{{club.organization_name}}</td>
+                              <td class = "td2">{{club.description}}</td>
+                              <td class = "td3">
+                                <a class="btn btn-ghost" href="#">查看社团</a>
+                                <a class="btn btn-ghost" href="#">退出社团</a>
+                              </td>
+                          </tr>
+                          {%endfor%} 
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseTwo">
+                      我管理的社团
+                  </a>
+                  </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body">
+                  {%if not hasmanagedclub%}
+                      还没有管理任何社团
+                  {%endif%}
+                  <table class="table">
+                      {%for managedclub in managedclubs%}
+                      <tr>
+                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{managedclub.org_logo}}"></td>
+                          <td class = "td2">{{managedclub.description}}</td>
+                          <td class = "td3">
+                              <a class="btn btn-ghost" href="#">管理社团</a>
+                              <a class="btn btn-ghost" href="#">退出社团</a>
+                          </td>
+                      </tr>
+                      {%endfor%} 
+                  </table>
+                  
+              </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseThree">
+                      我申请的社团
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse">
+                  <div class="panel-body">
+                  {%if not hasappliedclub%}
+                      还没有申请任何社团
+                  {%endif%}
+                  <table class="table">
+                      {%for appliedclub in appliedclubs%}
+                      <tr>
+                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{appliedclub.org_logo}}"></td>
+                          <td class = "td2">{{appliedclub.description}}</td>
+                          <td class = "td3">
+                            {%if appliedclub.status == 0%}
+                              <span class="label label-default">审核中……</span>
+                            {%elif appliedclub.status == 1 %}
+                              <span class="label label-success">审核通过</span>
+                            {%elif appliedclub.status == 2 %}
+                              <span class="label label-danger">失败</span>
+                            {%endif%}
+                          </td>
+                      </tr>
+                      {%endfor%} 
+                  </table>
+                  </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseFour">
+                      我创建的社团
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseFour" class="panel-collapse collapse">
+                  <div class="panel-body">
+                  {%if not hascreatedclub%}
+                      还没有创建任何社团
+                  {%endif%}
+                  <table class="table">
+                    {%for createdclub in createdclubs%}
+                    <tr>
+                        <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{createdclub.org_logo}}"></td>
+                        <td class = "td2">{{createdclub.description}}</td>
+                        <td class = "td3">
+                          {%if createdclub.status == 0%}
+                            <span class="label label-default">审核中……</span>
+                          {%elif createdclub.status == 1 %}
+                            <span class="label label-success">审核通过</span>
+                          {%elif createdclub.status == 2 %}
+                            <span class="label label-danger">失败</span>
+                          {%endif%}
+                        </td>
+                    </tr>
+                    {%endfor%} 
+                  </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    </div>
+    <script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+  </body>
+</html>
