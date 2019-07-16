@@ -32,7 +32,7 @@
 
         <div id="navbar-collapse" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="probootstra-cta-button last"><a href="../logout" class="btn btn-ghost" data-toggle="modal" data-target="#signupModal">Logout</a></li>
+            <li class="probootstra-cta-button last"><a href="../logout" class="btn btn-ghost">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -146,11 +146,11 @@
                           <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{appliedclub.org_logo}}"></td>
                           <td class = "td2">{{appliedclub.description}}</td>
                           <td class = "td3">
-                            {%if appliedclub.status == 1%}
+                            {%if appliedclub.status == 0%}
                               <span class="label label-default">审核中……</span>
-                            {%elif appliedclub.status == 2 %}
+                            {%elif appliedclub.status == 1 %}
                               <span class="label label-success">审核通过</span>
-                            {%elif appliedclub.status == 0 %}
+                            {%elif appliedclub.status == 2 %}
                               <span class="label label-danger">失败</span>
                             {%endif%}
                           </td>
@@ -171,7 +171,7 @@
               </div>
               <div id="collapseFour" class="panel-collapse collapse">
                   <div class="panel-body">
-                  {%if hascreatedclub == false%}
+                  {%if not hascreatedclub%}
                       还没有创建任何社团
                   {%endif%}
                   <table class="table">
@@ -180,11 +180,11 @@
                         <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{createdclub.org_logo}}"></td>
                         <td class = "td2">{{createdclub.description}}</td>
                         <td class = "td3">
-                          {%if createdclub.status == 1%}
+                          {%if createdclub.status == 0%}
                             <span class="label label-default">审核中……</span>
-                          {%elif createdclub.status == 2 %}
+                          {%elif createdclub.status == 1 %}
                             <span class="label label-success">审核通过</span>
-                          {%elif createdclub.status == 0 %}
+                          {%elif createdclub.status == 2 %}
                             <span class="label label-danger">失败</span>
                           {%endif%}
                         </td>
