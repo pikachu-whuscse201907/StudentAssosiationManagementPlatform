@@ -98,9 +98,9 @@ def joinclub(request):
     result = function.join_org(cookie_id, org_name)
     
     if result["success"] == False:
-        result = search.get_org_info(org_name, cookie_id)
+        result_org_info = search.get_org_info(org_name, cookie_id)
 
-        org_info = result["org_info"]
+        org_info = result_org_info["org_info"]
         context["org_logo"] = org_info["org_logo"]
         context["org_name"] = org_info['org_name']
         context["org_description"] = org_info['org_description']
