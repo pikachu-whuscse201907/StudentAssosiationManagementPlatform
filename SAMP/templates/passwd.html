@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>修改密码</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+    <link rel="stylesheet" href="../static/css/individualcenter.css">
+    <style>
+        .form-passwd
+        {
+            width: 400px;
+            position: relative;
+            left: 150px;
+            top: 100px;
+        }
+        .form-control
+        {
+            margin-top: 20px;
+        }
+        .btn
+        {
+            margin-top:20px;
+        }
+        .alert-warning
+        {
+            display: none;
+        }
+    </style>
+  </head>
+  <body>
+    
+    <!-- Fixed navbar -->
+    <!-- navbar-fixed-top  -->
+    <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index/" title="">Pikachu</a>
+        </div>
+
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="probootstra-cta-button last"><a href="../logout/" class="btn btn-ghost" data-toggle="modal" data-target="#signupModal">Logout</a></li>
+          </ul>
+        </div>
+        
+      </div>
+      
+    </nav>
+
+    <!--左侧导航-->
+    <div class="navbar-left">
+            <div class="userbox">
+                <a href="../updateuserinfo" class="probootstrap-team">
+                <img src="../static/pictures/pikachu.jpg" alt="" class="avatar">
+                <div class="probootstrap-team-info">
+                    <h3>修改头像</h3>
+                  </div>
+                </a>
+                <span class="username">{{name|truncatewords:"15"}}</span>
+            </div>
+        <div style="position: relative;top:150px;">
+                <ul class="nav nav-pills nav-stacked" >
+                  <li><a href="../userpage/">个人信息</a></li>
+                  <li><a href="../myclub/">我的社团</a></li>
+                  <li><a href="../mybulletin/">公告通知</a></li>
+                  <li><a href="../createclub/">创建社团</a></li>
+                  <li><a href="../searchclub/">加入社团</a></li>
+                  <li><a href="#">活动申请</a></li>
+                  <li  class="active"><a href="../passwd/">修改密码</a></li>
+                </ul>
+        </div>
+    </div>
+    <div class="contextbox">
+        <form class="form-passwd form-horizontal" onsubmit="return checkpsd();" action="./" method="POST">
+            {% csrf_token %}
+                <h1 class="form-signin-heading">修改密码</h1>
+                <label for="inputPassword" class="sr-only">原始密码</label>
+                
+                <input type="password" id="rawpsd" name="rawpsd" class="form-control" placeholder="原始密码" required autofocus>
+                <div class="alert-warning" id="warning1">
+                    密码错误。
+                </div>
+                <label for="inputPassword" class="sr-only">新密码</label>
+                <input type="password" id="newpsd" name="newpsd" class="form-control" placeholder="新密码" required>
+                <label for="inputPassword" class="sr-only">确认新密码</label>
+                <input type="password" id="cnewpsd" name="cnewpsd" class="form-control" placeholder="确认新密码" required>
+                <div class="alert-warning" id="warning2">
+                两次输入内容不一致！
+                </div>
+                {{error}}<br>
+                <a class="btn btn-ghost " href="../userpage/">返回</a>
+                <button class="btn btn-primary " type="submit">确认修改</button> 
+                
+              </form>
+
+    </div>
+    <script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+    <script>
+        function checkpsd()
+        {
+            var newpsd = document.getElementById("newpsd");
+            var cnewpsd = document.getElementById("cnewpsd");
+            if(newpsd != cnewpsd)
+            {
+                $("#warning2").css("display","block");
+                return false;
+            }
+            return true;
+        }
+    </script>
+  </body>
+</html>
