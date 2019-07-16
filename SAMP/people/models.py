@@ -5,11 +5,11 @@ import os
 
 # Create your models here.
 class Person(models.Model):
-    name = models.CharField(max_length=30,null=False)
-    pswd = models.CharField(max_length=256,null=False)
+    name = models.CharField(max_length=30, null=False)
+    pswd = models.CharField(max_length=256, null=False)
     cookie_id = models.CharField(max_length=256,null=True)
-    cookie_create_time = models.DateTimeField(blank=True,null=True)
-    cookie_expire = models.DateTimeField(blank=True,null=True)
+    cookie_create_time = models.DateTimeField(blank=True, null=True)
+    cookie_expire = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -44,11 +44,11 @@ def org_logo_path(instance, filename):
 # Ending of function org_logo_path(instance, filename)
 
 
-class ClubPronounces(models.Model):
+class ClubAnnouncements(models.Model):
     title = models.CharField(null=False, blank=False, max_length=20)
     create_date = models.DateTimeField(null=False, blank=False)
     content = models.CharField(null=False, blank=False, max_length=100)
-    publisher = models.ForeignKey(User_info, null=True, related_name='clubpronounce_publisher', on_delete=models.SET_NULL)
+    publisher = models.ForeignKey(User_info, null=True, related_name='clubannouncement_publisher', on_delete=models.SET_NULL)
     
     
 # organization information
@@ -60,7 +60,7 @@ class Organizations(models.Model):
     description = models.CharField(max_length=1000, null=True)
     create_date = models.DateTimeField(null=True, blank=True)
     org_logo = models.ImageField(upload_to=org_logo_path, null=False, default='default_org_logo.jpg')
-    pronounces = models.ManyToManyField(ClubPronounces, related_name='organization_pronounces')
+    announcements = models.ManyToManyField(ClubAnnouncements, related_name='organization_announcements')
     
     def __str__(self):
         return self.organization_name

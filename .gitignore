@@ -5,6 +5,6 @@ db.sqlite3
 workspace.xml
 venv/
 .idea/
-media/org_logo/
-media/user_logo/
+org_logo/
+user_logo/
 migrations/
