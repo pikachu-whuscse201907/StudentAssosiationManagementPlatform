@@ -3,7 +3,7 @@ from .verify import *
 from .database.delete import delete_cookie
 from .database.save import save_cookie
 from .database.search import user_of_username, user_of_cookie
-from .database.function import *
+from .database import function, search
 import os
 from . import view
 
@@ -14,7 +14,7 @@ def userpage(request):
 	if cookie_id is None:
 		return view.response_not_logged_in(request)
 
-	result = get_user_info(cookie_id)  # call database
+	result = function.get_user_info(cookie_id)  # call database
 	if not result['success']:
 		return view.response_not_logged_in(request)
 	info = result['info']
@@ -44,7 +44,7 @@ def updateuserinfo(request):
 	if cookie_id is None:
 		return view.response_not_logged_in(request)
 
-	result = get_user_info(cookie_id)  # call database
+	result = function.get_user_info(cookie_id)  # call database
 	if not result['success']:
 		return view.response_not_logged_in(request)
 	info = result['info']
@@ -88,7 +88,7 @@ def updateuserinfo(request):
 		return HttpResponse(render(request, 'jump.html', context))
 
 	try:
-		result = update_user_info(cookie_id, info) # update database
+		result = function.update_user_info(cookie_id, info) # update database
 
 		assert result['success'] == True
 
@@ -104,3 +104,25 @@ def updateuserinfo(request):
 	context['error_msg'] = 'You have updated your information successfully!'
 	return HttpResponse(render(request, 'jump.html', context))
 # Ending of function updateuserinfo(request)
+
+
+def myclub(request):
+	context = {}
+	cookie_id = request.COOKIES.get('id', None)
+	user = search.user_of_cookie(cookie_id)
+	user_info = search.user_info_of_user(user)
+	
+	if user_info is None:
+		return view.response_not_logged_in(request)
+	
+	context['islogin'] = True
+	context['name'] = user_info.name.name
+	myclubs = user_info.organization_members.all()
+	if 0 < len(myclubs):
+		context['hasclub'] = True
+	else:
+		context['hasclub'] = False
+	context['clubs'] = myclubs
+	
+	response = HttpResponse(render(request, 'myclub.html', context))
+	return response

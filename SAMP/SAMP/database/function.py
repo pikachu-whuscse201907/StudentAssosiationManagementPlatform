@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from ..view import *
-from people.models import Person, User_info, Organizations
+from people.models import Person, User_info, Organizations, ClubPronounces
 from ..Cookie import *
 from .delete import delete_cookie
 from .save import save_cookie
@@ -51,6 +51,8 @@ def save_default_user_info(username):
 
 # 查看用户信息
 def get_user_info(cookie_id):
+	if cookie_id is None:
+		return None
 	response = Person.objects.filter(cookie_id=cookie_id)
 	result = {}
 	result['info'] = {}
@@ -103,14 +105,15 @@ def create_org(cookie_id, creator, org_name, org_description, img):
 		result['success']=False
 		result['notice']='{0} haven\'t log in! Please log in first!'.format(creator)
 		return result
-	user_info = User_info.objects.get(name = response[0])
-	org_create = Organizations.objects.create(organization_name=org_name, description=org_description, creator=user_info, org_logo=img)
+	user_info = User_info.objects.get(name=response[0])
+	org_create = Organizations.objects.create(organization_name=org_name, description=org_description, master=user_info, creator=user_info, org_logo=img)
 	# org_create.create_data=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+	org_create.description = org_description
 	org_create.create_date = datetime.datetime.now()
+	org_create.members.add(user_info)
 	org_create.save()
 	result['success'] = True
 	return result
-
 
 # 搜索社团
 def search_org(cookie_id, search_content):
@@ -134,7 +137,6 @@ def search_org(cookie_id, search_content):
 		result['org_list']=org_list
 		return result
 
-
 # 群主删除成员，提交群主的cookie_id
 def delete_member(cookie_id, org_id):
 	response = Person.objects.filter(cookie_id=cookie_id)
@@ -150,8 +152,56 @@ def delete_member(cookie_id, org_id):
 	else:
 		result['success']=True
 		name=response[0]['name']
-		members=Organizations.objects.filter(number=org_id)[0]['member']
+		members = Organizations.objects.filter(number=org_id)[0]['member']
 		members.remove('name')
 
 
 # 成员退出社团，提交成员的cookie_id
+def join_org(cookie_id,org_id):
+	response = Person.objects.filter(cookie_id=cookie_id)
+	result={}
+	if len(response)==0:#如果cookie不存在，加入失败
+		result['success']=False
+		result['notice']='The cookie_id is not exist.'
+		return result
+	elif expire(response[0].cookie_expire):#如果cookie过期，加入失败
+		result['success']=False
+		result['notice']='The cookie_id is out of date.'
+		return result
+	else:
+		response_1 = Organizations.objects.filter(organization_name=org_id)#获取该社团信息
+		user_info = User_info.objects.filter(name=response[0])
+		if len(response_1)==0:#该社团不存在，加入失败
+			result['success']=False
+			result['notice']='This organization is not exist.'
+			return result
+		else:#根据输入是社团id,查看社团成员列表member(连接到User_info表），如果该社团存在，则加入失败
+			c=response_1[0].members.all()
+			if list(user_info)[0] in list(c):
+				result['success']=False
+				result['notice']='You have been joined this organization.'
+				return result
+			else:
+				response_1[0].members.add(user_info[0])#将加入者的信息加到该社团的member栏
+				response_1[0].save()
+				result['success']=True
+				return result
+
+def exit_org(cookie_id,org_name):#退出社团
+	response = Person.objects.filter(cookie_id=cookie_id)
+	result={}
+	if len(response)==0:#如果cookie不存在，加入失败
+		result['success']=False
+		result['notice']='The cookie_id is not exist.'
+		return result
+	elif expire(response[0].cookie_expire):#如果cookie过期，加入失败
+		result['success']=False
+		result['notice']='The cookie_id is out of date.'
+		return result
+	else:
+		user_info=User_info.objects.filter(name=response[0])
+		response_1 = Organizations.objects.filter(organization_name=org_name)
+		response_1[0].members.remove(user_info[0])
+		result['success']=True
+		return result
+

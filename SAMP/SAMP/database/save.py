@@ -28,17 +28,3 @@ def update_cookie(User, cookie):
 	else:
 		save_cookie(response[0],cookie)
 
-
-#用户修改信息(除头像外），保存修改的信息
-def modify_info(user_info, info):
-	response = User_info.objects.filter(name=info.name)
-	if len(response) == 0:
-		return None
-	else:
-		user_info.name = info.name
-		user_info.motto = info.name
-		user_info.sex = info.sex
-		user_info.birth_year = info.birth_year
-		user_info.birth_month = info.birth_month
-		user_info.birth_date = info.birth_date
-		user_info.save()

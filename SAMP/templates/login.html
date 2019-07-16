@@ -1,121 +1,187 @@
-<!doctype html>
-<html lang="zh-hans">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LOGIN</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <style>
-        .content {
-
-            margin-top: 200px;/*距离顶部150*/
-
-            opacity: 0.9/*透明度*/
-        }
-        
-        /*登陆按钮样式*/
-        .content button{
-
-            height: 30px;/*按钮高度*/
-
-            color: white;/*字体颜色*/
-
-            font-size: 18px;/*字体大小*/
-
-            border: none;/*无边框*/
-
-            padding: none;/*无内边距*/
-
-            cursor: pointer;/*碰触鼠标变小手*/
-        }
-
-        .content .panel {
-
-            background-color: white;/*面板背景白色*/
-
-            width: 302px;/*宽度*/
-
-            text-align: center;/*字内容居中*/
-
-            margin: auto;/*自身居中*/
-
-            padding-top: 20px;/*顶层内边距20*/
-
-            padding-bottom: 20px;/*底层内边距20*/
-
-            border: 1px solid #ddd;/*边框灰色*/
-
-            border-radius: 5px
-        }
-
-        /*登陆和密码组*/
-        .content .panel .group {
-
-            text-align: left;/*子内容左对齐*/
-
-            width: 262px;/*宽度*/
-
-            margin: 0px auto 20px;/*自身居中,底部内边距*/
-        }
-
-        .content .panel .group label {
-
-            line-height: 30px;
-
-            font-size: 18px;
-        }
-
-        .content .panel .group input {
-
-            display: block;/*将input设置成块独占一行，删了就是账号后面跟着框*/
-
-            width: 250px;/*输入框的宽度*/
-
-            height: 30px;/*输入框高度*/
-
-            border: 1px solid #ddd;/*边框灰色*/
-
-            padding: 0px 0px 0px 10px;/*左边内边框10.而不是紧贴着边输入*/
-
-            font-size: 16px;/*字体大小*/
-        }
-
-        .content .panel .group input:focus {
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>
+	  注册
+	  </title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+ 
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">-->
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
 
 
-            border-left: 1px solid #CC865E;/*当输入框成为焦点时，左边框颜色编程褐色*/
+  </head>
+	
+<style type="text/css">
+	/*设置内容模块距离顶部一个有一段距离150px*/
 
-        }
+.content {
+
+margin-top: 50px;
+
+opacity: 0.9
+}
 
 
-        .content .panel .login button {
+/*登录和注册按钮的整体样式*/
 
-            background-color: #CC865E;/*背景色褐色*/
+.content button {
 
-            width: 260px;/*宽度*/
-        }
+height: 30px;/*登录和注册按钮的高度*/
 
-        .content .panel .login button:hover {
+color: white;/*登录和注册按钮字体颜色为白色*/
 
-            background-color: white;/*触碰背景变白*/
+font-size: 18px;/*登录和注册按钮的字体大小*/
 
-            color: #CC865E;/*文字变褐色*/
+border: 0px;/*无边框*/
 
-            border: 1px solid #CC865E;/*边框变褐色*/
+padding: 0px;/*无内边距*/
 
-        }
+cursor: pointer;/*登录和注册按钮的选择时为手形状*/
 
-        .button {
+}
 
-            text-decoration: none;/*无下划线*/
 
-            color: #CC865E;/*字体颜色*/
-        }
 
-    </style>
-    <script>
+/*登录面板*/
+
+.content .panel {
+
+background-color: white;/*登录面板背景颜色为白色*/
+
+width: 350px;/*宽度为302px*/
+
+text-align: center;/*子内容居中*/
+
+margin: 0px auto;/*自身居中*/
+
+padding-top: 20px;/*顶部的内边距为20px*/
+
+padding-bottom: 20px;/*底部的内边距为20px*/
+
+border: 1px solid #ddd;/*边框颜色为灰色*/
+
+border-radius: 5px;/*边框边角有5px的弧度*/
+
+
+}
+
+
+/*登录和密码组*/
+
+.content .panel .group {
+
+text-align: left;/*子内容左对齐*/
+
+width: 262px;/*宽度为262px*/
+
+margin: 0px auto 20px;/*自身居中，并距离底部有20px的间距*/
+
+}
+
+.content .panel .group label {
+
+line-height: 30px;/*高度为30px*/
+
+font-size: 18px;/*字体大小为18px*/
+
+}
+
+.content .panel .group input {
+
+display: block;/*设置为块，是为了让输入框独占一行*/
+
+width: 250px;/*宽度为250px*/
+
+height: 30px;/*高度为30px*/
+
+border: 1px solid #ddd;/*输入框的边框*/
+
+padding: 0px 0px 0px 10px;/*左边内边距为10px，显得美观*/
+
+font-size: 16px;/*字体大小*/
+
+margin: 0px auto;
+
+}
+
+.content .panel .group input:focus{
+
+
+border-left: 1px solid #CC865E;/*当输入框成为焦点时，左边框颜色编程褐色*/
+
+}
+
+.content .panel .register button {
+
+background-color: #CC865E;/*按钮的背景颜色*/
+
+width: 260px;/*按钮的宽度*/
+
+}
+
+.content .panel .register button:hover {
+
+background-color: white;/*按钮选中后背景颜色为白色*/
+
+color: #CC865E;/*按钮选中后字体颜色为褐色*/
+
+border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色*/
+
+}
+
+
+
+/*注册按钮*/
+/*下面几个应该是没用的，最后两个button有用*/
+
+.content .panel .login button {
+
+background-color: #CC865E;/*按钮的背景颜色为蓝色*/
+
+width: 250px;/*按钮的宽度*/
+
+}
+
+
+.content .panel .login button:hover {
+
+background-color: white;/*按钮选中后背景颜色为白色*/
+
+color: #CC865E;/*按钮选中后字体颜色为褐色*/
+
+border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466BAF*/
+
+}
+
+.button {
+	/*background-color: #CC865E;/*按钮的背景颜色为褐色*/
+
+	/*width: 0px;/*按钮的宽度*/
+
+	text-decoration: none;/*无下划线*/
+
+	color: #CC865E;
+}
+
+.button:hover {
+	/*background-color: white;/*按钮选中后背景颜色为白色*/
+
+	color: #FF0000;/*按钮选中后字体颜色为红色是*/
+
+/*border: 1px solid #CC865E;/*按钮选中后边框颜色为褐色，蓝色是466BAF*/
+}
+
+
+</style>
+	
+<script>
     //字符串过滤
     function str_filter()
     {
@@ -146,10 +212,38 @@
         return true;
     }
     </script>
-</head>
 
-<body background="../static/register_background.jpg" style="background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
-    <div class="content">
+  <body>
+    <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index" title="uiCookies:Inspire">Inspire</a>
+        </div>
+
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+	
+		
+			<ul class="nav navbar-nav navbar-right">
+            <li><a href="../index">Home</a></li>
+
+           <li class="probootstra-cta-button last"><a href="../register">Sign up</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    
+
+    <section class="probootstrap-hero">
+      <div class="container">
+        <div class="content">
         <!--总内容模块-->
         <div class="panel">
             <!--登陆面板-->
@@ -173,13 +267,7 @@
 
             <div>
                 &nbsp&nbsp&nbsp&nbsp&nbsp
-                <div>
-                    <a href="../index" class="button">返回主页</a>
-                </div>
-                &nbsp&nbsp&nbsp&nbsp&nbsp 
-                <div>
-                    <a href="../register" class="button">没有账号？注册</a>
-                </div>
+                
 
             </div>
             
@@ -189,7 +277,10 @@
            
         </div>
     </div>
-
-    
-</body>
+       
+      </div>
+    </section>
+<script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+  </body>
 </html>

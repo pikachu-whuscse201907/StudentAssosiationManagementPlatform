@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>创建社团</title>
-        <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <style type="text/css">
-            .infobox
-            {
-                margin: auto;
-                width: 600px;
-            }
-            #photobox
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>
+	  PKC主页
+	  </title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">-->
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+	  <style type="text/css">
+	  	#photobox
             {
                 width: 120px;
                 height: 120px;
@@ -30,45 +39,17 @@
                 width: 120px;
                 height: 120px;
             }
-            #lookbutton
+		  #lookbutton
             {
                 opacity: 0;
                 width: 0px;
+
                 height: 0px;
             }
-            .inputbox
-            {
-                margin-top:10px;
-                width:400px ;
-                height: 30px;
-                font-size: 22px;
-                border-radius: 10px;
-                text-indent: 0.5em;
-                border: 1px solid black;   
-                position: relative;
-            }
-            .inputbox:focus
-            {
-                border: 2px solid green;
-            }
-            #subbutton
-            {
-                text-align: center;
-                display: block;
-                margin: auto;
-                height: 40px;
-                width: 80px;
-                background-color: green;
-                font-size: 20px;
-                margin-top:10px;
-                border-radius: 10px;
-            }
-            #subbutton:hover
-            {
-                background-color: darkgreen;
-            }
-        </style>
-        <script>
+	  </style>
+	  
+	  
+	 <script>
             function showphoto(obj)
             {
                 //预览头像
@@ -93,78 +74,264 @@
                     return true;
                 }
             }
-        </script>
-    </head>
-    <body>
-        <!--背景图-->
-        <div class = "bk">
-            <img src="../static/pictures/bk.jpg" class="bkimg">
+        </script> 
+	 
+  </head>
+  <body>
+    
+    <!-- Fixed navbar -->
+    <!-- navbar-fixed-top  -->
+    
+    
+    <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index" title="uiCookies:Inspire">Inspire</a>
         </div>
-        <!--导航栏-->
-        <div>
-            <div class="nav_menu box">
-            <div class="backbutton menuitem"><a href="../index"><主页</a></div>
-                <!--我的社团下拉菜单-->
-                <div class="menuitem">
-                    <div>我的主页</div>
-                    <div class="submenu"><a href="../userpage">个人信息</a></div>
-                    <div class="submenu"><a href="../logout">登出</a></div>
-                    <div class="submenu"><a href="#">submenu</a></div>
-                    <div class="submenu"><a href="#">submenu</a></div>
-                </div>
-                <div class="menuitem">
-                    <div>我的社团</div>
-                    <div class="submenu"><a href="../searchclub">加入社团</a></div>
-                    <div class="submenu"><a href="../creatclub">创建社团</a></div>
-                    <div class="submenu"><a href="#">管理社团</a></div>
-                    <div class="submenu"><a href="#">submenu</a></div>
-                </div>
-            </div>
+
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+			
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../index">Home</a></li>
+
+            <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">我的社团</a>
+              <ul class="dropdown-menu">
+                <li><a href="../searchclub">加入社团</a></li>
+                <li><a href="../creatclub">创建社团</a></li>
+                <!--按钮保留
+				<li class="dropdown-submenu dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span>Sub Menu</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                  </ul>
+                </li>-->
+                <li><a href="">管理社团</a></li>
+                <!--按钮保留
+				<li><a href="pricing.html">Pricing</a></li>-->
+              </ul>
+            </li>
+            
+			<li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
+              <ul class="dropdown-menu">
+                <li><a href="../userpage">我的信息</a></li>
+                <li><a href="../updateuserinfo">修改信息</a></li>
+                <!--按钮保留
+				<li class="dropdown-submenu dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span>Sub Menu</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                    <li><a href="#">Second Level Menu</a></li>
+                  </ul>
+                </li>-->
+                <li><a href="">修改密码</a></li>
+                <!--按钮保留
+				<li><a href="pricing.html">Pricing</a></li>-->
+              </ul>
+            </li>
+			  
+            <li class="probootstra-cta-button"><a href="../logout">Log out</a></li>
+            <!--<li class="probootstra-cta-button"><a href="../logout" class="btn" data-toggle="modal" data-target="#loginModal">Log out</a></li>-->
+          </ul>
+
+			
         </div>
-        <!--内容显示-->
-        
-        <!--展示台-->
-        <div class="box"><h1>创建社团</h1></div>
-        <!--公告-->
-        <div class="box showbox">
-            <h2 style="position: relative;top:10px;left:10px;">填写社团资料</h2>
-            <div class="infobox">
-               
-                <div id="photobox">
+      </div>
+    </nav>
+	  
+	  <section class="probootstrap-hero probootstrap-xs-hero probootstrap-hero-colored">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 text-left probootstrap-hero-text">
+            <h1 class="probootstrap-animate" data-animate-effect="fadeIn">Create Club</h1>
+            <p class="probootstrap-animate" data-animate-effect="fadeIn">填写相关信息，创建自己的社团！</p>
+          </div>
+        </div>
+      </div>
+    </section>
+	  
+	  <section class="probootstrap-section probootstrap-bg-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5 probootstrap-animate" data-animate-effect="fadeIn">
+            <h2>Give us the message</h2>
+			  
+			  
+			
+			  
+			  <div id="photobox">
                     <label for="lookbutton" id="lookbutton_t">
                         <img src="../static/pictures/org.jpg" id="photo">
                     </label>
                 </div>
-
-                <form enctype="multipart/form-data" action="" name="org_info" method="POST" style="font-size: 20px"  onsubmit=" return checkimg();">
-                {% csrf_token %}
-                <input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);"><br>
-                <table>
-                    <tr>
-                        <td>社团名称：</td>
-                        <td><input type="text" class="inputbox" name="org_name"></td>
-                    </tr>
-                    <tr>
-                        <td>当前会长：</td>
-                        <td><input type="text" class="inputbox" name="org_master"></td>
-                    </tr>
-                    <tr>
-                        <td>创建者：</td>
-                        <td><input type="text" class="inputbox" name="creator"></td>
-                    </tr>
-                    <tr>
-                        <td>xxxx</td>
-                        <td><input type="text" class="inputbox" name=""></td>
-                    </tr>
-                    <tr>
-                        <td>社团描述：</td>
-                        <td><textarea class="inputbox" name="org_description"style="height: 100px"></textarea></td>
-                    </tr>
-                </table>
-                {{error}}
-                <button type="submit" id="subbutton">提交</button>
-                </form>
-            </div> 
+			  
+			  
+			  
+            <form action="" method="post" class="probootstrap-form" enctype="multipart/form-data" onsubmit=" return checkimg();">
+				{% csrf_token %}
+				
+				
+				<input type="file" id="lookbutton" name="org_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);"><br>
+				
+              <div class="form-group">
+                <label for="org_name">社团名称</label>
+                <input type="text" class="form-control" id="org_name" name="org_name">
+              </div>
+              <div class="form-group">
+                <label for="org_creator">创建人</label>
+                <input type="text" class="form-control" id="org_creator" name="org_creator">
+              </div>
+              <!--<div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject">
+              </div>-->
+              <div class="form-group">
+                <label for="org_description">社团描述</label>
+                <textarea cols="30" rows="10" class="form-control" id="org_description" name="org_description"></textarea>
+              </div>
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-lg" id="submit" name="submit" value="创建社团">
+				  {{ createclub_fail_notice }}
+              </div>
+            </form>
+          </div>
+			
+          <div class="col-md-6 col-md-push-1 probootstrap-animate" data-animate-effect="fadeIn">
+            <h2>这里是文案</h2>
+            <p>多扯几句</p>
+            
+            <h4>多扯几句</h4>
+            <ul class="probootstrap-contact-info">
+              <li><i class="icon-pin"></i> <span>多扯几句</span></li>
+              <li><i class="icon-email"></i><span>多扯几句</span></li>
+              <li><i class="icon-phone"></i><span>多扯几句</span></li>
+            </ul>
+            
+            <h4>多扯几句</h4>
+            <ul class="probootstrap-contact-info">
+              <li><i class="icon-pin"></i> <span>多扯几句</span></li>
+              <li><i class="icon-email"></i><span>多扯几句</span></li>
+              <li><i class="icon-phone"></i><span>多扯几句</span></li>
+            </ul>
+          </div>
         </div>
-    </body>
+      </div>
+    </section>
+	  
+	  
+	  
+	  
+<!--Modal login -->
+ <!--   <div class="modal fadeInUp probootstrap-animated" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog modal-md vertical-align-center">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
+            <div class="probootstrap-modal-flex">
+              <div class="probootstrap-modal-figure" style="background-image: url(img/modal_bg.jpg);"></div>
+              <div class="probootstrap-modal-content">
+                <form action="#" class="probootstrap-form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username">
+                  </div> 
+                  <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password">
+                  </div> 
+					
+					
+                  <div class="form-group clearfix mb40">
+					  忘记密码，记住用户
+                    <label for="remember" class="probootstrap-remember"><input type="checkbox" id="remember"> Remember Me</label>
+                    <a href="#" class="probootstrap-forgot">Forgot Password?</a>
+
+                  </div>
+
+                  <div class="form-group text-left">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary btn-block" value="Sign In">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group probootstrap-or"> </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-12"> </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+	</div>-->
+    <!-- END modal login -->
+    
+    <!-- Modal signup -->
+  <!--   <div class="modal fadeInUp probootstrap-animated" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog modal-md vertical-align-center">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-cross"></i></button>
+            <div class="probootstrap-modal-flex">
+              <div class="probootstrap-modal-figure" style="background-image: url(img/modal_bg.jpg);"></div>
+              <div class="probootstrap-modal-content">
+                <form action="#" class="probootstrap-form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username">
+                  </div> 
+                  <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password">
+                  </div> 
+                  <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Re-type Password">
+                  </div> 
+                  <div class="form-group clearfix mb40">
+					  
+					
+                    <label for="remember" class="probootstrap-remember"><input type="checkbox" id="remember"> Remember Me</label>
+                    <a href="#" class="probootstrap-forgot">Forgot Password?</a>
+
+                  </div>
+                  <div class="form-group text-left">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary btn-block" value="Sign Up">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="form-group probootstrap-or"> </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-12"> </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+    <!-- END modal signup -->
+
+
+    <script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+  </body>
 </html>
