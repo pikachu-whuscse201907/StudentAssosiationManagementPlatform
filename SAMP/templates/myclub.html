@@ -78,7 +78,7 @@
               </div>
               <div id="collapseOne" class="panel-collapse collapse in">
                   <div class="panel-body">
-                      {%if hasjoinedclub == false%}
+                      {%if not hasjoinedclub%}
                       还没有加入任何社团
                       {%endif%}
                       <table class="table">
@@ -107,7 +107,7 @@
               </div>
               <div id="collapseTwo" class="panel-collapse collapse">
               <div class="panel-body">
-                  {%if hasmanagedclub == false%}
+                  {%if not hasmanagedclub%}
                       还没有管理任何社团
                   {%endif%}
                   <table class="table">
@@ -137,7 +137,7 @@
               </div>
               <div id="collapseThree" class="panel-collapse collapse">
                   <div class="panel-body">
-                  {%if hasappliedclub == false%}
+                  {%if not hasappliedclub%}
                       还没有申请任何社团
                   {%endif%}
                   <table class="table">

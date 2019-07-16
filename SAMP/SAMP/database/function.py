@@ -178,7 +178,7 @@ def join_org(cookie_id, org_id):
     
     # 根据输入是社团id,查看社团成员列表member(连接到User_info表），如果该社团存在，则加入失败
     members = org.members.all()
-    if list(user_info)[0] in list(members):
+    if user_info in list(members):
         result['notice']='You are already in this club.'
         return result
     
