@@ -121,6 +121,7 @@ def joinclub(request):
                        "url": ("../clubinfo/?iden={0}".format(org_name)),
                        "error_msg": "You have applied to join successfully!"})
 
+
 def quitclub(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
