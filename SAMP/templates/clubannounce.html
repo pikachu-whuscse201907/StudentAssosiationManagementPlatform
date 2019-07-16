@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{{org_name}}社团成员</title>
+    <title>{{org_name}}发布公告</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,13 +24,43 @@
         {
             width: 200px;
         }
-        .col2
+        .form_sty
         {
-            width: 300px;
+          width: 700px;
+          height: 450px;
+          text-align: center;
+          margin: 0px 300px;
         }
-        .col3
+        .form_sty input
         {
-            width: 200px;
+          width: 500px;
+          display: block;
+          margin: 0px auto;
+        }
+        .form_sty textarea
+        {
+          width: 500px;
+          height: 200px;
+          display: block;
+          margin: 0px auto;
+        }
+        .form_sty button
+        {
+          
+          width: 120px;
+          color: #7ED320;
+			    background-color: white;
+			    height: 45px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 18px;
+          border: 1px solid #7ED320;
+        }
+        .submitan
+        {
+          margin: 0px -55px;
+          position: absolute;
+          text-align: center;/*子内容居中*/
         }
     </style>
   </head>
@@ -54,6 +84,7 @@
                           <li><a href="../myclub/">管理社团</a></li>
                         </ul>
                       </li>
+                      
                       <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
                         <ul class="dropdown-menu">
@@ -82,23 +113,15 @@
     <div style="position: relative;top:150px;">
             <ul class="nav nav-pills nav-stacked" >
 
-              <!--是否是社团管理人-->
-              <!--{% if ismanager %}
-              <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
+              
+              <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
               <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
-              <li><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
-              <li><a href="../createclub/">创建社团</a></li>
-              <li><a href="../searchclub/">查找社团</a></li>-->
-              <!--{% else %}-->
-              <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
-              <li class="active"><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
-              <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
+              <li class="active"><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
               <li><a href="../createclub/">创建社团</a></li>
               <li><a href="../searchclub/">查找社团</a></li>
-              <!--<li><a href="#">活动申请</a></li>
-              <li><a href="#">修改密码</a></li>-->
-              <!--{% endif %}-->
+              
+
             </ul>
     </div>
 </div>
@@ -106,56 +129,50 @@
     
     
     <div class="contextbox">
-        <table class="table ">
+
+      
+        <div class="form_sty">
+          
+
+
+
+        <form action="" method="POST">
+                {% csrf_token %}
+            <div>
+              <br>
+              <label style="font-size: 22px">公告标题</label>
+              <input type="text" name="announce_title" placeholder="请输入公告标题">
+            </div>
+            <div>
+              <br>
+              <label style="font-size: 22px">公告内容</label>
+              <textarea type="text" name="announce_body" placeholder="请输入公告内容"></textarea>
+            </div>
+            <div>
+              <br>
+              <button type="submit" class="submitan">提交发布</button>
+            </div>
+            
+        </form>
+      
+        
+        </div>
+
+
+        <table class="table">
             <thead>
-                <td colspan="3"><h1>社团成员</h1></td>
+                <td colspan="2"><h1>历史公告</h1></td>
                 
             </thead>
             <tbody>
-                <tr>
-                    <td class="col1">成员：</td>
-                    <td class="col2">&nbsp;</td>
-                    <td class="col3">&nbsp;</td>
+                {% for announce in old_announce %}
+                <tr style="height: 35px">
+                  <td>
+                    <p style="font-size: 20px; margin-bottom: 5px;">{{announce.title}}</p>
+                    <p style="font-size: 18px; margin-bottom: 5px;">{{announce.body}}</p>
+                  </td>
                 </tr>
-                
-
-                {% if ismanager %}
-                    {%for member in members %}
-                    <tr style="height: 60px">
-                        <td class="col1"><img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
-                        <td class="col2"><p>{{member.name}}</p></td>
-                        <td class="col3">
-                            {% if member.num == 0 %}
-                            <p>审核
-                            <a class="btn btn-ghost" href="../clubmembers/?iden={{org_name}}&{{member.name}}">同意</a>
-                            <a class="btn btn-ghost" href="../clubmembers/?iden={{org_name}}&{{member.name}}">拒绝</a>
-                            </p>
-                            {% elif member.num == 1 %}
-                            <p>通过</p>
-                            {% elif member.num == 2 %}
-                            <p>拒绝</p>
-                            {% elif member.num == 3 %}
-                            <p>退出</p>
-                            {% elif member.num == 4 %}
-                            <p>踢出</p>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    
-                    {%endfor%}
-                {% else %}
-                    {% for member in members %}
-                    {% if member.num==1 %}
-                    <tr style="height: 60px">
-                        <td class="col1"><img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
-                        <td colspan="2"><p>{{member.name}}</p></td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                
-                
+           
             </tbody>
         </table>
         
@@ -165,7 +182,4 @@
     <script src="../static/js/custom.min.js"></script>
   </body>
 </html>
-
-
-
 
