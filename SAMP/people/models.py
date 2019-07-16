@@ -54,6 +54,7 @@ class ClubAnnouncements(models.Model):
 
 # organization information
 class Organizations(models.Model):
+    create_status = models.IntegerField(choices=((0, "审核中"), (1, "已通过"), (2, "审核失败")), default=0)
     organization_name = models.CharField(primary_key=True,max_length=30, null=False)
     creator = models.ForeignKey(User_info, related_name='organization_creator', on_delete=models.DO_NOTHING)
     master = models.ForeignKey(User_info, related_name='organization_master', on_delete=models.CASCADE)

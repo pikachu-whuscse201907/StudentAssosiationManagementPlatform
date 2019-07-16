@@ -130,13 +130,14 @@ def search_org(cookie_id, search_content):
         result['notice']='The cookie_id is out of date.'
         return result
     else:
-        result['success']=True
-        org_info = Organizations.objects.filter(organization_name__icontains=search_content)
+        org_info = Organizations.objects.filter(organization_name__icontains=search_content).filter(create_status=1)
         org_list = []
         for each in org_info:
             org_list.append((each.organization_name, each.description))
-        result['org_list']=org_list
+        result['org_list'] = org_list
+        result['success'] = True
         return result
+
 
 # 群主删除成员，提交群主的cookie_id
 def delete_member(cookie_id, org_id):
