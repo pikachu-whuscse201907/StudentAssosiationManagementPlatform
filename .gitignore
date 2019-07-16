@@ -1,10 +1,10 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/*
+__pycache__/
 *.py[cod]
 db.sqlite3
 workspace.xml
-venv/*
-SAMP/.idea/*
-org_logo/*
-user_logo/*
-migrations/*
+venv/
+SAMP/.idea/
+org_logo/
+user_logo/
+migrations/
