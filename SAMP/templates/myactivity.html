@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>活动中心</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+    <link rel="stylesheet" href="../static/css/individualcenter.css">
+    <style>
+         .table
+        {
+            width: 1000px;
+            position: relative;
+            color:black;    
+            font-size: 20px;
+            
+        }
+        .td1
+        {
+            width: 300px;
+        }
+        .td2
+        {
+            width:300px;
+        }
+        .td3
+        {
+            width: 100px;
+        }
+    </style>
+  </head>
+  <body>
+    
+    <!-- Fixed navbar -->
+    <!-- navbar-fixed-top  -->
+    <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index/" title="">Pikachu</a>
+        </div>
+
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="probootstra-cta-button last"><a href="../logout/" class="btn btn-ghost" >Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!--左侧导航-->
+    <div class="navbar-left">
+            <div class="userbox">
+                <a href="../updateuserinfo/" class="probootstrap-team">
+                <img src="..{{MEDIA_URL}}{{img}}" alt="" class="avatar" id="photo2">
+                <div class="probootstrap-team-info">
+                    <h3>修改头像</h3>
+                  </div>
+                </a>
+                <span class="username">{{name|truncatewords:"15"}}</span>
+            </div>
+        <div style="position: relative;top:150px;">
+                <ul class="nav nav-pills nav-stacked" >
+                  <li ><a href="../userpage/">个人信息</a></li>
+                  <li><a href="../myclub/">我的社团</a></li>
+                  <li><a href="../mybulletin/">公告通知</a></li>
+                  <li><a href="../createclub/">创建社团</a></li>
+                  <li><a href="../searchclub/">加入社团</a></li>
+                  <li class="active"><a href="../myactivity/">活动中心</a></li>
+                  <li><a href="../passwd/">修改密码</a></li>
+                </ul>
+        </div>
+    </div>
+    <div class="contextbox">
+        <div class="page-header" style="margin-left: 150px">
+        <h1>我的社团</h1>
+      </div>
+
+      <div class="panel-group" id="accordion" style="margin-left: 150px;width: 1000px">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseOne">
+                      我参加的活动
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                      <table class="table">
+                        <thead>
+                                {%if not hasjoinedactivity%}
+                                还没有参加任何活动
+                                {% else %}
+                                <tr>
+                                        <td class = "td1">活动名称</td>
+                                        <td class = "td2">主持社团</td>
+                                        <td class = "td3">活动日期</td>
+                                          <td>
+                                          </td>
+                                    </tr>
+                                {%endif%}
+                        </thead>
+                          {%for joinedactivity  in joinedactivities%}
+                          <tr>
+                              <td class = "td1">{{joinedactivity.name}}</td>
+                              <td class = "td2">{{joinedactivity.org_name}}</td>
+                              <td class = "td3">{{joinedactivity.date}}</td>
+                                <td>
+                                <a class="btn btn-ghost" href="#">查看详情</a>
+                                <a class="btn btn-ghost" href="#">退出活动</a>
+                                </td>
+                          </tr>
+                          {%endfor%} 
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseTwo">
+                      我可以参加的活动
+                  </a>
+                  </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body">
+                    <table class="table">
+                            <thead>
+                                    {%if not hasactivity%}
+                                    还没有任何活动
+                                    {% else %}
+                                    <tr>
+                                            <td class = "td1">活动名称</td>
+                                            <td class = "td2">主持社团</td>
+                                            <td class = "td3">活动日期</td>
+                                              <td>
+                                              </td>
+                                        </tr>
+                                    {%endif%}
+                            </thead>
+                              {%for activity  in activities%}
+                              <tr>
+                                  <td class = "td1">{{activity.name}}</td>
+                                  <td class = "td2">{{activity.org_name}}</td>
+                                  <td class = "td3">{{activity.date}}</td>
+                                    <td>
+                                    <a class="btn btn-ghost" href="#">查看详情</a>
+                                    <a class="btn btn-ghost" href="#">参加活动</a>
+                                    </td>
+                              </tr>
+                              {%endfor%} 
+                          </table>
+                  
+              </div>
+              </div>
+          </div>
+          
+      </div>
+    </div>
+    <script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+  </body>
+</html>

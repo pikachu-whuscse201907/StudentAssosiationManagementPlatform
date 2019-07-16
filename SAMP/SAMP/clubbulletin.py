@@ -6,7 +6,7 @@ from people.models import Organizations, ClubAnnouncements
 import datetime
 
 
-class Pronounce:
+class Announcement:
     def __init__(self, title, date, content):
         self.title = title
         self.date = date
@@ -47,11 +47,12 @@ def clubbulletin(request):
     context['org_name'] = org_name
     context['announcements'] = []
     for p in org[0].announcements.all():
-        context['announcements'].append(Pronounce(p.title, p.create_date.strftime('%Y-%m-%d %H:%M:%S'), p.content))
+        context['announcements'].append(Announcement(p.title, p.create_date.strftime('%Y-%m-%d %H:%M:%S'), p.content))
     
     context['have_announcement'] = (len(context['announcements']) != 0)
     
     return HttpResponse(render(request, 'clubbulletin.html', context))
+# Ending of function clubbulletin(request)
 
 
 def addannouncement(request):
@@ -71,7 +72,7 @@ def addannouncement(request):
     
     if announcement_content is None or announcement_title is None\
             or 0 == len(announcement_title) or 0 == len(announcement_content):
-        context['title'] = 'Illegal Pronounce'
+        context['title'] = 'Illegal Announcement'
         context['url'] = '../clubbulletin/?iden='+org_name
         context['error_msg'] = '公告标题和公告内容均不可为空'
         response = HttpResponse(render(request, 'jump.html', context))
@@ -101,6 +102,7 @@ def addannouncement(request):
     context['error_msg'] = 'New announcement published.'
     response = HttpResponse(render(request, 'jump.html', context))
     return response
+# Ending of function addannouncement(request)
 
 
 def clubmembers(request):
@@ -119,7 +121,8 @@ def clubmembers(request):
         context['error_msg'] = 'Cannot find a club named "org_name".'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
-    
+
+    user_info = search.user_info_of_username(info['user_name'])
     if search.user_info_of_username(info['user_name']) not in org[0].members.all():
         context['title'] = 'Not Authorized.'
         context['url'] = '../clubinfo/?iden=' + org_name
@@ -135,10 +138,29 @@ def clubmembers(request):
     context['islogin'] = True
     context['name'] = info['user_name']
     context['org_name'] = org_name
-    context['members'] = []
-    for member in org[0].members.all():
-        context['members'].append(member)
     
-    context['have_member'] = (len(context['members']) != 0)
+    class __Member:
+        def __init__(self, user_logo, name, time='', status=''):
+            self.user_logo = user_logo
+            self.name = name
+            self.status = status
+            self.time = time
+
+    members_from_db = user_info.organization_members.all()  # status=
+    members = []
+    for member in members_from_db:
+        members.append(__Member(member.profile, member.name.name))
+    context['has_members'] = (0 < len(members))
+    context['members'] = members
+
+    applications_from_db = user_info.membershipapplication_org.all()  # status=
+    applying_members = []
+    for application in applications_from_db:
+        members.append(__Member(user_logo=application.profile, name=application.name.name,
+                                time=application.apply_time.strftime('%Y-%m-%d %H:%M:%S'),
+                                status=application.application_status))
+    context['has_applying_members'] = (0 < len(members))
+    context['applying_members'] = applying_members
     
     return HttpResponse(render(request, 'clubmembers.html', context))
+# Ending of function clubmembers(request)

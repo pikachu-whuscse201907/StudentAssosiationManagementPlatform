@@ -54,6 +54,7 @@ class ClubAnnouncements(models.Model):
 
 # organization information
 class Organizations(models.Model):
+    create_status = models.IntegerField(choices=((0, "审核中"), (1, "已通过"), (2, "审核失败")), default=0)
     organization_name = models.CharField(primary_key=True,max_length=30, null=False)
     creator = models.ForeignKey(User_info, related_name='organization_creator', on_delete=models.DO_NOTHING)
     master = models.ForeignKey(User_info, related_name='organization_master', on_delete=models.CASCADE)
@@ -68,12 +69,16 @@ class Organizations(models.Model):
 
 
 class MembershipApplication(models.Model):
-    organization = models.ForeignKey(Organizations, related_name='membershipapplication_org', null=False, on_delete=models.DO_NOTHING)
-    applicant = models.ForeignKey(User_info, related_name='membershipapplication_applicant', null=False, on_delete=models.DO_NOTHING)
+    organization = models.ForeignKey(Organizations, related_name='membershipapplication_org',
+                                     null=False, on_delete=models.DO_NOTHING)
+    applicant = models.ForeignKey(User_info, related_name='membershipapplication_applicant',
+                                  null=False, on_delete=models.DO_NOTHING)
     apply_message = models.CharField(max_length=100, default='')
     apply_time = models.DateTimeField(null=True, blank=True)
-    application_status = models.IntegerField(choices=((0, "PENDING"), (1, "APPROVED"), (2, "DENIED")), default=0)
-    solver = models.ForeignKey(User_info, related_name='membershipapplication_solver', null=True, blank=True, default=None, on_delete=models.DO_NOTHING)
+    application_status = models.IntegerField(choices=((0, "PENDING"), (1, "APPROVED"), (2, "DENIED"),
+                                                      (3, "QUIT"), (4, "EXPELLED")), default=0)
+    solver = models.ForeignKey(User_info, related_name='membershipapplication_solver',
+                               null=True, blank=True, default=None, on_delete=models.DO_NOTHING)
     solve_time = models.DateTimeField(null=True, blank=True, default=None)
     reply_message = models.CharField(max_length=100, default='')
     
@@ -92,7 +97,8 @@ class MembershipApplication(models.Model):
         ans += '-'
         ans += self.applicant.name.name
         ans += '-'
-        ans += datetime.datetime.strptime(self.apply_time, '%Y-%m-%d')
-        ans += '-'
+        if self.apply_time is not None:
+            ans += self.apply_time.strftime('%Y-%m-%d %H:%M:%S')
+            ans += '-'
         ans += self.apply_message
         return ans

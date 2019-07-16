@@ -9,12 +9,24 @@
     </head>
     <body>
     <p>简陋版，测试用</p>
+    <p>Members: </p>
     {%for member in members%}
     <div style="float: left;">
         <img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 100px ; height: 100px">
-        
+        <p>{{member.name.name}}</p>
     </div>
-    <div><p>{{member.name.name}}</p></div>
+    <div></div>
     {%endfor%}
+
+    {% if ismanager %}
+        <p>Applying Members: </p>
+        {%for member in applying_members%}
+        <div style="float: left;">
+            <img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 100px ; height: 100px">
+            <p>{{member.name.name}}</p>
+        </div>
+        <div></div>
+        {%endfor%}
+    {% endif %}
     </body>
 </html>
