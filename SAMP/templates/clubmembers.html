@@ -22,8 +22,10 @@
         <p>Applying Members: </p>
         {%for member in applying_members%}
         <div style="float: left;">
-            <img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 100px ; height: 100px">
-            <p>{{member.name.name}}</p>
+            <img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 100px ; height: 100px">
+            <p>{{member.name}}</p>
+            <p>{{member.time}}</p>
+            <p>{{member.status}}</p>
         </div>
         <div></div>
         {%endfor%}

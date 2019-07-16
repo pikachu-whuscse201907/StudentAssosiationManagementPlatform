@@ -38,7 +38,7 @@ def createclub(request):
 		return render(request, "createclub.html", context)
 	else:
 		context['title'] = 'Create Organization Success'
-		context['url'] = '../clubinfo/?iden=' + iden
+		context['url'] = '../clubpage/?iden=' + iden
 		context['error_msg'] = 'You have created an organization successfully!'
 		return render(request, "jump.html", context)
 
