@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from ..view import *
+import datetime
 from people.models import Person, User_info, Organizations, ClubAnnouncements, MembershipApplication
 from ..Cookie import *
 from .delete import delete_cookie
@@ -130,13 +130,14 @@ def search_org(cookie_id, search_content):
         result['notice']='The cookie_id is out of date.'
         return result
     else:
-        result['success']=True
-        org_info = Organizations.objects.filter(organization_name__icontains=search_content)
+        org_info = Organizations.objects.filter(organization_name__icontains=search_content).filter(create_status=1)
         org_list = []
         for each in org_info:
             org_list.append((each.organization_name, each.description))
-        result['org_list']=org_list
+        result['org_list'] = org_list
+        result['success'] = True
         return result
+
 
 # 群主删除成员，提交群主的cookie_id
 def delete_member(cookie_id, org_id):
@@ -191,7 +192,8 @@ def join_org(cookie_id, org_id):
         
     result['success'] = True
     new_application = MembershipApplication.objects.create(organization=org, applicant=user_info,
-                                                           application_status=0)
+                                                           application_status=0,
+                                                           apply_time=datetime.datetime.now())
     new_application.save()
     
     return result
@@ -211,9 +213,9 @@ def exit_org(cookie_id, org_name):  # 退出社团
         return result
 
     response_1 = Organizations.objects.filter(organization_name=org_name)
-    if response[0].name == response_1[0].creator.name.name:
+    if response[0].name == response_1[0].master.name.name:
         result['success'] = False
-        result['notice'] = 'The user is the creator.'
+        result['notice'] = 'Club manager cannot quit the club.'
         return result
     else:
         user_info=User_info.objects.filter(name=response[0])

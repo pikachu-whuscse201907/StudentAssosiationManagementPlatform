@@ -1,217 +1,150 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>
-        {{name}}的主页
-        {#name变量填用户名#}
-        </title>
+<html lang="en">
+  <head>
+    <title>更改个人信息</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <style type="text/css">
-    a{
-    text-decoration: none;
-    display: block;
-    color: black;
-    font-size: 22px;
-}
-body
-{
-    margin-top:0; 
-}
-.bk
-{
-    width: 100%;
-    height: 100%;
-    position:absolute;
-    z-index: -1;
-}
-.bkimg
-{
-    width: 100%;
-    height: 100%;
-}
-.nav_menu
-{
-    width: 1180px;
-    margin: auto;
-    height: 80px;
-}
-.menuitem
-{
-    float: right ;
-    line-height: 80px;
-    width: 120px;
-    text-align: center;
-    position: relative;
-    z-index: 1000;
-    font-size: 20px;
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+    <link rel="stylesheet" href="../static/css/individualcenter.css">
+    <style>
+         .table
+        {
+            width: 800px;
+            position: relative;
+            color:black;
+            left: 100px;
+            font-size: 20px;
+            
+        }
+        .col1
+        {
+            width: 100px;
+        }
+    </style>
+  </head>
+  <body>
     
-}
-.submenu 
-{
-    display: none;
-    text-align: center;
-    width: 100%;
-    float: left;
-    line-height: 50px;
-    font-size: 20px;
-    
-}
-.menuitem:hover
-{
-    background-color:rgba(255, 255,255, 0.3) ;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-.menuitem:hover .submenu
-{
-    display: block;
-}
-.submenu:hover
-{
-    box-shadow: 16px 8px 16px 8px rgba(0,0,0,0.2);
-}
-.backbutton
-{
-    float: left;
-    line-height: 80px;
-    width: 120px;
-    text-align: center;
-}
-.box
-{
+    <!-- Fixed navbar -->
+    <!-- navbar-fixed-top  -->
+    <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index/" title="">Pikachu</a>
+        </div>
 
-}
-.showbox
-{
-    width: 1180px;
-    margin: auto;
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="probootstra-cta-button last"><a href="../logout/" class="btn btn-ghost">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    height: 800px;
-    background-color:rgba(243, 226, 226, 0.5);
-   
-    position: relative;
-}
-
-.message{
-
-    margin: 0px auto;
-
-    padding-top: 80px;
-
-    width: 600px;
-
-    height: 720px;
-
-    text-align: center;
-
-    font-size: 18px;
-
-    background-color:rgba(255, 255,255, 0.1) ;
-
-}
-
-.message input {
-    width: 180px;
-
-    height: 30px;
-
-    border: 1px solid #ddd;/*输入框的边框*/
-
-    padding: 0px 0px 0px 10px;/*左边内边距为10px，显得美观*/
-
-    font-size: 18px;/*字体大小*/
-
-    border-radius:10px;
-}
-
-.circle {
-    display: inline-block;
-
-    margin: 5px auto;
-
-    width: 100px;
-
-    height: 100px;
-
-    border-radius: 50px;
-
-    /*对旧版本显示器的*/
-    -webkit-border-radius:100px;
-    -moz-border-radius:100px;
-
-    border:2px solid #fff;
-    box-shadow:0 0 8px #ccc;
-    overflow:hidden;
-
-}
-
-.contentDiv img {
-    width:100%;
-    min-height:100%;
-}
-
-.change button{
-    text-align: center;
-    width: 150px;
-    margin: 50px;
-    
-    border-radius:10px;
-
-
-    line-height: 50px;
-    
-    font-size: 20px;
-
-    border: 1px solid #CC865E;
-    background-color:rgba(255, 255,255, 0.2) ;
-
-
-}
-.change button:hover{
-
-    box-shadow: 12px 8px 12px 8px rgba(0,0,0,0.2);
-}
-#lookbutton
-            {
-                opacity: 0;
-                width: 0px;
-
-                height: 0px;
-            }
-
-.select1 {
-    background: rgba(0,0,0,0.2);/*背景色和透明度，可以设置为url地址的图片*/
-    width: 190px;/*宽度*/
-    height: 40px;/*高度*/
-    margin: 0px auto;
-    font-size: 18px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.select1 select{
-    background: transparent;/*透明*/
-    border: none;
-    padding-left: 10px;
-    width: 190px;/*比上面设置的略宽*/
-    height: 100%;
-    border-radius: 10px;
-    color: black;
-    /*font-family: "微软雅黑";*/
-}
-
-
-        </style>
-
-        <script>
+    <!--左侧导航-->
+    <div class="navbar-left">
+            <div class="userbox">
+                <a href="../updateuserinfo/" class="probootstrap-team">
+                <img src="..{{MEDIA_URL}}{{img}}" alt="" class="avatar" id="photo2">
+                <div class="probootstrap-team-info">
+                    <h3>修改头像</h3>
+                  </div>
+                </a>
+                <span class="username">{{name|truncatewords:"15"}}</span>
+            </div>
+        <div style="position: relative;top:150px;">
+                <ul class="nav nav-pills nav-stacked" >
+                  <li class="active"><a href="../userpage/">个人信息</a></li>
+                  <li><a href="../myclub/">我的社团</a></li>
+                  <li><a href="../mybulletin/">公告通知</a></li>
+                  <li><a href="../createclub/">创建社团</a></li>
+                  <li><a href="../searchclub/">加入社团</a></li>
+                  <li><a href="../myactivity/">活动中心</a></li>
+                  <li><a href="#">修改密码</a></li>
+                </ul>
+        </div>
+    </div>
+    <div class="contextbox">
+            {% csrf_token %}
+      
+        <form class="" role= "form" enctype="multipart/form-data" action="./" name="change" method="POST">
+            <table class="table ">
+                    <thead>
+                        <td colspan="2"><h1>修改个人信息</h1></td>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <label for="lookbutton" id="lookbutton_t">
+                                <img src="..{{MEDIA_URL}}{{img}}" alt="" class="img-circle avatar" id="photo1">
+                                </label>
+                                <input type="file" id="lookbutton" name="user_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);" class="btn" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col1">用户名</td>
+                            <td class="col2">{{name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col1">性别</td>
+                            <td class="col2">
+                                    {% if sex == 0 %}
+                                    <select name="gender" class="form-control">
+                                        <option value="0">保密</option>
+                                        <option value="1">男</option>
+                                        <option value="2">女</option>
+                                    </select>
+                                {% elif sex == 1 %}
+                                    <select name="gender" class="form-control">
+                                        <option value="1">男</option>
+                                        <option value="0">保密</option>
+                                        <option value="2">女</option>
+                                    </select>
+                                {% elif sex == 2 %}
+                                    <select name="gender" class="form-control">
+                                        <option value="2">女</option>
+                                        <option value="0">保密</option>
+                                        <option value="1">男</option>
+                                    </select>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col1">生日</td>
+                            <td class="c0l2">
+                                <input type="date" name="birth_date" value="{{ birth_date }}" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col1">个性签名</td>
+                            <td class="col2">
+                                <textarea name="motto" id="" cols="50" rows="3" placeholder="请输入新的签名" value="{{ motto }}" class="form-control" style="resize: vertical"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-ghost" type="submit">确认修改</button>
+                                <a class="btn btn-ghost" href = "../userpage">返回</a>
+                            </td>
+                        </tr>
+            </tbody>
+        </form>
+    </div>
+    <script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+    <script>
             function showphoto(obj)
             {
                 //预览头像
                 var file = obj.files[0];
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    var img = document.getElementById("photo");
-                    img.src = e.target.result;
+                    var img1 = document.getElementById("photo1");
+                    var img2 = document.getElementById("photo2");
+                    img1.src = e.target.result;
                 }
                 reader.readAsDataURL(file);
                 
@@ -219,137 +152,5 @@ body
 
 
         </script>
-
-    </head>
-
-    <body>
-
-        <!--背景图-->
-        <div class = "bk">
-            <img src="../static/pictures/bk.jpg" class="bkimg">
-        </div>
-        <!--导航栏-->
-        <div>
-            <div class="nav_menu box">
-                <div class="backbutton menuitem"><a href="../index/">主页</a></div>
-                <div class="menuitem"><a href="../logout/">登出</a></div>
-                <div class="menuitem">
-                    <div>我的社团</div>
-                    <div class="submenu"><a href="../searchclub/">查找社团</a></div>
-                    <div class="submenu"><a href="../myclub/">管理社团</a></div>
-                    <div class="submenu"><a href="../createclub/">创建社团</a></div>
-                    <!--<div class="submenu"><a href="#">submenu</a></div>-->
-                </div>
-                
-            </div>
-        </div>
-
-
-        <!--主要显示界面。阴影区-->
-        <div class="showbox">
-
-            <div class="message">
-
-
-                <form enctype="multipart/form-data" action="./" name="change", method="POST">
-
-                    {% csrf_token %}
-
-
-                <!--<table border="black solid" align="center">-->
-                <table align="center">
-                    <col width="100px" />
-                    <col width="300px" />
-                    <tr>
-                        <td colspan="2">
-                            
-                            
-                            <!--
-                            
-                            -->
-                                <label for="lookbutton" id="lookbutton_t">
-                                
-                                <div class="circle">
-                                    <!--<img src="../static/register_background.jpg" id="photo">-->
-                                    
-
-                                    <img height="100%" width="100%" src="..{{MEDIA_URL}}{{img}}" id="photo">
-
-                                    
-                                </div>
-                                </label>
-                                <br>
-                                <input type="file" id="lookbutton" name="user_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);">
-
-                            
-                            <!---->
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><p>用户账号：</p></td>
-                        <td>{{name}}</td>
-                    </tr>
-                    <tr>
-                        <td><p>个性签名：</p></td>
-                        <td><input type="text" name="motto" placeholder="请输入新的签名" value="{{ motto }}"></td>
-                    </tr>
-                    <tr>
-                        <td><p>性别:</p></td>
-                        <td>
-                            <div class="select1">
-                                {% if sex == 0 %}
-                                    <select name="gender">
-                                        <option value="0">保密</option>
-                                        <option value="1">男</option>
-                                        <option value="2">女</option>
-                                    </select>
-                                {% elif sex == 1 %}
-                                    <select name="gender">
-                                        <option value="1">男</option>
-                                        <option value="0">保密</option>
-                                        <option value="2">女</option>
-                                    </select>
-                                {% elif sex == 2 %}
-                                    <select name="gender">
-                                        <option value="2">女</option>
-                                        <option value="0">保密</option>
-                                        <option value="1">男</option>
-                                    </select>
-                                {% endif %}
-
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><p>出生年月：</p></td>
-                        <td><input type="date" name="birth_date" value="{{ birth_date }}"></td>
-                    </tr>
-                </table>
-
-                <div class="change">
-                    <button type="submit">确认修改</button>
-                    <button><a href="../userpage/">返回信息页</a></button>
-
-
-                <!--<button type="submit">修改个人信息</button>
-                <button onclick="javascrtpt:window.location.href='www.baidu.com'">返回主页</button>-->
-                </div>
-                <div class="change">
-                    
-                <!--<button type="submit">修改个人信息</button>-->
-                </div>
-                </form>
-            </div>
-        
-        </div>
-
-<!--<input type="password" name="pswd" placeholder="{{birthday}}">-->
-
-   
-    </body>
+  </body>
 </html>
-
-
-
-
