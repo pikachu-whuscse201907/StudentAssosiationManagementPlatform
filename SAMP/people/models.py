@@ -68,12 +68,16 @@ class Organizations(models.Model):
 
 
 class MembershipApplication(models.Model):
-    organization = models.ForeignKey(Organizations, related_name='membershipapplication_org', null=False, on_delete=models.DO_NOTHING)
-    applicant = models.ForeignKey(User_info, related_name='membershipapplication_applicant', null=False, on_delete=models.DO_NOTHING)
+    organization = models.ForeignKey(Organizations, related_name='membershipapplication_org',
+                                     null=False, on_delete=models.DO_NOTHING)
+    applicant = models.ForeignKey(User_info, related_name='membershipapplication_applicant',
+                                  null=False, on_delete=models.DO_NOTHING)
     apply_message = models.CharField(max_length=100, default='')
     apply_time = models.DateTimeField(null=True, blank=True)
-    application_status = models.IntegerField(choices=((0, "PENDING"), (1, "APPROVED"), (2, "DENIED")), default=0)
-    solver = models.ForeignKey(User_info, related_name='membershipapplication_solver', null=True, blank=True, default=None, on_delete=models.DO_NOTHING)
+    application_status = models.IntegerField(choices=((0, "PENDING"), (1, "APPROVED"), (2, "DENIED"),
+                                                      (3, "QUIT"), (4, "EXPELLED")), default=0)
+    solver = models.ForeignKey(User_info, related_name='membershipapplication_solver',
+                               null=True, blank=True, default=None, on_delete=models.DO_NOTHING)
     solve_time = models.DateTimeField(null=True, blank=True, default=None)
     reply_message = models.CharField(max_length=100, default='')
     
@@ -92,7 +96,8 @@ class MembershipApplication(models.Model):
         ans += '-'
         ans += self.applicant.name.name
         ans += '-'
-        ans += datetime.datetime.strptime(self.apply_time, '%Y-%m-%d')
-        ans += '-'
+        if self.apply_time is not None:
+            ans += self.apply_time.strftime('%Y-%m-%d %H:%M:%S')
+            ans += '-'
         ans += self.apply_message
         return ans

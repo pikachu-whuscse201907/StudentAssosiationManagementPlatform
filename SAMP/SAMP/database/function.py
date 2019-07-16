@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from ..view import *
+import datetime
 from people.models import Person, User_info, Organizations, ClubAnnouncements, MembershipApplication
 from ..Cookie import *
 from .delete import delete_cookie
@@ -191,7 +191,8 @@ def join_org(cookie_id, org_id):
         
     result['success'] = True
     new_application = MembershipApplication.objects.create(organization=org, applicant=user_info,
-                                                           application_status=0)
+                                                           application_status=0,
+                                                           apply_time=datetime.datetime.now())
     new_application.save()
     
     return result
@@ -211,9 +212,9 @@ def exit_org(cookie_id, org_name):  # 退出社团
         return result
 
     response_1 = Organizations.objects.filter(organization_name=org_name)
-    if response[0].name == response_1[0].creator.name.name:
+    if response[0].name == response_1[0].master.name.name:
         result['success'] = False
-        result['notice'] = 'The user is the creator.'
+        result['notice'] = 'Club manager cannot quit the club.'
         return result
     else:
         user_info=User_info.objects.filter(name=response[0])
