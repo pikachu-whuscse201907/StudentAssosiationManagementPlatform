@@ -24,7 +24,6 @@
         {
             width: 200px;
         }
-
     </style>
   </head>
   <body>
@@ -33,12 +32,12 @@
             <div class="navbar-header">
               <a class="navbar-brand" href="../index/" title="">Pikachu</a>
             </div>
-    
+
             <div id="navbar-collapse" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
                   <ul class="nav navbar-nav navbar-right">
                       <li><a href="../index/">Home</a></li>
-            
+
                       <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">我的社团</a>
                         <ul class="dropdown-menu">
@@ -47,7 +46,7 @@
                           <li><a href="../myclub/">管理社团</a></li>
                         </ul>
                       </li>
-                      
+
                       <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
                         <ul class="dropdown-menu">
@@ -77,14 +76,14 @@
             <ul class="nav nav-pills nav-stacked" >
 
               <!--是否是社团管理人-->
-              {% if ismaster %}
+              <!--{% if ismanager %}
               <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
               <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
               <li><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
               <li><a href="../createclub/">创建社团</a></li>
-              <li><a href="../searchclub/">查找社团</a></li>
-              {% else %}
+              <li><a href="../searchclub/">查找社团</a></li>-->
+              <!--{% else %}-->
               <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
               <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
@@ -92,18 +91,18 @@
               <li><a href="../searchclub/">查找社团</a></li>
               <!--<li><a href="#">活动申请</a></li>
               <li><a href="#">修改密码</a></li>-->
-              {% endif %}
+              <!--{% endif %}-->
             </ul>
     </div>
 </div>
 
-    
-    
+
+
     <div class="contextbox">
-        <table class="table ">
+        <table class="table">
             <thead>
                 <td colspan="2"><h1>社团信息</h1></td>
-                
+
             </thead>
             <tbody>
                 <tr>
@@ -147,11 +146,10 @@
                 </tr>
             </tbody>
         </table>
-        
+
 
     </div>
     <script src="../static/js/scripts.min.js"></script>
     <script src="../static/js/custom.min.js"></script>
   </body>
 </html>
-
