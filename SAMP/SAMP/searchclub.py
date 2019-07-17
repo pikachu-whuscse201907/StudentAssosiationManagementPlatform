@@ -42,7 +42,7 @@ def searchclub(request):
             dic["clubs"] = clubs
             return render(request, "searchclub.html", dic)
     return render(request, "searchclub.html")
-
+# Ending of function searchclub(request)
 
 def clubpage(request):
     context = {}
@@ -79,7 +79,7 @@ def clubpage(request):
         return render(request, "clubpage.html", context)
     
     return HttpResponseRedirect("../searchclub/")
-
+# Ending of function clubpage(request)
 
 def joinclub(request):
     context = {}
@@ -120,7 +120,7 @@ def joinclub(request):
                       {"title": "Applied to join successfully!",
                        "url": ("../clubpage/?iden={0}".format(org_name)),
                        "error_msg": "You have applied to join successfully!"})
-
+# Ending of function joinclub(request)
 
 def quitclub(request):
     context = {}
@@ -161,5 +161,5 @@ def quitclub(request):
                       {"title": "Quit successfully!",
                        "url": "../myclub/",
                        "error_msg": "You have quitted the club successfully!"})
-
+# Ending of function quitclub(request)
 

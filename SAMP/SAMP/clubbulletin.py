@@ -170,8 +170,8 @@ def clubmembers(request):
 
 
 def approve(request):
-    ''
+    return HttpResponse('')
 
 
 def deny(request):
-    ''
+    return HttpResponse('')

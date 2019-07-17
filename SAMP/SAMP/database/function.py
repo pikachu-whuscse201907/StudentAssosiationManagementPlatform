@@ -230,7 +230,12 @@ def exit_org(cookie_id, org_name):  # 退出社团
         result['notice'] = 'You are not in this club.'
         return result
     
-    members.remove(user_info)
+    if user_info == org.master:
+        result['notice'] = 'Club manager cannot quit the club.'
+        return result
+    
+    org.members.remove(user_info)
+    org.save()
     
     result['success'] = True
     new_application = MembershipApplication.objects.create(organization=org, applicant=user_info,
