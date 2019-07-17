@@ -130,25 +130,26 @@ def myclub(request):
             self.description = description
             self.status = status
     
-    # 我加入的社团
-    my_joined_clubs = user_info.organization_members.all()# status=
-    joinedclubs = []
-    for joined_club in my_joined_clubs:
-        joinedclubs.append(__Club(joined_club.org_logo, joined_club.organization_name,
-                                  joined_club.description))
-    context['hasjoinedclub'] = (0 < len(joinedclubs))
-    context['joinedclubs'] = joinedclubs
-    
     # 我管理的社团
-    my_managed_clubs = user_info.organization_master.all()# status=
+    my_managed_clubs = user_info.organization_master.filter(create_status=1)  # status or org.
     managedclubs = []
     for managed_club in my_managed_clubs:
         managedclubs.append(__Club(managed_club.org_logo, managed_club.organization_name,
                                    managed_club.description))
     context['hasmanagedclub'] = (0 < len(managedclubs))
     context['managedclubs'] = managedclubs
+
+    # 我加入的社团
+    my_joined_clubs = user_info.organization_members.all()  # status=
+    joinedclubs = []
+    for joined_club in my_joined_clubs:
+        if user_info != joined_club.master:
+            joinedclubs.append(__Club(joined_club.org_logo, joined_club.organization_name,
+                                      joined_club.description))
+    context['hasjoinedclub'] = (0 < len(joinedclubs))
+    context['joinedclubs'] = joinedclubs
     
-    # 我申请的社团
+    # 我申请加入的社团
     my_applications = user_info.membershipapplication_applicant.all()
     appliedclubs = []
     for application in my_applications:
