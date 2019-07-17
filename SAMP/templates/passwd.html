@@ -123,24 +123,32 @@
               var http_request = new XMLHttpRequest();
               http_request.open('GET','../checkpsd/');
               http_request.send(content);
-              if(http_request.readyState == 4 && http_request.status == 200)
+              http_request.onreadystatechange = function()
               {
-                  if(http_request.responseText == "true")
+                if(http_request.readyState == 4)
+                {
+                  if( http_request.status == 200)
                   {
-                      return true;
-                  }
+                    if(http_request.responseText == "true")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                      $("#warning1").css("display","block");
+                      return false;
+                    }
+                  }               
                   else
                   {
-                    $("#warning1").css("display","block");
+                    alert("请求失败!请稍后重试");
                     return false;
                   }
-              }
-              else
-              {
-                alert("请求失败");
-                return false;
+                }
+               
               }
             }
+              
             
             return true;
         }
