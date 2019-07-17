@@ -75,7 +75,7 @@
         </div>
     </div>
     <div class="contextbox">
-        <form class="form-passwd form-horizontal" onsubmit="return checkpsd();" action="./" method="POST">
+        <form class="form-passwd form-horizontal" action="./" method="POST" id="form_psd">
             {% csrf_token %}
                 <h1 class="form-signin-heading">修改密码</h1>
                 <label for="inputPassword" class="sr-only">原始密码</label>
@@ -91,9 +91,13 @@
                 <div class="alert-warning" id="warning2">
                 两次输入内容不一致！
                 </div>
+                <div class="alert-warning" id="warning3">
+                  密码中只能有字母，数字和下划线
+                  密码长度必须在六位以上
+                </div>
                 {{error}}<br>
                 <a class="btn btn-ghost " href="../userpage/">返回</a>
-                <button class="btn btn-primary " type="submit">确认修改</button> 
+                <input type="button" class="btn btn-primary" value="确认修改" onclick="checkpsd();"> 
                 
               </form>
 
@@ -106,9 +110,12 @@
             var rawpsd = document.getElementById("rawpsd").value;
             var newpsd = document.getElementById("newpsd").value;
             var cnewpsd = document.getElementById("cnewpsd").value;
-            alert(rawpsd);
-            alert(newpsd);
-            alert(cnewpsd);
+            var illegal = /[^0-9a-zA-Z_]+/;
+            if(newpsd.length<7 ||illegal.test(newpsd))
+            {
+              $("#warning3").css("display","block");
+              return false;
+            }
             if(newpsd != cnewpsd)
             {
                 $("#warning2").css("display","block");
@@ -131,7 +138,7 @@
                   {
                     if(http_request.responseText == "true")
                     {
-                        return true;
+                        document.getElementById("form_psd").submit();
                     }
                     else
                     {
@@ -145,12 +152,16 @@
                     return false;
                   }
                 }
-               
+                else
+                {
+                    return false;
+                }
+              }
+              http_request.ontimeout = function()
+              {
+                alert("网络超时,请检查网络后重试");
               }
             }
-              
-            
-            return true;
         }
         function clearwarning()
         {
