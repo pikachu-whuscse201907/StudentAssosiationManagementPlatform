@@ -38,15 +38,17 @@ def clubannouncement(request):
     context['islogin'] = True
     context['name'] = info['user_name']
     context['org_name'] = org_name
-    context['announcements'] = []
+    context['org_name'] = org_name
+    context['org_logo'] = org[0].org_logo
 
     class __Announcement:
         def __init__(self, title, date, content):
             self.title = title
             self.date = date
             self.content = content
-    
-    for p in org[0].announcements.all():
+
+    context['announcements'] = []
+    for p in org[0].announcements.all().order_by('-create_date'):
         context['announcements'].append(__Announcement
                                         (p.title,
                                          p.create_date.strftime('%Y-%m-%d %H:%M:%S'),
@@ -157,7 +159,7 @@ def clubmembers(request):
     context['has_members'] = (0 < len(members))
     context['members'] = members
 
-    applications_from_db = org[0].membershipapplication_org.all()  # status=
+    applications_from_db = org[0].membershipapplication_org.all().order_by('-apply_time')
     applying_members = []
     for application in applications_from_db:
         apply_time = None

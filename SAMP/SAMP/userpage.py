@@ -178,12 +178,13 @@ def myclub(request):
     createdclubs = []
     for created_club in my_createdclubs:
         apply_time = None
-        if application.apply_time is not None:
+        if created_club.create_date is not None:
             apply_time = created_club.create_date.strftime('%Y-%m-%d %H:%M:%S')
         createdclubs.append(__Club(org_logo=created_club.org_logo,
                                    organization_name=created_club.organization_name,
                                    description=created_club.description,
                                    apply_time=apply_time,
+                                   solve_time=None,
                                    status=created_club.create_status))
     context['hascreatedclub'] = (0 < len(createdclubs))
     context['createdclubs'] = createdclubs
