@@ -110,6 +110,16 @@
                     <td class="col2">{{ org_name }}</td>
                 </tr>
                 <tr>
+                  <td class="col1">社团状态：</td>
+                  {% if {{org_status}} == 0 %}
+                  <td class="col2">审核中</td>
+                  {% elif {{org_status}} == 1 %}
+                  <td class="col2">创建成功</td>
+                  {% elif {{org_status}} == 2 %}
+                  <td class="col2">创建失败</td>
+                  {% endif %}
+                </tr>
+                <tr>
                     <td class="col1">当前会长：</td>
                     <td class="col2">{{ org_master }}</td>
                 </tr>
