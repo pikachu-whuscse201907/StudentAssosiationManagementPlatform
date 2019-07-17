@@ -233,6 +233,9 @@ def __approve_or_deny(target_status, request):
     context['org_name'] = org_name
     
     if 1 == target_status:  # approve
+        org[0].members.add(target_user_info)
+        org[0].save()
+        
         context['title'] = 'Application Approved.'
         context['url'] = '../../clubmembers/?iden=' + org_name
         context['error_msg'] = 'Successfully Approved ' + target_user + \
