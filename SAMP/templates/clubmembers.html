@@ -13,7 +13,7 @@
     <style type="text/css">
        .table
         {
-            width: 700px;
+            width: 750px;
             position: relative;
             color:black;
             left: 100px;
@@ -30,8 +30,13 @@
         }
         .col3
         {
-            width: 200px;
+            width: 100px;
         }
+        .col4
+        {
+            width: 150px;
+        }
+
         .duicuo
         {
           width: 50px;
@@ -125,26 +130,34 @@
                     <td class="col1">成员：</td>
                     <td class="col2">&nbsp;</td>
                     <td class="col3">&nbsp;</td>
+                    <td class="col4">&nbsp;</td>
                 </tr>
                 
                     {% for member in members %}
                     
                     <tr style="height: 60px">
                         <td class="col1"><img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
-                        <td colspan="2"><p>{{member.name}}</p></td>
+                        <td colspan="3"><p style="margin: 0px auto">{{member.name}}</p></td>
                     </tr>
                     
                     {% endfor %}
 
                 {% if ismanager %}
                     <tr style="height: 25px">
-                      <td colspan="3"></td>
+                      <td colspan="4"></td>
                     </tr>
                     {%for member in applying_members %}
                     <tr style="height: 60px">
                         <td class="col1"><img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
-                        <td class="col2"><p>{{member.name}}</p></td>
+                        <td class="col2"><p style="margin: 0px auto">{{member.name}}</p></td>
                         <td class="col3">
+                          <p style="margin: 0px auto; font-size: 16px;">
+                            申请时间：{{createdclub.apply_time}}
+                              <br>
+                            处理时间：{{createdclub.solve_time}}
+                          </p>
+                        </td>
+                        <td class="col4">
                             {% if member.status == 0 %}
                             
                             <form action="approve/" method="POST" style="width: 50px; float: left;">
