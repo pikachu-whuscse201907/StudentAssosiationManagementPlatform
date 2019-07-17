@@ -67,6 +67,7 @@ def clubpage(request):
         context["org_logo"] = org_info["org_logo"]
         context["org_name"] = org_info['org_name']
         context["org_description"] = org_info['org_description']
+        context["org_status"] = org_info["org_status"]
         if org_info['create_date'] is None:
             context['create_date'] = 'Not Recorded'
         else:
