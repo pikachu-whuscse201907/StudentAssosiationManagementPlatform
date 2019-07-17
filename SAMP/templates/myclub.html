@@ -83,8 +83,142 @@
                           <tr>
                               <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{club.org_logo}}">{{club.organization_name}}</td>
                               <td class = "td2">{{club.description}}</td>
+                              <td>
+                              申请时间：{{club.apply_time}}
+                              <br>
+                              处理时间：{{club.solve_time}}
+                              </td>
                               <td class = "td3">
-                                {%if createdclub.status == 0%}
+                               {%if club.status == 0%}
+                                  <span class="label label-primary">审核中……</span>
+                                  
+                                {%elif club.status == 1 %}
+                                  <span class="label label-success">审核通过</span>
+                                  
+                                {%elif club.status == 2 %}
+                                  <span class="label label-danger">失败</span>
+                                  
+                                {%elif club.status == 3 %}
+                                  <span class="label label-default">已退出</span>
+                                  
+                                {%elif club.status == 4 %}
+                                  <span class="label "  style="background-color:black;">被移出社团</span>
+                                  
+                                {% endif %}
+                                <br>
+                                <a class="btn btn-ghost" href="../clubpage/?iden={{club.organization_name}}">查看社团</a>
+                              </td>
+                          </tr>
+                          {%endfor%} 
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseTwo">
+                      我管理的社团
+                  </a>
+                  </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body">
+                  {%if not hasmanagedclub%}
+                      还没有管理任何社团
+                  {%endif%}
+                  <table class="table">
+                      {%for managedclub in managedclubs%}
+                      <tr>
+                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{managedclub.org_logo}}">
+                          {{managedclub.organization_name}}</td>
+                          <td class = "td2">{{managedclub.description}}</td>
+                          <td class = "td3">
+                              <a class="btn btn-ghost" href="../clubpage/?iden={{managedclub.organization_name}}">管理社团</a>
+                          </td>
+                      </tr>
+                      {%endfor%} 
+                  </table>
+                  
+              </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseThree">
+                      我申请的社团
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse">
+                  <div class="panel-body">
+                  {%if not hasappliedclub%}
+                      还没有申请任何社团
+                  {%endif%}
+                  <table class="table">
+                      {%for appliedclub in appliedclubs%}
+                      <tr>
+                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{appliedclub.org_logo}}"></td>
+                          <td class = "td2">{{appliedclub.description}}</td>
+                          <td>
+                              申请时间：{{appliedclub.apply_time}}
+                              <br>
+                              处理时间：{{appliedclub.solve_time}}
+                              </td>
+                          <td class = "td3">
+                             {%if appliedclub.status == 0%}
+                                  <span class="label label-primary">审核中……</span>
+                                  
+                                {%elif appliedclub.status == 1 %}
+                                  <span class="label label-success">审核通过</span>
+                                  
+                                {%elif appliedclub.status == 2 %}
+                                  <span class="label label-danger">失败</span>
+                                  
+                                {%elif appliedclub.status == 3 %}
+                                  <span class="label label-default">已退出</span>
+                                  
+                                {%elif appliedclub.status == 4 %}
+                                  <span class="label "  style="background-color:black;">被移出社团</span>
+                                {% endif %}
+                                <br>
+                                <a class="btn btn-ghost" href="../clubpage/?iden={{club.organization_name}}">查看社团</a>
+                          </td>
+                      </tr>
+                      {%endfor%} 
+                  </table>
+                  </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseFour">
+                      我创建的社团
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseFour" class="panel-collapse collapse">
+                  <div class="panel-body">
+                  {%if not hascreatedclub%}
+                      还没有创建任何社团
+                  {%endif%}
+                  <table class="table">
+                    {%for createdclub in createdclubs%}
+                    <tr>
+                        <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{createdclub.org_logo}}"></td>
+                        <td class = "td2">{{createdclub.description}}</td>
+                        <td>
+                              申请时间：{{createdclub.apply_time}}
+                              <br>
+                              处理时间：{{createdclub.solve_time}}
+                              </td>
+                        <td class = "td3">
+                           {%if createdclub.status == 0%}
                                   <span class="label label-primary">审核中……</span>
                                   
                                 {%elif createdclub.status == 1 %}
@@ -101,37 +235,6 @@
                                   
                                 {% endif %}
                                 <br>
-                                <a class="btn btn-ghost" href="../clubpage/?iden={{club.organization_name}}">查看社团</a>
-                              </td>
-                              </td>
-                          </tr>
-                          {%endfor%} 
-                      </table>
-                  </div>
-              </div>
-          </div>
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" 
-                      href="#collapseFour">
-                      我管理的的社团
-                      </a>
-                  </h4>
-              </div>
-              <div id="collapseFour" class="panel-collapse collapse">
-                  <div class="panel-body">
-                  {%if not hascreatedclub%}
-                      还没有管理任何社团
-                  {%endif%}
-                  <table class="table">
-                    {%for createdclub in createdclubs%}
-                    <tr>
-                        <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{createdclub.org_logo}}"></td>
-                        <td class = "td2">{{createdclub.description}}</td>
-                        <td class = "td3">
-                                <a class="btn btn-ghost" href="../clubpage/?iden={{club.organization_name}}">查看社团</a>
-                                <a class="btn btn-ghost" href="#">退出社团</a>
                         </td>
                     </tr>
                     {%endfor%} 
