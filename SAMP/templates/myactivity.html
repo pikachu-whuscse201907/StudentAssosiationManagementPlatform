@@ -55,6 +55,7 @@
                 <a href="../updateuserinfo/">
                 <img src="..{{MEDIA_URL}}{{img}}" alt="" class="avatar" id="photo2">
                 </a>
+                <br>
                 <span class="username">{{name|truncatewords:"15"}}</span>
             </div>
         <div style="position: relative;top:150px;">
@@ -228,7 +229,7 @@
       {
         var http_request = new XMLHttpRequest();
         var content = {
-            'activity_id': activity_id 
+            activityid: activity_id 
         }
       
         http_request.timeout = function()
