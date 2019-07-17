@@ -54,7 +54,7 @@ def clubannouncement(request):
     context['have_announcement'] = (len(context['announcements']) != 0)
     
     return HttpResponse(render(request, 'clubannouncement.html', context))
-# Ending of function clubbulletin(request)
+# Ending of function clubannouncement(request)
 
 
 def addannouncement(request):
@@ -75,7 +75,7 @@ def addannouncement(request):
     if announcement_content is None or announcement_title is None\
             or 0 == len(announcement_title) or 0 == len(announcement_content):
         context['title'] = 'Illegal Announcement'
-        context['url'] = '../clubbulletin/?iden='+org_name
+        context['url'] = '../clubannouncement/?iden='+org_name
         context['error_msg'] = '公告标题和公告内容均不可为空'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
@@ -85,7 +85,7 @@ def addannouncement(request):
     else:
         context['ismanager'] = False
         context['title'] = 'Not Authorized.'
-        context['url'] = '../clubbulletin/?iden='+org_name
+        context['url'] = '../clubannouncement/?iden='+org_name
         context['error_msg'] = 'Only club managers can publish announcements!'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
@@ -100,7 +100,7 @@ def addannouncement(request):
     org[0].save()
 
     context['title'] = 'New announcement published.'
-    context['url'] = '../clubbulletin/?iden='+org_name
+    context['url'] = '../clubannouncement/?iden='+org_name
     context['error_msg'] = 'New announcement published.'
     response = HttpResponse(render(request, 'jump.html', context))
     return response
