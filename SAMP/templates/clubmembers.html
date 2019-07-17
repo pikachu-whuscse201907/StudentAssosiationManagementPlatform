@@ -148,6 +148,7 @@
                             {% if member.status == 0 %}
                             
                             <form action="approve/" method="POST" style="width: 50px; float: left;">
+                              {% csrf_token %}
                               <input type="text" name="target_user" value="{{member.name}}" style="display:none">
                               <input type="text" name="org_name" value="{{ org_name }}" style="display:none">
                               <button type="submit" style="font-size: 16px;
@@ -160,6 +161,7 @@
                             </form>
 
                             <form action="deny/" method="POST" style="width: 50px; float: right;">
+                              {% csrf_token %}
                               <input type="text" name="target_user" value="{{member.name}}" style="display:none">
                               <input type="text" name="org_name" value="{{ org_name }}" style="display:none">
                               <button type="submit" style="font-size: 16px;
