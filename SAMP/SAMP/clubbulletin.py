@@ -195,7 +195,7 @@ def __approve_or_deny(target_status, request):
     org = Organizations.objects.filter(organization_name=org_name)
     if 0 == len(org):
         context['title'] = 'Failed.'
-        context['url'] = '../searchclub/'
+        context['url'] = '../../searchclub/'
         context['error_msg'] = 'Cannot find a club named "' + org_name + '".'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
@@ -203,7 +203,7 @@ def __approve_or_deny(target_status, request):
     manager_user_info = search.user_info_of_username(info['user_name'])
     if manager_user_info != org[0].master:
         context['title'] = 'Not Authorized.'
-        context['url'] = '../clubpage/?iden=' + org_name
+        context['url'] = '../../clubpage/?iden=' + org_name
         context['error_msg'] = 'Only club manager can approve or deny.'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
@@ -216,7 +216,7 @@ def __approve_or_deny(target_status, request):
                                                                    application_status=0)
     if 0 == len(target_application_list):
         context['title'] = 'Not Authorized.'
-        context['url'] = '../clubmembers/?iden=' + org_name
+        context['url'] = '../../clubmembers/?iden=' + org_name
         context['error_msg'] = 'User ' + target_user + \
                                ' does not have a pending application to this club.'
         response = HttpResponse(render(request, 'jump.html', context))
@@ -234,14 +234,14 @@ def __approve_or_deny(target_status, request):
     
     if 1 == target_status:  # approve
         context['title'] = 'Application Approved.'
-        context['url'] = '../clubmembers/?iden=' + org_name
+        context['url'] = '../../clubmembers/?iden=' + org_name
         context['error_msg'] = 'Successfully Approved ' + target_user + \
                                '\'s application to ' + org_name + '. '
         response = HttpResponse(render(request, 'jump.html', context))
         return response
     if 2 == target_status:  # deny
         context['title'] = 'Application Denied.'
-        context['url'] = '../clubmembers/?iden=' + org_name
+        context['url'] = '../../clubmembers/?iden=' + org_name
         context['error_msg'] = 'Successfully Denied ' + target_user + \
                                '\'s application to ' + org_name + '. '
         response = HttpResponse(render(request, 'jump.html', context))
