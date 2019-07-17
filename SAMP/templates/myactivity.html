@@ -15,7 +15,6 @@
             width: 1000px;
             position: relative;
             color:black;    
-            font-size: 20px;
             
         }
         .td1
@@ -109,7 +108,7 @@
                               <td class = "td2">{{joinedactivity.org_name}}</td>
                               <td class = "td3">{{joinedactivity.date}}</td>
                                 <td>
-                                <a class="btn btn-ghost" href="#">查看详情</a>
+                                <a class="btn btn-ghost" data-toggle="modal" data-target="#activitydetails" onclick="get_activity_details('{{activity_id}}');">查看详情</a>
                                 <a class="btn btn-ghost" href="#">退出活动</a>
                                 </td>
                           </tr>
@@ -149,7 +148,7 @@
                                   <td class = "td2">{{activity.org_name}}</td>
                                   <td class = "td3">{{activity.date}}</td>
                                     <td>
-                                    <a class="btn btn-ghost" href="#">查看详情</a>
+                                    <a class="btn btn-ghost" data-toggle="modal" data-target="#activitydetails" onclick="get_activity_details('{{activity_id}}');">查看详情</a>
                                     <a class="btn btn-ghost" href="#">参加活动</a>
                                     </td>
                               </tr>
@@ -163,7 +162,7 @@
       </div>
     </div>
     <!-- 活动申请表（Modal） -->
-<div class="modal fade" id="activityapplyform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="activityapplyform" tabindex="-1"  >
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
@@ -171,12 +170,13 @@
               <h4 class="modal-title" id="myModalLabel">活动申请表</h4>
           </div>
           <div class="modal-body">
-            <form action="./" class="form" id = " activity-form" method="POST">
+            <form action="./" class="form" id = "activity-form" method="POST">
               {% csrf_token %}
               活动主题：<input type="text" class="form-control" name="theme" id = "theme">
               申请社团：<select name="org" id="org" class="form-control">
                 {%for club in clubs%}
                 <option value="{{club.name}}">{{club.name}}</option>
+                {%endfor%}
               </select>
               活动地点：<input type="text" class="form-control" name="address" id="address">
               活动时间：<input type="date" class="form-control" name="date" id="date">
@@ -191,9 +191,69 @@
       </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
+
+
+<!-- 活动详情（Modal） -->
+<div class="modal fade" id="activitydetails" tabindex="-1">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">活动详情</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form">
+              {% csrf_token %}
+              活动主题：<input type="text" class="form-control"id = "theme_detail" readonly = "readonly">
+              申请社团：<select id="org_detail" class="form-control" readonly = "readonly">
+              </select>
+              活动地点：<input type="text" class="form-control"id="address_detail" readonly = "readonly">
+              活动时间：<input type="date" class="form-control"id="date_detail" readonly = "readonly">
+              备注：<textarea class="form-control"  rows = "3" id="tips_detail"style="resize: vertical" readonly = "readonly"></textarea> 
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </form>
+          </div>
+          
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+
+
+</div>
     <script src="../static/js/scripts.min.js"></script>
     <script src="../static/js/custom.min.js"></script>
     <script>
+      function get_activity_details(activity_id)
+      {
+        var http_request = new XMLHttpRequest();
+        var content = {
+            'activity_id': activity_id 
+        }
+      
+        http_request.timeout = function()
+        {
+          alert("网络超时");
+        }
+        http_request.responseType = "json" ;
+        http_request.open('POST','./details/');
+        http_request.send(content);
+        http_request.onreadystatechange = function()
+        {
+          if(http_request.readyState == 4 && http_request.status ==200)
+          {
+            var details = JSON.parse(http_request.responseText);
+            document.getElementById("theme_detail").value =   details['theme'];
+            document.getElementById("org_detail").value =     details['org'];
+            document.getElementById("address_detail").value = details['address'];
+            document.getElementById("date_detail").value =    details['date'];
+            document.getElementById("tips_detail").value =    details['tips'];
+            alert("chengg");
+          }
+          alert(http_request.readyState);
+          alert(http_request.status);
+        }
+      }
       function formsubmit()
       {
         var theme = document.getElementById("theme");
