@@ -36,7 +36,7 @@ urlpatterns = [
     path('updateuserinfo/', userpage.updateuserinfo),
     path('favicon.ico', serve, {'path': '../static/pictures/pikachu2.jpg'}),
     path('clubpage/', searchclub.clubpage),
-    path('clubbulletin/', clubbulletin.clubbulletin),
+    path('clubannouncement/', clubbulletin.clubannouncement),
     path('clubmembers/', clubbulletin.clubmembers),
     path('clubmembers/approve/', clubbulletin.approve),
     path('clubmembers/deny/', clubbulletin.deny),
