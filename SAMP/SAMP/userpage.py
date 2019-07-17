@@ -129,6 +129,15 @@ def myclub(request):
             self.organization_name = organization_name
             self.description = description
             self.status = status
+
+    # 我管理的社团
+    my_managed_clubs = user_info.organization_master.all()  # status=
+    managedclubs = []
+    for managed_club in my_managed_clubs:
+        managedclubs.append(__Club(managed_club.org_logo, managed_club.organization_name,
+                                   managed_club.description))
+    context['hasmanagedclub'] = (0 < len(managedclubs))
+    context['managedclubs'] = managedclubs
     
     # 我加入的社团
     my_joined_clubs = user_info.organization_members.all()# status=
@@ -138,15 +147,6 @@ def myclub(request):
                                   joined_club.description))
     context['hasjoinedclub'] = (0 < len(joinedclubs))
     context['joinedclubs'] = joinedclubs
-    
-    # 我管理的社团
-    my_managed_clubs = user_info.organization_master.all()# status=
-    managedclubs = []
-    for managed_club in my_managed_clubs:
-        managedclubs.append(__Club(managed_club.org_logo, managed_club.organization_name,
-                                   managed_club.description))
-    context['hasmanagedclub'] = (0 < len(managedclubs))
-    context['managedclubs'] = managedclubs
     
     # 我申请的社团
     my_applications = user_info.membershipapplication_applicant.all()
@@ -159,16 +159,6 @@ def myclub(request):
     context['hasappliedclub'] = (0 < len(appliedclubs))
     context['appliedclubs'] = appliedclubs
     
-    # 我创建的社团
-    my_createdclubs = user_info.organization_creator.all()
-    createdclubs = []
-    for created_club in my_createdclubs:
-        createdclubs.append(__Club(created_club.org_logo, created_club.organization_name,
-                                   created_club.description ))# , created_club.status ))
-    context['hascreatedclub'] = (0 < len(createdclubs))
-    context['createdclubs'] = createdclubs
-    
     response = HttpResponse(render(request, 'myclub.html', context))
     return response
-
 # Ending of function myclub(request)
