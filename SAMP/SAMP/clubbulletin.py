@@ -6,7 +6,7 @@ from people.models import Person, Organizations, ClubAnnouncements, User_info, M
 import datetime
 
 
-def clubbulletin(request):
+def clubannouncement(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
     result = function.get_user_info(cookie_id)
@@ -53,7 +53,7 @@ def clubbulletin(request):
                                          p.content))
     context['have_announcement'] = (len(context['announcements']) != 0)
     
-    return HttpResponse(render(request, 'clubbulletin.html', context))
+    return HttpResponse(render(request, 'clubannouncement.html', context))
 # Ending of function clubbulletin(request)
 
 
@@ -140,13 +140,15 @@ def clubmembers(request):
     context['islogin'] = True
     context['name'] = info['user_name']
     context['org_name'] = org_name
+    context['org_logo'] = org[0].org_logo
     
     class __Member:
-        def __init__(self, user_logo, name, time='', status=''):
+        def __init__(self, user_logo, name, apply_time='', solve_time='', status=''):
             self.user_logo = user_logo
             self.name = name
             self.status = status
-            self.time = time
+            self.apply_time = apply_time
+            self.solve_time = solve_time
 
     members_from_db = org[0].members.all()  # status=
     members = []
@@ -158,10 +160,17 @@ def clubmembers(request):
     applications_from_db = org[0].membershipapplication_org.all()  # status=
     applying_members = []
     for application in applications_from_db:
+        apply_time = None
+        solve_time = None
+        if application.apply_time is not None:
+            apply_time = application.apply_time.strftime('%Y-%m-%d %H:%M:%S')
+        if application.solve_time is not None:
+            solve_time = application.solve_time.strftime('%Y-%m-%d %H:%M:%S')
         applying_members.append(__Member(user_logo=application.applicant.profile,
-                                name=application.applicant.name,
-                                time=application.apply_time.strftime('%Y-%m-%d %H:%M:%S'),
-                                status=application.application_status))
+                                         name=application.applicant.name,
+                                         apply_time=apply_time,
+                                         solve_time=solve_time,
+                                         status=application.application_status))
     context['has_applying_members'] = (0 < len(members))
     context['applying_members'] = applying_members
     
