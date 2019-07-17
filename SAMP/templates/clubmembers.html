@@ -22,17 +22,21 @@
         }
         .col1
         {
-            width: 200px;
+            width: 120px;
         }
         .col2
         {
-            width: 300px;
+            width: 180px;
         }
         .col3
         {
-            width: 100px;
+            width: 150px;
         }
         .col4
+        {
+            width: 150px;
+        }
+        .col5
         {
             width: 150px;
         }
@@ -127,38 +131,46 @@
                 
             </thead>
             <tbody>
-                <tr>
-                    <td class="col1">成员：</td>
-                    <td class="col2">&nbsp;</td>
-                    <td class="col3">&nbsp;</td>
-                    <td class="col4">&nbsp;</td>
+                <tr style="font-size: 18px">
+                    <td class="col1" style="text-align: center">成员头像：</td>
+                    <td colspan="4" style="text-align: center">成员名字：</td>
                 </tr>
                 
                     {% for member in members %}
                     
                     <tr style="height: 60px">
                         <td class="col1"><img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
-                        <td colspan="3"><p style="margin: 0px auto">{{member.name}}</p></td>
+                        <td colspan="4" style="text-align: center"><p style="margin: 0px auto">{{member.name}}</p></td>
                     </tr>
                     
                     {% endfor %}
 
                 {% if ismanager %}
-                    <tr style="height: 25px">
-                      <td colspan="4"></td>
+                    <tr style="height: 10px">
+                      <td colspan="5" style="height: 20px"></td>
                     </tr>
+                  <tr style="font-size: 18px">
+                    <td class="col1" style="text-align: center">成员头像：</td>
+                    <td class="col2" style="text-align: center">成员名字：</td>
+                    <td class="col3" style="text-align: center">申请时间：</td>
+                    <td class="col4" style="text-align: center">处理时间：</td>
+                    <td class="col5" style="text-align: center">成员状态：</td>
+                  </tr>
                     {%for member in applying_members %}
                     <tr style="height: 60px">
                         <td class="col1"><img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
-                        <td class="col2"><p style="margin: 0px auto">{{member.name}}</p></td>
-                        <td class="col3">
-                          <p style="margin: 0px auto; font-size: 16px;">
-                            申请时间：{{member.apply_time}}
-                              <br>
-                            处理时间：{{member.solve_time}}
+                        <td class="col2" style="text-align: center"><p style="margin: 0px auto">{{member.name}}</p></td>
+                        <td class="col3" style="text-align: center">
+                          <p style="margin: 0px auto; font-size: 14px;">
+                            {{member.apply_time}}
                           </p>
                         </td>
-                        <td class="col4">
+                        <td class="col4" style="text-align: center">
+                          <p style="margin: 0px auto; font-size: 14px;">
+                            {{member.solve_time}}
+                          </p>
+                        </td>
+                        <td class="col5" style="text-align: center">
                             {% if member.status == 0 %}
                             
                             <form action="approve/" method="POST" style="width: 50px; float: left;">
@@ -190,13 +202,13 @@
                             
                           
                             {% elif member.status == 1 %}
-                            <p>通过</p>
+                            <span class="label label-success">审核通过</span>
                             {% elif member.status == 2 %}
-                            <p>拒绝</p>
+                            <span class="label label-danger">失败</span>
                             {% elif member.status == 3 %}
-                            <p>退出</p>
+                            <span class="label label-default">已退出</span>
                             {% elif member.status == 4 %}
-                            <p>踢出</p>
+                            <span class="label "  style="background-color:black;">被移出社团</span>
                             {% endif %}
                         </td>
                     </tr>
