@@ -135,7 +135,7 @@
           
 
 
-
+        {% if ismanager %}
         <form action="../addannouncement/" method="POST">
                 {% csrf_token %}
             <input type="text" name="org_name" value="{{ org_name }}" style="display: none">
@@ -155,7 +155,7 @@
             </div>
             
         </form>
-      
+        {% endif %}
         
         </div>
 

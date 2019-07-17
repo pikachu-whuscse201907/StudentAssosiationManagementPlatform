@@ -108,6 +108,7 @@
               <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
               <li class="active"><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
+              <li><a href="../clubannouncement/?iden={{org_name}}">社团公告</a></li>
               <!--<li><a href="../createclub/">创建社团</a></li>-->
               <!--<li><a href="../searchclub/">查找社团</a></li>-->
               <!--<li><a href="#">活动申请</a></li>
@@ -152,9 +153,9 @@
                         <td class="col2"><p style="margin: 0px auto">{{member.name}}</p></td>
                         <td class="col3">
                           <p style="margin: 0px auto; font-size: 16px;">
-                            申请时间：{{createdclub.apply_time}}
+                            申请时间：{{member.apply_time}}
                               <br>
-                            处理时间：{{createdclub.solve_time}}
+                            处理时间：{{member.solve_time}}
                           </p>
                         </td>
                         <td class="col4">
