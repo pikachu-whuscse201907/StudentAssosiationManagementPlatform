@@ -76,22 +76,23 @@
             <ul class="nav nav-pills nav-stacked" >
 
               <!--是否是社团管理人-->
-              <!--{% if ismanager %}
+              {% if ismanager %}
               <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
-              <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
+              <li><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
-              <li><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
-              <li><a href="../createclub/">创建社团</a></li>
-              <li><a href="../searchclub/">查找社团</a></li>-->
-              <!--{% else %}-->
+              <li><a href="../clubannouncement/?iden={{org_name}}">发布公告</a></li>
+              <!--<li><a href="../createclub/">创建社团</a></li>-->
+              <!--<li><a href="../searchclub/">查找社团</a></li>-->
+              {% else %}
               <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
-              <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
+              <li><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
-              <li><a href="../createclub/">创建社团</a></li>
-              <li><a href="../searchclub/">查找社团</a></li>
+              <li><a href="../clubannouncement/?iden={{org_name}}">社团公告</a></li>
+              <!--<li><a href="../createclub/">创建社团</a></li>-->
+              <!--<li><a href="../searchclub/">查找社团</a></li>-->
               <!--<li><a href="#">活动申请</a></li>
               <li><a href="#">修改密码</a></li>-->
-              <!--{% endif %}-->
+              {% endif %}
             </ul>
     </div>
 </div>
@@ -108,6 +109,16 @@
                 <tr>
                     <td class="col1">社团名称：</td>
                     <td class="col2">{{ org_name }}</td>
+                </tr>
+                <tr>
+                  <td class="col1">社团状态：</td>
+                  {% if org_status == 0 %}
+                  <td class="col2">审核中</td>
+                  {% elif org_status == 1 %}
+                  <td class="col2">创建成功</td>
+                  {% elif org_status == 2 %}
+                  <td class="col2">创建失败</td>
+                  {% endif %}
                 </tr>
                 <tr>
                     <td class="col1">当前会长：</td>
@@ -140,8 +151,9 @@
                     <a class="btn btn-ghost" href="../quitclub/?iden={{org_name}}">退出社团</a>
                     {% else %}
                     <a class="btn btn-ghost" href="../joinclub/?iden={{org_name}}">加入社团</a>
-                    {{error}}
+
                     {% endif %}
+                    {{error}}
                   </td>
                 </tr>
             </tbody>

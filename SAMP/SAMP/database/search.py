@@ -85,6 +85,7 @@ def get_org_info(org_name, cookie_id):
 	
 	org_info['org_name'] = response_1[0].organization_name
 	org_info['org_description'] = response_1[0].description
+	org_info["org_status"] = response_1[0].create_status
 	org_info['create_date'] = response_1[0].create_date
 	org_info['org_master'] = response_1[0].master.name.name
 	org_info['creator'] = response_1[0].creator.name.name

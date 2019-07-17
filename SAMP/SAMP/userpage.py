@@ -124,38 +124,52 @@ def myclub(request):
     
     # This class is ONLY for page 'myclub/'
     class __Club:
-        def __init__(self, org_logo, organization_name, description, status=''):
+        def __init__(self, org_logo, organization_name, description,
+                     apply_time='', solve_time='', status=''):
             self.org_logo = org_logo
             self.organization_name = organization_name
             self.description = description
+            self.apply_time = apply_time
+            self.solve_time = solve_time
             self.status = status
     
+    # 我管理的社团
+    my_managed_clubs = user_info.organization_master.filter(create_status=1)  # status or org.
+    managedclubs = []
+    for managed_club in my_managed_clubs:
+        managedclubs.append(__Club(org_logo=managed_club.org_logo,
+                                   organization_name=managed_club.organization_name,
+                                   description=managed_club.description))
+    context['hasmanagedclub'] = (0 < len(managedclubs))
+    context['managedclubs'] = managedclubs
+
     # 我加入的社团
-    my_joined_clubs = user_info.organization_members.all()# status=
+    my_joined_clubs = user_info.organization_members.all()  # status=
     joinedclubs = []
     for joined_club in my_joined_clubs:
-        joinedclubs.append(__Club(joined_club.org_logo, joined_club.organization_name,
-                                  joined_club.description))
+        if user_info != joined_club.master:  # if this club wasn't shown above, show here.
+            joinedclubs.append(__Club(org_logo=joined_club.org_logo,
+                                      organization_name=joined_club.organization_name,
+                                      description=joined_club.description))
     context['hasjoinedclub'] = (0 < len(joinedclubs))
     context['joinedclubs'] = joinedclubs
     
-    # 我管理的社团
-    my_managed_clubs = user_info.organization_master.all()# status=
-    managedclubs = []
-    for managed_club in my_managed_clubs:
-        managedclubs.append(__Club(managed_club.org_logo, managed_club.organization_name,
-                                   managed_club.description))
-    context['hasmanagedclub'] = (0 < len(managedclubs))
-    context['managedclubs'] = managedclubs
-    
-    # 我申请的社团
+    # 我申请加入的社团
     my_applications = user_info.membershipapplication_applicant.all()
     appliedclubs = []
     for application in my_applications:
-        appliedclubs.append(__Club(application.organization.org_logo,
-                                   application.organization.organization_name,
-                                   application.organization.description,
-                                   application.application_status))
+        apply_time = None
+        solve_time = None
+        if application.apply_time is not None:
+            apply_time = application.apply_time.strftime('%Y-%m-%d %H:%M:%S')
+        if application.solve_time is not None:
+            solve_time = application.solve_time.strftime('%Y-%m-%d %H:%M:%S')
+        appliedclubs.append(__Club(org_logo=application.organization.org_logo,
+                                   organization_name=application.organization.organization_name,
+                                   description=application.organization.description,
+                                   apply_time=apply_time,
+                                   solve_time=solve_time,
+                                   status=application.application_status))
     context['hasappliedclub'] = (0 < len(appliedclubs))
     context['appliedclubs'] = appliedclubs
     
@@ -163,8 +177,15 @@ def myclub(request):
     my_createdclubs = user_info.organization_creator.all()
     createdclubs = []
     for created_club in my_createdclubs:
-        createdclubs.append(__Club(created_club.org_logo, created_club.organization_name,
-                                   created_club.description ))# , created_club.status ))
+        apply_time = None
+        if created_club.create_date is not None:
+            apply_time = created_club.create_date.strftime('%Y-%m-%d %H:%M:%S')
+        createdclubs.append(__Club(org_logo=created_club.org_logo,
+                                   organization_name=created_club.organization_name,
+                                   description=created_club.description,
+                                   apply_time=apply_time,
+                                   solve_time=None,
+                                   status=created_club.create_status))
     context['hascreatedclub'] = (0 < len(createdclubs))
     context['createdclubs'] = createdclubs
     

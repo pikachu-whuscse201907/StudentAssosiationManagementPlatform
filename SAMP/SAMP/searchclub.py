@@ -42,17 +42,17 @@ def searchclub(request):
             dic["clubs"] = clubs
             return render(request, "searchclub.html", dic)
     return render(request, "searchclub.html")
-
+# Ending of function searchclub(request)
 
 def clubpage(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
-    if cookie_id is not None:
-        result = function.get_user_info(cookie_id)  # call database
-        if result['success']:
-            info = result['info']
-            context['islogin'] = True
-            context['name'] = info['user_name']
+    result = function.get_user_info(cookie_id)
+    info = result['info']
+    if not result['success']:
+        return view.response_not_logged_in(request)
+    context['islogin'] = True
+    context['name'] = info['user_name']
     
     if "iden" in request.GET:
         org_name = request.GET["iden"]
@@ -67,11 +67,13 @@ def clubpage(request):
         context["org_logo"] = org_info["org_logo"]
         context["org_name"] = org_info['org_name']
         context["org_description"] = org_info['org_description']
+        context["org_status"] = org_info["org_status"]
         if org_info['create_date'] is None:
             context['create_date'] = 'Not Recorded'
         else:
             context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
         context["org_master"] = org_info['org_master']
+        context['ismanager'] = (context['name'] == context["org_master"])
         context["creator"] = org_info['creator']
         context["member_num"] = org_info['member_num']
         context["isjoin"] = org_info['isjoin']
@@ -79,7 +81,7 @@ def clubpage(request):
         return render(request, "clubpage.html", context)
     
     return HttpResponseRedirect("../searchclub/")
-
+# Ending of function clubpage(request)
 
 def joinclub(request):
     context = {}
@@ -89,6 +91,7 @@ def joinclub(request):
     
     if user_info is None:
         return view.response_not_logged_in(request)
+    context['name'] = user_info.name.name
     context['islogin'] = True
     
     org_name = request.GET.get('iden', None)
@@ -104,10 +107,13 @@ def joinclub(request):
         context["org_logo"] = org_info["org_logo"]
         context["org_name"] = org_info['org_name']
         context["org_description"] = org_info['org_description']
+        context["org_status"] = org_info["org_status"]
         if org_info['create_date'] is None:
             context['create_date'] = 'Not Recorded'
         else:
             context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
+        context["org_master"] = org_info['org_master']
+        context['ismanager'] = (context['name'] == context["org_master"])
         context["creator"] = org_info['creator']
         context["member_num"] = org_info['member_num']
         context["isjoin"] = org_info['isjoin']
@@ -120,7 +126,7 @@ def joinclub(request):
                       {"title": "Applied to join successfully!",
                        "url": ("../clubpage/?iden={0}".format(org_name)),
                        "error_msg": "You have applied to join successfully!"})
-
+# Ending of function joinclub(request)
 
 def quitclub(request):
     context = {}
@@ -130,6 +136,7 @@ def quitclub(request):
     
     if user_info is None:
         return view.response_not_logged_in(request)
+    context['name'] = user_info.name.name
     context['islogin'] = True
     
     org_name = request.GET.get('iden', None)
@@ -145,10 +152,13 @@ def quitclub(request):
         context["org_logo"] = org_info["org_logo"]
         context["org_name"] = org_info['org_name']
         context["org_description"] = org_info['org_description']
+        context["org_status"] = org_info["org_status"]
         if org_info['create_date'] is None:
             context['create_date'] = 'Not Recorded'
         else:
             context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
+        context["org_master"] = org_info['org_master']
+        context['ismanager'] = (context['name'] == context["org_master"])
         context["creator"] = org_info['creator']
         context["member_num"] = org_info['member_num']
         context["isjoin"] = org_info['isjoin']
@@ -161,5 +171,5 @@ def quitclub(request):
                       {"title": "Quit successfully!",
                        "url": "../myclub/",
                        "error_msg": "You have quitted the club successfully!"})
-
+# Ending of function quitclub(request)
 

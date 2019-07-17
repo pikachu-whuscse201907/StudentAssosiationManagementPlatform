@@ -115,11 +115,11 @@
 
               
               <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
-              <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
+              <li><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
-              <li class="active"><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
-              <li><a href="../createclub/">创建社团</a></li>
-              <li><a href="../searchclub/">查找社团</a></li>
+              <li class="active"><a href="../clubannouncement/?iden={{org_name}}">发布公告</a></li>
+              <!--<li><a href="../createclub/">创建社团</a></li>-->
+              <!--<li><a href="../searchclub/">查找社团</a></li>-->
               
 
             </ul>
@@ -135,18 +135,19 @@
           
 
 
-
-        <form action="" method="POST">
+        {% if ismanager %}
+        <form action="../addannouncement/" method="POST">
                 {% csrf_token %}
+            <input type="text" name="org_name" value="{{ org_name }}" style="display: none">
             <div>
               <br>
               <label style="font-size: 22px">公告标题</label>
-              <input type="text" name="announce_title" placeholder="请输入公告标题">
+              <input type="text" name="announcement_title" placeholder="请输入公告标题">
             </div>
             <div>
               <br>
               <label style="font-size: 22px">公告内容</label>
-              <textarea type="text" name="announce_body" placeholder="请输入公告内容"></textarea>
+              <textarea type="text" name="announcement_content" placeholder="请输入公告内容"></textarea>
             </div>
             <div>
               <br>
@@ -154,7 +155,7 @@
             </div>
             
         </form>
-      
+        {% endif %}
         
         </div>
 
@@ -165,14 +166,14 @@
                 
             </thead>
             <tbody>
-                {% for announce in old_announce %}
+                {% for announcement in announcements %}
                 <tr style="height: 35px">
                   <td>
-                    <p style="font-size: 20px; margin-bottom: 5px;">{{announce.title}}</p>
-                    <p style="font-size: 18px; margin-bottom: 5px;">{{announce.body}}</p>
+                    <p style="font-size: 20px; margin-bottom: 5px;">{{announcement.title}}&nbsp;&nbsp;{{announcement.date}}</p>
+                    <p style="font-size: 18px; margin-bottom: 5px;">{{announcement.content}}</p>
                   </td>
                 </tr>
-           
+                {% endfor %}
             </tbody>
         </table>
         
