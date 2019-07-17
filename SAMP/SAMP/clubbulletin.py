@@ -38,15 +38,17 @@ def clubannouncement(request):
     context['islogin'] = True
     context['name'] = info['user_name']
     context['org_name'] = org_name
-    context['announcements'] = []
+    context['org_name'] = org_name
+    context['org_logo'] = org[0].org_logo
 
     class __Announcement:
         def __init__(self, title, date, content):
             self.title = title
             self.date = date
             self.content = content
-    
-    for p in org[0].announcements.all():
+
+    context['announcements'] = []
+    for p in org[0].announcements.all().order_by('-create_date'):
         context['announcements'].append(__Announcement
                                         (p.title,
                                          p.create_date.strftime('%Y-%m-%d %H:%M:%S'),
@@ -54,7 +56,7 @@ def clubannouncement(request):
     context['have_announcement'] = (len(context['announcements']) != 0)
     
     return HttpResponse(render(request, 'clubannouncement.html', context))
-# Ending of function clubbulletin(request)
+# Ending of function clubannouncement(request)
 
 
 def addannouncement(request):
@@ -75,7 +77,7 @@ def addannouncement(request):
     if announcement_content is None or announcement_title is None\
             or 0 == len(announcement_title) or 0 == len(announcement_content):
         context['title'] = 'Illegal Announcement'
-        context['url'] = '../clubbulletin/?iden='+org_name
+        context['url'] = '../clubannouncement/?iden='+org_name
         context['error_msg'] = '公告标题和公告内容均不可为空'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
@@ -85,7 +87,7 @@ def addannouncement(request):
     else:
         context['ismanager'] = False
         context['title'] = 'Not Authorized.'
-        context['url'] = '../clubbulletin/?iden='+org_name
+        context['url'] = '../clubannouncement/?iden='+org_name
         context['error_msg'] = 'Only club managers can publish announcements!'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
@@ -100,7 +102,7 @@ def addannouncement(request):
     org[0].save()
 
     context['title'] = 'New announcement published.'
-    context['url'] = '../clubbulletin/?iden='+org_name
+    context['url'] = '../clubannouncement/?iden='+org_name
     context['error_msg'] = 'New announcement published.'
     response = HttpResponse(render(request, 'jump.html', context))
     return response
@@ -157,7 +159,7 @@ def clubmembers(request):
     context['has_members'] = (0 < len(members))
     context['members'] = members
 
-    applications_from_db = org[0].membershipapplication_org.all()  # status=
+    applications_from_db = org[0].membershipapplication_org.all().order_by('-apply_time')
     applying_members = []
     for application in applications_from_db:
         apply_time = None

@@ -91,6 +91,7 @@ def joinclub(request):
     
     if user_info is None:
         return view.response_not_logged_in(request)
+    context['name'] = user_info.name.name
     context['islogin'] = True
     
     org_name = request.GET.get('iden', None)
@@ -106,10 +107,13 @@ def joinclub(request):
         context["org_logo"] = org_info["org_logo"]
         context["org_name"] = org_info['org_name']
         context["org_description"] = org_info['org_description']
+        context["org_status"] = org_info["org_status"]
         if org_info['create_date'] is None:
             context['create_date'] = 'Not Recorded'
         else:
             context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
+        context["org_master"] = org_info['org_master']
+        context['ismanager'] = (context['name'] == context["org_master"])
         context["creator"] = org_info['creator']
         context["member_num"] = org_info['member_num']
         context["isjoin"] = org_info['isjoin']
@@ -132,6 +136,7 @@ def quitclub(request):
     
     if user_info is None:
         return view.response_not_logged_in(request)
+    context['name'] = user_info.name.name
     context['islogin'] = True
     
     org_name = request.GET.get('iden', None)
@@ -147,10 +152,13 @@ def quitclub(request):
         context["org_logo"] = org_info["org_logo"]
         context["org_name"] = org_info['org_name']
         context["org_description"] = org_info['org_description']
+        context["org_status"] = org_info["org_status"]
         if org_info['create_date'] is None:
             context['create_date'] = 'Not Recorded'
         else:
             context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
+        context["org_master"] = org_info['org_master']
+        context['ismanager'] = (context['name'] == context["org_master"])
         context["creator"] = org_info['creator']
         context["member_num"] = org_info['member_num']
         context["isjoin"] = org_info['isjoin']

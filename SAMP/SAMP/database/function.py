@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 import datetime
-from people.models import Person, User_info, Organizations, ClubAnnouncements, MembershipApplication
+from people.models import Person, User_info, Organizations, ClubAnnouncements, MembershipApplication,Activ
 from ..Cookie import *
 from .delete import delete_cookie
 from .save import save_cookie
@@ -244,3 +244,43 @@ def exit_org(cookie_id, org_name):  # 退出社团
     
     return result
 # Ending of function exit_org(cookie_id, org_name)
+
+#社团管理员发布社团活动信息
+def publish_activ(cookie_id,activ_name,activ_time,activ_place,activ_content,org_name):
+    response = Person.objects.filter(cookie_id=cookie_id)
+    result = {}
+    if len(response)==0:
+        result['success']=False
+        result['notice']='The cookie_id is not exist.'
+        return result
+    elif expire(response[0].cookie_expire):
+        result['success']=False
+        result['notice']='The cookie_id is out of date.'
+        return result
+    else:
+        org = Organizations.objects.filter(organization_name=org_name)
+        activ = Activ.objects.create(activ_name = activ_name, activ_time = activ_time,org_name=org[0],
+										activ_place = activ_place,activ_content = activ_content)
+        activ.save()
+
+#社团成员、管理员查看社团活动信息
+def look_org_activ(cookie_id,org_name):
+    response = Person.objects.filter(cookie_id=cookie_id)
+    result = {}
+    if len(response) == 0:
+        result['success'] = False
+        result['notice'] = 'The cookie_id is not exist.'
+        return result
+    elif expire(response[0].cookie_expire):
+        result['success'] = False
+        result['notice'] = 'The cookie_id is out of date.'
+        return result
+    else:
+        org_info = Organizations.objects.filter(organization_name=org_name)
+        activ_info = Activ.objects.filter(org_name = org_info[0])
+        activ_list = []
+        for each in activ_info:
+            activ_list.append((each.activ_name,each.activ_place,each.activ_time,each.activ_content))
+        result['activ_list']=activ_list
+        result['success'] = True
+        return  result
