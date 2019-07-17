@@ -39,7 +39,7 @@ urlpatterns = [
     path('clubbulletin/', clubbulletin.clubbulletin),
     path('clubmembers/', clubbulletin.clubmembers),
     path('clubmembers/approve/', clubbulletin.approve),
-    path('clubmembers/deny/', clubbulletin.clubmembers),
+    path('clubmembers/deny/', clubbulletin.deny),
     path('addannouncement/', clubbulletin.addannouncement),
     path('joinclub/', searchclub.joinclub),
     path('quitclub/', searchclub.quitclub),

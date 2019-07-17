@@ -210,21 +210,20 @@ def exit_org(cookie_id, org_name):  # 退出社团
     response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
     result['success'] = False
-    if len(response) == 0:  # 如果cookie不存在，加入失败
+    if len(response) == 0:
         result['notice'] = 'The cookie_id does not exist.'
         return result
-    elif expire(response[0].cookie_expire):  # 如果cookie过期，加入失败
+    elif expire(response[0].cookie_expire):
         result['notice'] = 'The cookie_id is out of date.'
         return result
     
     response_1 = Organizations.objects.filter(organization_name=org_name)  # 获取该社团信息
     user_info = response[0].user_info
-    if len(response_1) == 0:  # 该社团不存在，加入失败
+    if len(response_1) == 0:  # 该社团不存在
         result['notice'] = 'The organization does not exist.'
         return result
     org = response_1[0]
     
-    # 根据输入是社团id,查看社团成员列表member(连接到User_info表），如果该社团存在，则加入失败
     members = org.members.all()
     if user_info not in list(members):
         result['notice'] = 'You are not in this club.'
