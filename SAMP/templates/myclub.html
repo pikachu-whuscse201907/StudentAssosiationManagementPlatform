@@ -84,7 +84,7 @@
                               <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{club.org_logo}}">{{club.organization_name}}</td>
                               <td class = "td2">{{club.description}}</td>
                               <td class = "td3">
-                                <a class="btn btn-ghost" href="#">查看社团</a>
+                                <a class="btn btn-ghost" href="../clubpage/?iden={{club.organization_name}}">查看社团</a>
                                 <a class="btn btn-ghost" href="#">退出社团</a>
                               </td>
                           </tr>
@@ -110,10 +110,11 @@
                   <table class="table">
                       {%for managedclub in managedclubs%}
                       <tr>
-                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{managedclub.org_logo}}"></td>
+                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{managedclub.org_logo}}">
+                          {{managedclub.organization_name}}</td>
                           <td class = "td2">{{managedclub.description}}</td>
                           <td class = "td3">
-                              <a class="btn btn-ghost" href="#">管理社团</a>
+                              <a class="btn btn-ghost" href="../clubpage/?iden={{managedclub.organization_name}}">管理社团</a>
                               <a class="btn btn-ghost" href="#">退出社团</a>
                           </td>
                       </tr>
