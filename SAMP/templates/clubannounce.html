@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{{org_name}}</title>
+    <title>{{org_name}}发布公告</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,6 +24,44 @@
         {
             width: 200px;
         }
+        .form_sty
+        {
+          width: 700px;
+          height: 450px;
+          text-align: center;
+          margin: 0px 300px;
+        }
+        .form_sty input
+        {
+          width: 500px;
+          display: block;
+          margin: 0px auto;
+        }
+        .form_sty textarea
+        {
+          width: 500px;
+          height: 200px;
+          display: block;
+          margin: 0px auto;
+        }
+        .form_sty button
+        {
+          
+          width: 120px;
+          color: #7ED320;
+			    background-color: white;
+			    height: 45px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 18px;
+          border: 1px solid #7ED320;
+        }
+        .submitan
+        {
+          margin: 0px -55px;
+          position: absolute;
+          text-align: center;/*子内容居中*/
+        }
     </style>
   </head>
   <body>
@@ -32,12 +70,12 @@
             <div class="navbar-header">
               <a class="navbar-brand" href="../index/" title="">Pikachu</a>
             </div>
-
+    
             <div id="navbar-collapse" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
                   <ul class="nav navbar-nav navbar-right">
                       <li><a href="../index/">Home</a></li>
-
+            
                       <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">我的社团</a>
                         <ul class="dropdown-menu">
@@ -46,7 +84,7 @@
                           <li><a href="../myclub/">管理社团</a></li>
                         </ul>
                       </li>
-
+                      
                       <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
                         <ul class="dropdown-menu">
@@ -75,81 +113,73 @@
     <div style="position: relative;top:150px;">
             <ul class="nav nav-pills nav-stacked" >
 
-              <!--是否是社团管理人-->
-              <!--{% if ismanager %}
-              <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
+              
+              <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
               <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
-              <li><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
-              <li><a href="../createclub/">创建社团</a></li>
-              <li><a href="../searchclub/">查找社团</a></li>-->
-              <!--{% else %}-->
-              <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
-              <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
-              <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
+              <li class="active"><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
               <li><a href="../createclub/">创建社团</a></li>
               <li><a href="../searchclub/">查找社团</a></li>
-              <!--<li><a href="#">活动申请</a></li>
-              <li><a href="#">修改密码</a></li>-->
-              <!--{% endif %}-->
+              
+
             </ul>
     </div>
 </div>
 
-
-
+    
+    
     <div class="contextbox">
+
+      
+        <div class="form_sty">
+          
+
+
+
+        <form action="" method="POST">
+                {% csrf_token %}
+            <div>
+              <br>
+              <label style="font-size: 22px">公告标题</label>
+              <input type="text" name="announce_title" placeholder="请输入公告标题">
+            </div>
+            <div>
+              <br>
+              <label style="font-size: 22px">公告内容</label>
+              <textarea type="text" name="announce_body" placeholder="请输入公告内容"></textarea>
+            </div>
+            <div>
+              <br>
+              <button type="submit" class="submitan">提交发布</button>
+            </div>
+            
+        </form>
+      
+        
+        </div>
+
+
         <table class="table">
             <thead>
-                <td colspan="2"><h1>社团信息</h1></td>
-
+                <td colspan="2"><h1>历史公告</h1></td>
+                
             </thead>
             <tbody>
-                <tr>
-                    <td class="col1">社团名称：</td>
-                    <td class="col2">{{ org_name }}</td>
-                </tr>
-                <tr>
-                    <td class="col1">当前会长：</td>
-                    <td class="col2">{{ org_master }}</td>
-                </tr>
-                <tr>
-                    <td class="col1">创建者：</td>
-                    <td class="c0l2">{{ creator }}</td>
-                </tr>
-                <tr>
-                    <td class="col1">创建时间：</td>
-                    <td class="col2">{{ create_date }}</td>
-                </tr>
-                <tr>
-                    <td class="col1">社团人数：</td>
-                    <td class="col2">{{ member_num }}</td>
-                </tr><tr>
-                    <td class="col1">社团描述：</td>
-                    <td class="col2">{{ org_description }}</td>
-                </tr>
-                <!--<tr>
-                    <td colspan="2">
-                        <a class="btn btn-ghost" href = "../updateuserinfo">修改个人信息</a>
-                    </td>
-                </tr>-->
-                <tr>
-                    <td colspan="2">
-                    <br>
-                    {% if isjoin %}
-                    <a class="btn btn-ghost" href="../quitclub/?iden={{org_name}}">退出社团</a>
-                    {% else %}
-                    <a class="btn btn-ghost" href="../joinclub/?iden={{org_name}}">加入社团</a>
-                    {{error}}
-                    {% endif %}
+                {% for announce in old_announce %}
+                <tr style="height: 35px">
+                  <td>
+                    <p style="font-size: 20px; margin-bottom: 5px;">{{announce.title}}</p>
+                    <p style="font-size: 18px; margin-bottom: 5px;">{{announce.body}}</p>
                   </td>
                 </tr>
+           
             </tbody>
         </table>
-
+        
 
     </div>
     <script src="../static/js/scripts.min.js"></script>
     <script src="../static/js/custom.min.js"></script>
   </body>
 </html>
+

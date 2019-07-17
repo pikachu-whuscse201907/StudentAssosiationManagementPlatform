@@ -4,6 +4,7 @@ __pycache__/
 db.sqlite3
 workspace.xml
 venv/
-.idea/
-media/
+SAMP/.idea/
+org_logo/
+user_logo/
 migrations/
