@@ -180,7 +180,7 @@ def deny(request):
 
 
 def __approve_or_deny(target_status, request):
-    if target_status != 1 or target_status != 2:
+    if target_status != 1 and target_status != 2:
         target_status = 2  # default: deny
     
     context = {}
