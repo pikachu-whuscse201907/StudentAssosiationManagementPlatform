@@ -32,6 +32,15 @@
         {
             width: 200px;
         }
+        .duicuo
+        {
+          width: 50px;
+          height: 30px;
+          color: #7ED320;
+			    background-color: white;
+          cursor: pointer;
+          border: 1px solid #7ED320;
+        }
     </style>
   </head>
   <body>
@@ -83,22 +92,22 @@
             <ul class="nav nav-pills nav-stacked" >
 
               <!--是否是社团管理人-->
-              <!--{% if ismanager %}
+              {% if ismanager %}
               <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
-              <li><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
+              <li><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
-              <li><a href="../clubannounce/?iden={{org_name}}">发布公告</a></li>
+              <li><a href="../clubannouncement/?iden={{org_name}}">发布公告</a></li>
               <li><a href="../createclub/">创建社团</a></li>
               <li><a href="../searchclub/">查找社团</a></li>-->
-              <!--{% else %}-->
+              {% else %}
               <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
-              <li class="active"><a href="../clubmembers/?iden={{orgname}}">社团成员</a></li>
+              <li class="active"><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
               <li><a href="../createclub/">创建社团</a></li>
               <li><a href="../searchclub/">查找社团</a></li>
               <!--<li><a href="#">活动申请</a></li>
               <li><a href="#">修改密码</a></li>-->
-              <!--{% endif %}-->
+              {% endif %}
             </ul>
     </div>
 </div>
@@ -118,41 +127,68 @@
                     <td class="col3">&nbsp;</td>
                 </tr>
                 
+                    {% for member in members %}
+                    
+                    <tr style="height: 60px">
+                        <td class="col1"><img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
+                        <td colspan="2"><p>{{member.name}}</p></td>
+                    </tr>
+                    
+                    {% endfor %}
 
                 {% if ismanager %}
-                    {%for member in members %}
+                    <tr style="height: 25px">
+                      <td colspan="3"></td>
+                    </tr>
+                    {%for member in applying_members %}
                     <tr style="height: 60px">
-                        <td class="col1"><img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
+                        <td class="col1"><img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
                         <td class="col2"><p>{{member.name}}</p></td>
                         <td class="col3">
-                            {% if member.num == 0 %}
-                            <p>审核
-                            <a class="btn btn-ghost" href="../clubmembers/?iden={{org_name}}&{{member.name}}">同意</a>
-                            <a class="btn btn-ghost" href="../clubmembers/?iden={{org_name}}&{{member.name}}">拒绝</a>
-                            </p>
-                            {% elif member.num == 1 %}
+                            {% if member.status == 0 %}
+                            
+                            <form action="clubmembers/approve/" method="POST" style="width: 50px; float: left;">
+                              <input type="text" name="target_user" value="{{member.name}}" style="display:none">
+                              <input type="text" name="org_name" value="{{ org_name }}" style="display:none">
+                              <button type="submit" style="font-size: 16px;
+                              width: 60px;
+                              height: 40px;
+                              color: #7ED320;
+                              background-color: white;
+                              cursor: pointer;
+                              border: 1px solid #7ED320;">同意</button>
+                            </form>
+
+                            <form action="clubmembers/deny/" method="POST" style="width: 50px; float: right;">
+                              <input type="text" name="target_user" value="{{member.name}}" style="display:none">
+                              <input type="text" name="org_name" value="{{ org_name }}" style="display:none">
+                              <button type="submit" style="font-size: 16px;
+                              width: 60px;
+                              height: 40px;
+                              color: #7ED320;
+                              background-color: white;
+                              cursor: pointer;
+                              border: 1px solid #7ED320;">拒绝</button>
+                            </form>
+                          
+                            
+                          
+                            {% elif member.status == 1 %}
                             <p>通过</p>
-                            {% elif member.num == 2 %}
+                            {% elif member.status == 2 %}
                             <p>拒绝</p>
-                            {% elif member.num == 3 %}
+                            {% elif member.status == 3 %}
                             <p>退出</p>
-                            {% elif member.num == 4 %}
+                            {% elif member.status == 4 %}
                             <p>踢出</p>
                             {% endif %}
                         </td>
                     </tr>
                     
                     {%endfor%}
-                {% else %}
-                    {% for member in members %}
-                    {% if member.num==1 %}
-                    <tr style="height: 60px">
-                        <td class="col1"><img src="..{{MEDIA_URL}}{{member.profile}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
-                        <td colspan="2"><p>{{member.name}}</p></td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
                 {% endif %}
+                    
+                
 
                 
                 
