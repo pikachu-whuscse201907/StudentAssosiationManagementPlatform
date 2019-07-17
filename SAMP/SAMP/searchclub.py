@@ -47,12 +47,12 @@ def searchclub(request):
 def clubpage(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
-    if cookie_id is not None:
-        result = function.get_user_info(cookie_id)  # call database
-        if result['success']:
-            info = result['info']
-            context['islogin'] = True
-            context['name'] = info['user_name']
+    result = function.get_user_info(cookie_id)
+    info = result['info']
+    if not result['success']:
+        return view.response_not_logged_in(request)
+    context['islogin'] = True
+    context['name'] = info['user_name']
     
     if "iden" in request.GET:
         org_name = request.GET["iden"]
@@ -72,6 +72,7 @@ def clubpage(request):
         else:
             context['create_date'] = org_info['create_date'].strftime('%Y-%m-%d')
         context["org_master"] = org_info['org_master']
+        context['ismanager'] = (context['name'] == context["org_master"])
         context["creator"] = org_info['creator']
         context["member_num"] = org_info['member_num']
         context["isjoin"] = org_info['isjoin']
