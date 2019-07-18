@@ -18,5 +18,6 @@ def passwd(request):
     return HttpResponse(render(request,'passwd.html',content))
 
 def checkpsd(request):
-
+    name = request.POST.get('name')
+    pswd = request.POST.get('pswd')
     return HttpResponse("False")

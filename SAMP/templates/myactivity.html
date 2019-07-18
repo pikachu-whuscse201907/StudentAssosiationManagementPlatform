@@ -43,6 +43,25 @@
 
         <div id="navbar-collapse" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+              <li><a href="../index/">Home</a></li>
+            
+              <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">我的社团</a>
+                <ul class="dropdown-menu">
+                  <li><a href="../searchclub/">加入社团</a></li>
+                  <li><a href="../createclub/">创建社团</a></li>
+                  <li><a href="../myclub/">管理社团</a></li>
+                </ul>
+              </li>
+              
+              <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
+                <ul class="dropdown-menu">
+                  <li><a href="../userpage/">我的信息</a></li>
+                  <li><a href="../updateuserinfo/">修改信息</a></li>
+                  <li><a href="../passwd/">修改密码</a></li>
+                </ul>
+              </li>
             <li class="probootstra-cta-button last"><a href="../logout/" class="btn btn-ghost" >Logout</a></li>
           </ul>
         </div>
@@ -228,17 +247,15 @@
       function get_activity_details(activity_id)
       {
         var http_request = new XMLHttpRequest();
-        var content = {
-            activityid: activity_id 
-        }
+        var url = ".//details//?activity_id="+activity_id;
       
         http_request.timeout = function()
         {
           alert("网络超时");
         }
         http_request.responseType = "json" ;
-        http_request.open('POST','./details/');
-        http_request.send(content);
+        http_request.open('GET',url);
+        http_request.send();
         http_request.onreadystatechange = function()
         {
           if(http_request.readyState == 4 && http_request.status ==200)
