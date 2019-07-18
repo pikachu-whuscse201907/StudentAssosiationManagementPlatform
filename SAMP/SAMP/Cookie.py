@@ -24,10 +24,13 @@ def gen_rand_hex(len):
 
 def expire(cookie_expire):
     if cookie_expire is None:
-        return None
+        return True
     now = datetime.datetime.now()
     now = now.replace(tzinfo=pytz.timezone('UTC'))
     delta = now - cookie_expire
-    return (delta > datetime.timedelta(seconds=1))
+    if delta > datetime.timedelta(seconds=1):
+        return True
+    else:
+        return False
 
 

@@ -53,16 +53,18 @@ def save_default_user_info(username):
 
 # 查看用户信息
 def get_user_info(cookie_id):
-    if cookie_id is None:
-        return None
-    response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
+    if cookie_id is None:
+        result['success']=False
+        return result
+    response = Person.objects.filter(cookie_id=cookie_id)
     result['info'] = {}
     if len(response)==0:
         result['success']=False
         result['notice']='The cookie_id is not exist.'
         return result
     elif expire(response[0].cookie_expire):
+        delete.delete_cookie(cookie_id)
         result['success']=False
         result['notice']='The cookie_id is out of date.'
         return result
@@ -245,7 +247,8 @@ def exit_org(cookie_id, org_name):  # 退出社团
     return result
 # Ending of function exit_org(cookie_id, org_name)
 
-#社团管理员发布社团活动信息
+
+# 社团管理员发布社团活动信息
 def publish_activ(cookie_id,activ_name,activ_time,activ_place,activ_content,org_name):
     response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
@@ -263,7 +266,8 @@ def publish_activ(cookie_id,activ_name,activ_time,activ_place,activ_content,org_
 										activ_place = activ_place,activ_content = activ_content)
         activ.save()
 
-#社团成员、管理员查看社团活动信息
+
+# 社团成员、管理员查看社团活动信息
 def look_org_activ(cookie_id,org_name):
     response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
