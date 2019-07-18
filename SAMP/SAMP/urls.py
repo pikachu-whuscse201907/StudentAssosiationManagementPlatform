@@ -48,7 +48,7 @@ urlpatterns = [
 ################################
 
     path('passwd/',passwd.passwd),
-    path('checkpsd/',passwd.checkpsd)
+    path('checkpswd/',passwd.checkpsd)
     # re_path(r'.', view.redir_to_index),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
