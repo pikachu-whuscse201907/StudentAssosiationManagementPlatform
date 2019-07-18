@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{org_name}}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../static/css/styles-merged.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+    <link rel="stylesheet" href="../static/css/individualcenter.css">
+
+    <style type="text/css">
+       .table
+        {
+            width: 700px;
+            position: relative;
+            color:black;
+            left: 100px;
+            font-size: 20px;
+            margin: 0px 200px;
+        }
+        .col1
+        {
+            width: 200px;
+        }
+        .form_sty
+        {
+          width: 700px;
+          height: 700px;
+          text-align: center;
+          margin: 0px 400px;
+        }
+        .form_sty input
+        {
+          width: 500px;
+          display: block;
+          margin: 0px auto;
+        }
+        .form_sty textarea
+        {
+          width: 500px;
+          height: 200px;
+          display: block;
+          margin: 0px auto;
+        }
+        .form_sty button
+        {
+          
+          width: 120px;
+          color: #7ED320;
+			    background-color: white;
+			    height: 45px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 18px;
+          border: 1px solid #7ED320;
+        }
+        .submitan
+        {
+          margin: 0px -55px;
+          position: absolute;
+          text-align: center;/*子内容居中*/
+        }
+    </style>
+  </head>
+  <body>
+      <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="../index/" title="">Pikachu</a>
+            </div>
+
+            <div id="navbar-collapse" class="navbar-collapse collapse">
+              
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a href="../index/">Home</a></li>
+
+                      <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">我的社团</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="../searchclub/">加入社团</a></li>
+                          <li><a href="../createclub/">创建社团</a></li>
+                          <li><a href="../myclub/">管理社团</a></li>
+                        </ul>
+                      </li>
+
+                      <li class="dropdown">
+                        <a href="../userpage/" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="../userpage/">我的信息</a></li>
+                          <li><a href="../updateuserinfo/">修改信息</a></li>
+                          <li><a href="../passwd/">修改密码</a></li>
+                        </ul>
+                      </li>
+                <li class="probootstra-cta-button last"><a href="../logout/" class="btn btn-ghost">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+    <!--左侧导航-->
+    <div class="navbar-left">
+        <div class="userbox">
+            <!--<a href="../updateuserinfo/" class="probootstrap-team"></a>-->
+            <img src="..{{MEDIA_URL}}{{org_logo}}" alt="" class="avatar">
+            <!--<div class="probootstrap-team-info">
+                <h3>修改头像</h3>
+              </div>-->
+            <br>
+            <span class="username">{{ org_name }}</span>
+        </div>
+    <div style="position: relative;top:150px;">
+            <ul class="nav nav-pills nav-stacked" >
+
+              <!--是否是社团管理人-->
+              <!--{% if ismanager %}-->
+              <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
+              <li><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
+              <li class="active"><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
+              <li><a href="../clubannouncement/?iden={{org_name}}">社团公告</a></li>
+              <!--<li><a href="../createclub/">创建社团</a></li>-->
+              <!--<li><a href="../searchclub/">查找社团</a></li>-->
+              <!--{% else %}
+              <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
+              <li><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
+              <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
+              <li><a href="../clubannouncement/?iden={{org_name}}">社团公告</a></li>-->
+              <!--<li><a href="../createclub/">创建社团</a></li>-->
+              <!--<li><a href="../searchclub/">查找社团</a></li>-->
+              <!--<li><a href="#">活动申请</a></li>
+              <li><a href="#">修改密码</a></li>-->
+              <!--{% endif %}-->
+            </ul>
+    </div>
+</div>
+
+
+
+<div class="container" style="height: 700px">
+    <div class="row"> </div>
+
+    <div class="row probootstrap-feature-showcase" style="margin: 150px 80px">
+      <div class="col-md-4 col-md-push-8 probootstrap-showcase-nav probootstrap-animate">
+        <ul>
+            {% for activity in activities %}
+            {% if activity.num == 1 %}
+            <li class="active">
+                <a href="#">{{activity_title}}</a>
+                <p>{{activity_content</p>
+            </li>
+            {% else %}
+          <li>
+            <a href="#">{{activity_title}}</a>
+            <p>{{activity_content</p>
+          </li>
+          {% endif %}
+          {% endfor %}
+          <!-- -->
+          <!--<li>
+            <a href="#">国风知识竞赛</a>
+            <p>就决定是你了，皮卡丘！</p>
+          </li>
+          <li>
+            <a href="#">金色时光舞蹈比赛</a>
+            <p>就决定是你了，皮卡丘！</p>
+          </li>
+          <li>
+            <a href="#">夏日花卉交流会</a>
+            <p>就决定是你了，皮卡丘！</p>
+          </li>
+          <li>
+            <a href="#">艺术展览</a>
+            <p>就决定是你了，皮卡丘！</p>
+          </li>
+          <li>
+            <a href="#">指压板跳绳比赛</a>
+            <p>就决定是你了，皮卡丘！</p>
+          </li>-->
+        </ul>
+      </div>
+      <div class="col-md-8 col-md-pull-4 probootstrap-animate" style="position: relative;">
+        <div class="probootstrap-home-showcase-wrap">
+          <div class="probootstrap-home-showcase-inner">
+            <div class="probootstrap-chrome">
+              <div><span></span><span></span><span></span></div>
+            </div>
+
+            <div class="probootstrap-image-showcase">
+              <ul class="probootstrap-images-list">
+                  {% for activity in activities %}
+                  {% if activity.num == 1}
+                  <li class="active"><img src="..{{MEDIA_URL}}{{activity_photo}}" alt="Image" class="img-responsive"></li>
+                  {% else %}
+                  <li><img src="..{{MEDIA_URL}}{{activity_photo}}" alt="Image" class="img-responsive"></li>
+                  {% endif %}
+                  {% endfor %}
+                <!--<li class="active"><img src="../static/img/img_showcase1.jpg" alt="Image" class="img-responsive"></li>
+                <li><img src="../static/img/img_showcase2.jpg" alt="Image" class="img-responsive"></li>
+                <li><img src="../static/img/img_showcase3.jpg" alt="Image" class="img-responsive"></li>
+                <li><img src="../static/img/img_showcase4.jpg" alt="Image" class="img-responsive"></li>
+                <li><img src="../static/img/img_showcase5.jpg" alt="Image" class="img-responsive"></li>
+                <li><img src="../static/img/img_showcase6.jpg" alt="Image" class="img-responsive"></li>-->
+              </ul>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="form_sty">
+
+    <form action="../addactivity/" method="POST">
+            {% csrf_token %}
+        <input type="text" name="org_name" value="{{ org_name }}" style="display: none">
+        <div>
+          <br>
+          <label style="font-size: 22px">活动标题</label>
+          <input type="text" name="activity_title" placeholder="请输入公告标题">
+        </div>
+        <div>
+          <br>
+          <label style="font-size: 22px">活动描述</label>
+          <textarea type="text" name="activity_content" placeholder="请输入公告内容"></textarea>
+        </div>
+        <div>
+            <br>
+            <label style="font-size: 22px">活动照片</label>
+            <input type="file" name="activity_photo" accept="image/png, image/jpeg, image/jpg">
+          </div>
+        <div>
+          <br>
+          <button type="submit" class="submitan">提交发布</button>
+        </div>
+        
+    </form>
+    
+    
+    </div>
+
+
+    <script src="../static/js/scripts.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+  </body>
+</html>
