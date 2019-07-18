@@ -23,19 +23,23 @@ def passwd(request):
     if name is None or rawpsd is None or newpsd is None or cnewpsd is None:
         return HttpResponse(render(request, 'passwd.html', context))
 
-    if name is not None and not search.pswd_correct(name, rawpsd):
-        delete.delete_cookie(cookie_id)
-    else:
+    user = search.user_of_username(info['user_name'])
+
+    if user.pswd == rawpsd:
         if info['user_name'] == name and newpsd == cnewpsd:
-            user = search.user_of_username(name)
             user.pswd = newpsd
             user.save()
             context['title'] = '修改密码成功'
             context['url'] = '../userpage/'
             context['error_msg'] = '修改密码成功'
             return HttpResponse(render(request, 'jump.html', context))
-
-    return HttpResponse(render(request, 'passwd.html', context))
+    else:
+        delete.delete_cookie(cookie_id)
+        
+    context['title'] = '修改密码失败'
+    context['url'] = '../passwd/'
+    context['error_msg'] = '修改密码失败'
+    return HttpResponse(render(request, 'jump.html', context))
 
 
 def checkpsd(request):

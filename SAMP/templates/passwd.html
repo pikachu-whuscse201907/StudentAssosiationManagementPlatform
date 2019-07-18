@@ -96,7 +96,7 @@
             {% csrf_token %}
                 <h1 class="form-signin-heading">修改密码</h1>
                 <label for="inputPassword" class="sr-only">原始密码</label>
-                <input type="text" name="name" style="display:none">
+                <input type="text" name="name" value="{{ name }}"style="display:none">
                 <input type="password" id="rawpsd" name="rawpsd" class="form-control" placeholder="原始密码" required autofocus  onfocus="clearwarning();">
                 <div class="alert-warning" id="warning1">
                     原密码输入错误。

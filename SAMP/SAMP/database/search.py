@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from people.models import Person
+from people.models import Person, User_info, Organizations
 from ..Cookie import expire
 
 
@@ -18,20 +18,19 @@ def user_existing(username):
 def pswd_correct(username, password):
     if username is None or password is None:
         return False
-    user = Person.objects.filter(name=username)
-    if len(user) == 0:
+    user = user_of_username(username)
+    if user is None:
         return False
     
-    if user[0].pswd == password:
+    if user.pswd == password:
         return True   # 密码相同
-    
     return False
 
 
-def user_of_username(_username):
-    if _username is None:
+def user_of_username(username):
+    if username is None:
         return None
-    p = Person.objects.filter(name=_username)
+    p = Person.objects.filter(name=str(username))
     if len(p) == 0:
         return None
     else:
