@@ -43,6 +43,25 @@
 
         <div id="navbar-collapse" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+                      <li><a href="../index/">Home</a></li>
+            
+                      <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">我的社团</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="../searchclub/">加入社团</a></li>
+                          <li><a href="../createclub/">创建社团</a></li>
+                          <li><a href="../myclub/">管理社团</a></li>
+                        </ul>
+                      </li>
+                      
+                      <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">个人中心</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="../userpage/">我的信息</a></li>
+                          <li><a href="../updateuserinfo/">修改信息</a></li>
+                          <li><a href="../passwd/">修改密码</a></li>
+                        </ul>
+                      </li>
             <li class="probootstra-cta-button last"><a href="../logout/" class="btn btn-ghost">Logout</a></li>
           </ul>
         </div>
@@ -55,7 +74,7 @@
     <div class="navbar-left">
             <div class="userbox">
                 <a href="../updateuserinfo">
-                <img src="../static/pictures/pikachu.jpg" alt="" class="avatar">
+                <img src="..{{MEDIA_URL}}{{img}}" alt="" class="avatar">
                 </a>
                 <br>
                 <span class="username">{{name|truncatewords:"15"}}</span>
@@ -89,6 +108,9 @@
                 <div class="alert-warning" id="warning2">
                 两次输入内容不一致！
                 </div>
+                <div class="alert-warning" id="warning4">
+                    新密码与旧密码相同
+                    </div>
                 <div class="alert-warning" id="warning3">
                   密码中只能有字母，数字和下划线
                   密码长度必须在六位以上
@@ -103,13 +125,28 @@
     <script src="../static/js/scripts.min.js"></script>
     <script src="../static/js/custom.min.js"></script>
     <script>
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
         function checkpsd()
         {
             var rawpsd = document.getElementById("rawpsd").value;
             var newpsd = document.getElementById("newpsd").value;
             var cnewpsd = document.getElementById("cnewpsd").value;
             var illegal = /[^0-9a-zA-Z_]+/;
-            if(newpsd.length<7 ||illegal.test(newpsd))
+            if(newpsd.length<6 ||illegal.test(newpsd))
             {
               $("#warning3").css("display","block");
               return false;
@@ -119,14 +156,19 @@
                 $("#warning2").css("display","block");
                 return false;
             }
+            else if(newpsd == rawpsd)
+            {
+              $("#warning4").css("display","block");
+            }
             else
             {
-              var content ={
-                  name:"{{name}}",
-                  pswd:rawpsd,
-              };
+              
+              var content = "name=" + "{{name}}" +"\&pwsd="+rawpsd;
+                            
               var http_request = new XMLHttpRequest();
-              http_request.open('GET','../checkpsd/');
+              http_request.open('POST','../checkpswd/');
+              http_request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+              http_request.setRequestHeader("Content-type","application/x-www-form-urlencoded;application/json;charset=UTF-8");
               http_request.send(content);
               http_request.onreadystatechange = function()
               {
@@ -134,7 +176,7 @@
                 {
                   if( http_request.status == 200)
                   {
-                    if(http_request.responseText == "true")
+                    if(http_request.responseText == "True")
                     {
                         document.getElementById("form_psd").submit();
                     }
