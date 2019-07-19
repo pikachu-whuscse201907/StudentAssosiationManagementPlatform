@@ -15,7 +15,7 @@ def clubannouncement(request):
         return view.response_not_logged_in(request)
     
     org_name = request.GET.get('iden', None)
-    org = Organizations.objects.filter(organization_name=org_name)
+    org = Organizations.objects.filter(organization_name=org_name, create_status=1)
     if 0 == len(org):
         context['title'] = 'Cannot find the club.'
         context['url'] = '../searchclub/'
@@ -60,6 +60,9 @@ def clubannouncement(request):
 
 
 def addannouncement(request):
+    if request.method != 'POST':
+        return HttpResponseRedirect('../index/')
+    
     context = {}
     cookie_id = request.COOKIES.get('id', None)
     result = function.get_user_info(cookie_id)
@@ -70,7 +73,7 @@ def addannouncement(request):
     org_name = request.POST.get('org_name', None)
     announcement_title = request.POST.get('announcement_title', None)
     announcement_content = request.POST.get('announcement_content', None)
-    org = Organizations.objects.filter(organization_name=org_name)
+    org = Organizations.objects.filter(organization_name=org_name, create_status=1)
     if 0 == len(org):
         return HttpResponseRedirect('../index/')
     
@@ -168,6 +171,7 @@ def clubmembers(request):
             apply_time = application.apply_time.strftime('%Y-%m-%d %H:%M:%S')
         if application.solve_time is not None:
             solve_time = application.solve_time.strftime('%Y-%m-%d %H:%M:%S')
+        print(solve_time, "status: ", application.application_status)
         applying_members.append(__Member(user_logo=application.applicant.profile,
                                          name=application.applicant.name,
                                          apply_time=apply_time,
