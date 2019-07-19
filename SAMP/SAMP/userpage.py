@@ -1,5 +1,7 @@
-from .Cookie import *
-from .verify import *
+from django.shortcuts import render
+from django.http import HttpResponse,HttpResponseRedirect
+import datetime
+from .Cookie import Cookie
 from .database.delete import delete_cookie
 from .database.save import save_cookie
 from .database.search import user_of_username, user_of_cookie
@@ -11,16 +13,14 @@ from . import view
 def userpage(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
-    if cookie_id is None:
-        return view.response_not_logged_in(request)
-    
-    result = function.get_user_info(cookie_id)  # call database
+    result = function.get_user_info(cookie_id)
+    info = result['info']
     if not result['success']:
         return view.response_not_logged_in(request)
-    info = result['info']
-    
     context['islogin'] = True
     context['name'] = info['user_name']
+    context['user_logo'] = info['user_logo']
+    
     context['sex'] = {
         1: 'MALE',
         2: 'FEMALE'
@@ -113,14 +113,15 @@ def updateuserinfo(request):
 def myclub(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
-    user = search.user_of_cookie(cookie_id)
-    user_info = search.user_info_of_user(user)
-    
-    if user_info is None:
+    result = function.get_user_info(cookie_id)
+    info = result['info']
+    if not result['success']:
         return view.response_not_logged_in(request)
-    
     context['islogin'] = True
-    context['name'] = user_info.name.name
+    context['name'] = info['user_name']
+    context['user_logo'] = info['user_logo']
+    
+    user_info = search.user_info_of_username(info['user_name'])
     
     # This class is ONLY for page 'myclub/'
     class __Club:
@@ -144,7 +145,7 @@ def myclub(request):
     context['managedclubs'] = managedclubs
 
     # 我加入的社团
-    my_joined_clubs = user_info.organization_members.all()  # status=
+    my_joined_clubs = user_info.organization_members.all().order_by('organization_name')
     joinedclubs = []
     for joined_club in my_joined_clubs:
         if user_info != joined_club.master:  # if this club wasn't shown above, show here.
@@ -155,7 +156,7 @@ def myclub(request):
     context['joinedclubs'] = joinedclubs
     
     # 我申请加入的社团
-    my_applications = user_info.membershipapplication_applicant.all()
+    my_applications = user_info.membershipapplication_applicant.all().order_by('-apply_time')
     appliedclubs = []
     for application in my_applications:
         apply_time = None
@@ -174,7 +175,7 @@ def myclub(request):
     context['appliedclubs'] = appliedclubs
     
     # 我创建的社团
-    my_createdclubs = user_info.organization_creator.all()
+    my_createdclubs = user_info.organization_creator.all().order_by('-create_date')
     createdclubs = []
     for created_club in my_createdclubs:
         apply_time = None
@@ -191,5 +192,21 @@ def myclub(request):
     
     response = HttpResponse(render(request, 'myclub.html', context))
     return response
-
 # Ending of function myclub(request)
+
+
+def mybulletin(request):
+    context = {}
+    cookie_id = request.COOKIES.get('id', None)
+    result = function.get_user_info(cookie_id)
+    info = result['info']
+    if not result['success']:
+        return view.response_not_logged_in(request)
+    context['islogin'] = True
+    context['name'] = info['user_name']
+    context['user_logo'] = info['user_logo']
+    
+    
+    response = HttpResponse(render(request, 'mybulletin.html', context))
+    return response
+# Ending of function mybulletin(request)
