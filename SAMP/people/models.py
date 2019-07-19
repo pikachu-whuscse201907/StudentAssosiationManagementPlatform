@@ -115,7 +115,7 @@ class MembershipApplication(models.Model):
 class Activ(models.Model):
     org_name = models.ForeignKey(Organizations, on_delete=models.CASCADE)
     activ_name = models.CharField(max_length=30, null=False)
-    activ_time = models.DateTimeField()
+    activ_time = models.DateTimeField(null=False)
     activ_place = models.CharField(max_length=30, null=False)
     activ_content = models.CharField(max_length=300, null=False)
     activ_status = models.IntegerField(choices=((0, "审核中"), (1, "已通过"), (2, "审核失败")), default=0)

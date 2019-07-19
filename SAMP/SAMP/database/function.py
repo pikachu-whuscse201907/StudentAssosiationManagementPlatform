@@ -3,7 +3,7 @@ from django.db import models
 import datetime
 from people.models import Person, User_info, Organizations, ClubAnnouncements, MembershipApplication,Activ
 from ..Cookie import *
-from .delete import delete_cookie
+from . import delete
 from .save import save_cookie
 from .search import user_of_username
 import PIL.Image
@@ -47,22 +47,24 @@ def save_default_user_info(username):
     
     default_user_info = {'gender': 0, 'motto': '', 'birth_date': None}
     update_user_info(cookie.cookie_id, default_user_info)
-    delete_cookie(cookie.cookie_id)
+    delete.delete_cookie(cookie.cookie_id)
 # Ending of function save_default_user_info(username)
 
 
 # 查看用户信息
 def get_user_info(cookie_id):
-    if cookie_id is None:
-        return None
-    response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
+    if cookie_id is None:
+        result['success']=False
+        return result
+    response = Person.objects.filter(cookie_id=cookie_id)
     result['info'] = {}
     if len(response)==0:
         result['success']=False
         result['notice']='The cookie_id is not exist.'
         return result
     elif expire(response[0].cookie_expire):
+        delete.delete_cookie(cookie_id)
         result['success']=False
         result['notice']='The cookie_id is out of date.'
         return result
@@ -245,8 +247,10 @@ def exit_org(cookie_id, org_name):  # 退出社团
     return result
 # Ending of function exit_org(cookie_id, org_name)
 
-#社团管理员发布社团活动信息
-def publish_activ(cookie_id,activ_name,activ_time,activ_place,activ_content,org_name):
+
+# 社团管理员发布社团活动信息
+def publish_activ(cookie_id,info):
+    #activ_name,activ_time,activ_place,activ_content,org_name):
     response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
     if len(response)==0:
@@ -258,12 +262,14 @@ def publish_activ(cookie_id,activ_name,activ_time,activ_place,activ_content,org_
         result['notice']='The cookie_id is out of date.'
         return result
     else:
-        org = Organizations.objects.filter(organization_name=org_name)
-        activ = Activ.objects.create(activ_name = activ_name, activ_time = activ_time,org_name=org[0],
-										activ_place = activ_place,activ_content = activ_content)
+        org = Organizations.objects.filter(organization_name=info['org_name'])
+        activ = Activ.objects.create(activ_name = info['activ_name'], activ_time = info['activ_time'].strftime('%Y-%m-%d %H:%M:%S'),
+                                     org_name=org[0],activ_place = info['activ_place'],
+                                     activ_content = info['activ_content'])
         activ.save()
 
-#社团成员、管理员查看社团活动信息
+
+# 社团成员、管理员查看社团活动信息
 def look_org_activ(cookie_id,org_name):
     response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
@@ -277,10 +283,13 @@ def look_org_activ(cookie_id,org_name):
         return result
     else:
         org_info = Organizations.objects.filter(organization_name=org_name)
-        activ_info = Activ.objects.filter(org_name = org_info[0])
+        activ_info = Activ.objects.filter(org_name = org_info[0]).order_by('-activ_time')
         activ_list = []
         for each in activ_info:
-            activ_list.append((each.activ_name,each.activ_place,each.activ_time,each.activ_content))
+            activ_list.append({ 'org_name':each.org_name,'activ_name':each.activ_name,
+                               'activ_time':each.activ_time,'activ_place':each.activ_place,
+                                'activ_content':each.activ_content})
         result['activ_list']=activ_list
         result['success'] = True
         return  result
+# Ending of function look_org_activ(cookie_id, org_name)

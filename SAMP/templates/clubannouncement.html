@@ -72,7 +72,7 @@
             </div>
     
             <div id="navbar-collapse" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-right">
+              
                   <ul class="nav navbar-nav navbar-right">
                       <li><a href="../index/">Home</a></li>
             
@@ -117,7 +117,7 @@
               <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
               <li><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
-              <li class="active"><a href="../clubannouncement/?iden={{org_name}}">发布公告</a></li>
+              <li class="active"><a href="../clubannouncement/?iden={{org_name}}">社团公告</a></li>
               <!--<li><a href="../createclub/">创建社团</a></li>-->
               <!--<li><a href="../searchclub/">查找社团</a></li>-->
               
@@ -130,12 +130,12 @@
     
     <div class="contextbox">
 
-      
+        {% if ismanager %}
         <div class="form_sty">
           
 
 
-        {% if ismanager %}
+        
         <form action="../addannouncement/" method="POST">
                 {% csrf_token %}
             <input type="text" name="org_name" value="{{ org_name }}" style="display: none">
@@ -155,10 +155,10 @@
             </div>
             
         </form>
-        {% endif %}
+        
         
         </div>
-
+        {% endif %}
 
         <table class="table">
             <thead>
@@ -169,7 +169,7 @@
                 {% for announcement in announcements %}
                 <tr style="height: 35px">
                   <td>
-                    <p style="font-size: 20px; margin-bottom: 5px;">{{announcement.title}}&nbsp;&nbsp;{{announcement.date}}</p>
+                    <p style="font-size: 20px; margin-bottom: 5px;">{{announcement.date}}&nbsp;&nbsp;{{announcement.title}}</p>
                     <p style="font-size: 18px; margin-bottom: 5px;">{{announcement.content}}</p>
                   </td>
                 </tr>
