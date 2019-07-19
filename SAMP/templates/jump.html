@@ -14,13 +14,7 @@
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <style type="text/css">
         </style>
-        <script>
-            window.onload = window.setTimeout(jump,10000);
-            function jump()
-            {
-               window.location.href='{{url}}';
-            }
-        </script>
+
     </head>
     <body>
     <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
@@ -36,10 +30,21 @@
             &nbsp;&nbsp;
             <span style="font-size: 20px">{{error_msg}}{#提示信息#}<span>
             </p>
-            <p>页面将在3秒后跳转...</p>
+            <p id = "jump_info"></p>
             <a href={{url}}{#跳转地址#}>立即跳转</a>
         </div>
         <script src="../static/js/scripts.min.js"></script>
         <script src="../static/js/custom.min.js"></script>
+        <script>
+            window.onload = jump();
+            function jump()
+            {   
+                document.getElementById('jump_info').innerHTML = '页面将在3秒后跳转...';
+                var i = setTimeout("document.getElementById('jump_info').innerHTML = '页面将在2秒后跳转...';",1000);
+                var k = setTimeout("document.getElementById('jump_info').innerHTML = '页面将在1秒后跳转...';",2000);
+                var j = setTimeout("window.location.href='{{url}}';",3000)
+                               
+            }
+        </script>
     </body>
 </html>
