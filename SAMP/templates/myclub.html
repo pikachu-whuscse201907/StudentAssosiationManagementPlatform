@@ -109,22 +109,28 @@
                   <div class="panel-body">
                       {%if not hasjoinedclub%}
                       还没有加入任何社团
-                      {%endif%}
+                      {% else %}
                       <table class="table">
-
+                          <tr>
+                              <td class="td1">社团头像</td>
+                              <td class="td2">社团描述</td>
+                              <td colspan="2">&nbsp;</td>
+                              <td class="td5">查看社团</td>
+                            </tr>
                           {%for club in joinedclubs%}
                           <tr>
-                              <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{club.org_logo}}">{{club.organization_name}}</td>
+                              <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{club.org_logo}}"><br>{{club.organization_name}}</td>
                               <td style="width: 600px">{{club.description}}</td>
                               <td class = "td4">&nbsp;</td>
                               <td class = "td5">
 
                                 <br>
-                                <a class="btn btn-ghost" href="../clubpage/?iden={{club.organization_name}}">查看社团</a>
+                                <a class="btn btn-ghost" href="../clubpage/?iden={{club.organization_name}}">社团主页</a>
                               </td>
                           </tr>
                           {%endfor%} 
                       </table>
+                      {%endif%}
                   </div>
               </div>
           </div>
@@ -141,21 +147,28 @@
               <div class="panel-body">
                   {%if not hasmanagedclub%}
                       还没有管理任何社团
-                  {%endif%}
+                  
+                  {% else %}
                   <table class="table">
+                      <tr>
+                          <td class="td1">社团头像</td>
+                          <td class="td2">社团描述</td>
+                          <td colspan="2">&nbsp;</td>
+                          <td class="td5">管理社团</td>
+                        </tr>
                       {%for managedclub in managedclubs%}
                       <tr>
                           <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{managedclub.org_logo}}">
-                          {{managedclub.organization_name}}</td>
-                          <td style="width: 600px">{{managedclub.description}}</td>
+                            <br>{{managedclub.organization_name}}</td>
+                          <td colspan="2">{{managedclub.description}}</td>
                           <td class = "td4">&nbsp;</td>
                           <td class = "td5">
-                              <a class="btn btn-ghost" href="../clubpage/?iden={{managedclub.organization_name}}">管理社团</a>
+                              <a class="btn btn-ghost" href="../clubpage/?iden={{managedclub.organization_name}}">社团主页</a>
                           </td>
                       </tr>
                       {%endfor%} 
                   </table>
-                  
+                  {%endif%}
               </div>
               </div>
           </div>
@@ -172,7 +185,7 @@
                   <div class="panel-body">
                   {%if not hasappliedclub%}
                       还没有申请任何社团
-                  {%endif%}
+                      {% else %}
                   <table class="table">
                       <tr>
                           <td class="td1">社团头像</td>
@@ -183,7 +196,7 @@
                         </tr>
                       {%for appliedclub in appliedclubs%}
                       <tr>
-                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{appliedclub.org_logo}}">{{appliedclub.organization_name}}</td>
+                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{appliedclub.org_logo}}"><br>{{appliedclub.organization_name}}</td>
                           <td class = "td2">{{appliedclub.description}}</td>
                           <td class="td3">{{appliedclub.apply_time}}</td>
                           <td class="td4">{{appliedclub.solve_time}}</td>
@@ -209,6 +222,7 @@
                       </tr>
                       {%endfor%} 
                   </table>
+                  {%endif%}
                   </div>
               </div>
           </div>
@@ -225,8 +239,8 @@
                   <div class="panel-body">
                   {%if not hascreatedclub%}
                       还没有创建任何社团
-                  {%endif%}
-
+                  
+                      {% else %}
                   <table class="table">                  
                     <tr>
                       <td class="td1">社团头像</td>
@@ -237,7 +251,7 @@
                     </tr>
                     {%for createdclub in createdclubs%}
                     <tr>
-                        <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{createdclub.org_logo}}">{{createdclub.organization_name}}</td>
+                        <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{createdclub.org_logo}}"><br>{{createdclub.organization_name}}</td>
                         <td class = "td2">{{createdclub.description}}</td>
                         <td class="td3">{{createdclub.apply_time}}</td>
                         <td class="td4">{{createdclub.solve_time}}</td>
@@ -263,6 +277,7 @@
                     </tr>
                     {%endfor%} 
                   </table>
+                  {%endif%}
                   </div>
               </div>
           </div>
