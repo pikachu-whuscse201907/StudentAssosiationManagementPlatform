@@ -165,7 +165,7 @@
             {% if activity.big == 1 %}
             <li class="active">
                 <a href="#">{{activity.activ_name}}</a>
-                <p>{{activity.activ_content}}</p>
+                <p>{{activity.activ_content}}就决定是你了，皮卡丘！就决定是你了，皮卡丘！就决定是你了，皮卡丘！就决定是你了，皮卡丘！就决定是你了，皮卡丘！</p>
             </li>
             {% else %}
           <li>
@@ -208,9 +208,9 @@
               <ul class="probootstrap-images-list">
                   {% for activity in activities %}
                   {% if activity.big == 1 %}
-                  <li class="active"><img src="..{{MEDIA_URL}}{{activity.activ_photo}}" alt="Image" class="img-responsive"></li>
+                  <li class="active"><img src="..{{MEDIA_URL}}{{activity.activ_photo}}" alt="Image" style="max-width: 623px; max-height: 470px; width: 623px; height: 470px;"></li>
                   {% else %}
-                  <li><img src="..{{MEDIA_URL}}{{activity.activ_photo}}" alt="Image" class="img-responsive"></li>
+                  <li><img src="..{{MEDIA_URL}}{{activity.activ_photo}}" alt="Image" style="max-width: 623px; max-height: 470px; width: 623px; height: 470px;"></li>
                   {% endif %}
                   {% endfor %}
                 <!--<li class="active"><img src="../static/img/img_showcase1.jpg" alt="Image" class="img-responsive"></li>
@@ -241,12 +241,12 @@
         <div>
           <br>
           <label style="font-size: 22px" id="title">活动标题</label>
-          <input type="text" name="activity_title" placeholder="请输入公告标题">
+          <input type="text" name="activity_title" placeholder="请输入活动标题">
         </div>
         <div>
           <br>
           <label style="font-size: 22px" id="content">活动描述</label>
-          <textarea type="text" name="activity_content" placeholder="请输入公告内容"></textarea>
+          <textarea type="text" name="activity_content" placeholder="请输入活动内容"></textarea>
         </div>
         <div>
             <br>
