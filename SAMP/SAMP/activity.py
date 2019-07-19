@@ -25,14 +25,16 @@ def clubactivities(request):
         context['error_msg'] = 'Cannot find a club named "' + org_name + '".'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
-
+    
+    # Question: can non-club-member see activities?
     user_info = search.user_info_of_username(info['user_name'])
-    if user_info not in org[0].members.all():
+    '''if user_info not in org[0].members.all():
         context['title'] = 'Not Authorized.'
         context['url'] = '../clubpage/?iden=' + org_name
-        context['error_msg'] = 'Only club member can see the members.'
+        context['error_msg'] = 'Only club member can see the activities.'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
+    '''
 
     if info['user_name'] == org[0].master.name.name:
         context['ismanager'] = True
@@ -41,9 +43,37 @@ def clubactivities(request):
 
     context['org_name'] = org_name
     context['org_logo'] = org[0].org_logo
+
+    result = function.look_org_activ(cookie_id, org_name)
+    if not result['success']:
+        context['title'] = 'Access denied.'
+        context['url'] = '../clubpage/?iden=' + org_name
+        context['error_msg'] = result['notice']
+        response = HttpResponse(render(request, 'jump.html', context))
     
+    class __Activity:
+        def __init__(self, big, org_name, activ_name, activ_place, activ_content, activ_time=''):
+            self.big = big  # Boolean
+            self.org_name = org_name
+            self.activ_name = activ_name
+            self.activ_place = activ_place
+            self.activ_content = activ_content
+            self.activ_time = activ_time
+
     context['activities'] = []
+    activity_list = result['activ_list']
+    for each in activity_list:
+        context['activities'].append(__Activity(
+            big=False,
+            org_name=each['org_name'],
+            activ_name=each['activ_name'],
+            activ_place=each['activ_place'],
+            activ_content=each['activ_content'],
+            activ_time=each['activ_time'].strftime('%Y-%m-%d %H:%M:%S')
+        ))
     context['hasactivities'] = (0 < len(context['activities']))
+    if context['hasactivities']:
+        context['activities'][0].big =True
     
     response = HttpResponse(render(request, 'clubactivities.html', context))
     return response
@@ -70,3 +100,11 @@ def myactivity(request):
     response = HttpResponse(render(request, 'myactivity.html', context))
     return response
 # Ending of function myactivity(request)
+
+
+def addactivity(request):
+    context = {}
+    
+    response = HttpResponse(render(request, 'clubactivities.html', context))
+    return response
+# Ending of function addactivity(request)
