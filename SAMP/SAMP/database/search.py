@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from people.models import Person, User_info, Organizations
 from ..Cookie import expire
-
+from . import  save
 
 # 查询用户注册/登录时输入的用户名是否已存在
 def user_existing(username):
@@ -21,8 +21,8 @@ def pswd_correct(username, password):
     user = user_of_username(username)
     if user is None:
         return False
-    
-    if user.pswd == password:
+
+    if user.pswd == save.password_encrypt(password):
         return True   # 密码相同
     return False
 
