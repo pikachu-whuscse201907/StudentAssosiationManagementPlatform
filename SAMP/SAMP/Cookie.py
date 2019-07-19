@@ -10,7 +10,7 @@ COOKIE_AGE_HOURS = 3
 class Cookie:
     def __init__(self):
         self.cookie_id = gen_rand_hex(128)
-        print("id:",self.cookie_id)
+        # print("id:", self.cookie_id)
         self.create_time = datetime.datetime.now()
         self.expire = (datetime.datetime.now()+datetime.timedelta(hours=COOKIE_AGE_HOURS))
 

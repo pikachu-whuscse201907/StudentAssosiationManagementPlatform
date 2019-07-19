@@ -171,7 +171,6 @@ def clubmembers(request):
             apply_time = application.apply_time.strftime('%Y-%m-%d %H:%M:%S')
         if application.solve_time is not None:
             solve_time = application.solve_time.strftime('%Y-%m-%d %H:%M:%S')
-        print(solve_time, "status: ", application.application_status)
         applying_members.append(__Member(user_logo=application.applicant.profile,
                                          name=application.applicant.name,
                                          apply_time=apply_time,
