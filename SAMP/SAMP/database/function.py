@@ -3,7 +3,7 @@ from django.db import models
 import datetime
 from people.models import Person, User_info, Organizations, ClubAnnouncements, MembershipApplication,Activ
 from ..Cookie import *
-from .delete import delete_cookie
+from . import delete
 from .save import save_cookie
 from .search import user_of_username
 import PIL.Image
@@ -47,7 +47,7 @@ def save_default_user_info(username):
     
     default_user_info = {'gender': 0, 'motto': '', 'birth_date': None}
     update_user_info(cookie.cookie_id, default_user_info)
-    delete_cookie(cookie.cookie_id)
+    delete.delete_cookie(cookie.cookie_id)
 # Ending of function save_default_user_info(username)
 
 
