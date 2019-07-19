@@ -21,6 +21,7 @@ from . import view, view_special
 from . import userpage
 from . import settings
 from . import createclub, searchclub, clubbulletin, passwd
+from . import activity
 
 urlpatterns = [
     path('', view.index),
@@ -44,7 +45,10 @@ urlpatterns = [
     path('joinclub/', searchclub.joinclub),
     path('quitclub/', searchclub.quitclub),
     path('passwd/', passwd.passwd),
-    path('checkpswd/', passwd.checkpsd)
+    path('checkpswd/', passwd.checkpsd),
+    path('clubactivities/', activity.clubactivities),
+    path('myactivity/', activity.myactivity),
+    path('mybulletin/', userpage.mybulletin),
     # re_path(r'.', view.redir_to_index),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
