@@ -53,13 +53,15 @@ def clubactivities(request):
         return response
     
     class __Activity:
-        def __init__(self, big, org_name, activ_name, activ_place, activ_content, activ_time=''):
+        def __init__(self, big, org_name, activ_name, activ_place, activ_content,
+                     activ_time='', activ_photo=''):
             self.big = big  # Boolean
             self.org_name = org_name
             self.activ_name = activ_name
             self.activ_place = activ_place
             self.activ_content = activ_content
             self.activ_time = activ_time
+            self.activ_photo = activ_photo
 
     context['activities'] = []
     activity_list = result['activ_list']
@@ -70,11 +72,12 @@ def clubactivities(request):
             activ_name=each['activ_name'],
             activ_place=each['activ_place'],
             activ_content=each['activ_content'],
-            activ_time=each['activ_time']
+            activ_time=each['activ_time'],
+            activ_photo=each['activ_photo']
         ))
     context['hasactivities'] = (0 < len(context['activities']))
     if context['hasactivities']:
-        context['activities'][0].big =True
+        context['activities'][0].big = True
     
     response = HttpResponse(render(request, 'clubactivities.html', context))
     return response
@@ -153,7 +156,8 @@ def addactivity(request):
         'activ_name': activity_title,
         'activ_place': '',
         'activ_time': '',
-        'activ_content': activity_content
+        'activ_content': activity_content,
+        'activ_photo': activity_photo
     })
     
     if not result['success']:

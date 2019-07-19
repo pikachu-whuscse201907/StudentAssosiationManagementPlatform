@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 import datetime
-from people.models import Person, User_info, Organizations, ClubAnnouncements, MembershipApplication,Activ
+from people.models import Person, User_info, \
+    Organizations, ClubAnnouncements, \
+    MembershipApplication, Activ, PhotoForActiv
 from ..Cookie import *
 from . import delete
 from .save import save_cookie
@@ -259,7 +261,17 @@ def publish_activ(cookie_id, info):
                                  organization=info['org'],
                                  activ_place=info['activ_place'],
                                  activ_content=info['activ_content'])
+    
+    if info['activ_place'] is not None:
+        new_photo = PhotoForActiv.objects.create()
+        new_photo.save()
+        activ.activ_photos.add(new_photo)
+        new_photo.photo = info['activ_photo']
+        new_photo.save()
+        
+
     activ.save()
+    
     result['success'] = True
     return result
 
@@ -287,11 +299,16 @@ def look_org_activ(cookie_id, org_name):
         activ_time = ''
         if each.activ_time is not None:
             activ_time = each.activ_time.strftime("%Y-%m-%d")
+        photo = ''
+        photos = each.activ_photos.all()
+        if 0 < len(photos):
+            photo = photos[0].photo
         activ_list.append({'org_name': each.organization.organization_name,
                            'activ_name': each.activ_name,
                            'activ_time': activ_time,
                            'activ_place': each.activ_place,
-                           'activ_content': each.activ_content})
+                           'activ_content': each.activ_content,
+                           'activ_photo': photo})
     result['activ_list'] = activ_list
     result['success'] = True
     return  result
