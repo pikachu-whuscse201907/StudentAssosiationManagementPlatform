@@ -135,7 +135,8 @@ def search_org(cookie_id, search_content):
         result['notice']='The cookie_id is out of date.'
         return result
     else:
-        org_info = Organizations.objects.filter(organization_name__icontains=search_content).filter(create_status=1)
+        org_info = Organizations.objects.filter(organization_name__icontains=search_content,
+                                                create_status=1)
         org_list = []
         for each in org_info:
             org_list.append((each.organization_name, each.description))
@@ -177,7 +178,7 @@ def join_org(cookie_id, org_name):
         result['notice']='The cookie_id is out of date.'
         return result
 
-    response_1 = Organizations.objects.filter(organization_name=org_name)  # 获取该社团信息
+    response_1 = Organizations.objects.filter(organization_name=org_name, create_status=1)  # 获取该社团信息
     user_info = response[0].user_info
     if len(response_1) == 0:  # 该社团不存在，加入失败
         result['notice']='The organization does not exist.'
@@ -282,7 +283,7 @@ def look_org_activ(cookie_id,org_name):
         result['notice'] = 'The cookie_id is out of date.'
         return result
     else:
-        org_info = Organizations.objects.filter(organization_name=org_name)
+        org_info = Organizations.objects.filter(organization_name=org_name, create_status=1)
         activ_info = Activ.objects.filter(org_name = org_info[0]).order_by('-activ_time')
         activ_list = []
         for each in activ_info:
