@@ -11,7 +11,6 @@ class Person(models.Model):
     cookie_id = models.CharField(max_length=256,null=True)
     cookie_create_time = models.DateTimeField(blank=True, null=True)
     cookie_expire = models.DateTimeField(blank=True, null=True)
-    abc= models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return self.name
@@ -112,6 +111,22 @@ class MembershipApplication(models.Model):
         return ans
 
 
+def activ_photo_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format('activ_photo_' +
+                              str(instance.photo_id), ext)
+    print('activ_photo_path:', str(instance.photo_id))
+    ans = os.path.join("activ_photo", filename)
+    return ans
+# Ending of function activ_photo_path(instance, filename)
+
+
+class PhotoForActiv(models.Model):
+    photo_id = models.AutoField(primary_key=True)
+    photo = models.ImageField(upload_to=activ_photo_path, null=True,
+                              blank=True, default='default_org_logo.jpg')
+
+
 class Activ(models.Model):
     organization = models.ForeignKey(Organizations,
                                      related_name='activ_organization',
@@ -121,10 +136,12 @@ class Activ(models.Model):
     activ_place = models.CharField(max_length=30, null=False)
     activ_content = models.CharField(max_length=300, null=False)
     activ_status = models.IntegerField(choices=((0, "审核中"), (1, "已通过"), (2, "审核失败")), default=0)
+    activ_photos = models.ManyToManyField(PhotoForActiv, related_name='activ_photoforactiv',
+                                          blank=True)
 
     def __str__(self):
         ans = ''
-        ans += self.org_name.organization_name
+        ans += self.organization.organization_name
         ans += '-'
         ans += self.activ_name
         return ans
