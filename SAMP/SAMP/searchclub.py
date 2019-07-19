@@ -44,6 +44,7 @@ def searchclub(request):
     return render(request, "searchclub.html")
 # Ending of function searchclub(request)
 
+
 def clubpage(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
@@ -83,6 +84,7 @@ def clubpage(request):
     return HttpResponseRedirect("../searchclub/")
 # Ending of function clubpage(request)
 
+
 def joinclub(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
@@ -100,7 +102,7 @@ def joinclub(request):
     
     result = function.join_org(cookie_id, org_name)
     
-    if result["success"] == False:
+    if not result["success"]:
         result_org_info = search.get_org_info(org_name, cookie_id)
 
         org_info = result_org_info["org_info"]
@@ -127,6 +129,7 @@ def joinclub(request):
                        "url": ("../clubpage/?iden={0}".format(org_name)),
                        "error_msg": "You have applied to join successfully!"})
 # Ending of function joinclub(request)
+
 
 def quitclub(request):
     context = {}

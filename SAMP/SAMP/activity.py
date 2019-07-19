@@ -18,7 +18,7 @@ def clubactivities(request):
     context['user_logo'] = info['user_logo']
 
     org_name = request.GET.get('iden', None)
-    org = Organizations.objects.filter(organization_name=org_name)
+    org = Organizations.objects.filter(organization_name=org_name, create_status=1)
     if 0 == len(org):
         context['title'] = 'Cannot find the club.'
         context['url'] = '../searchclub/'
@@ -50,6 +50,7 @@ def clubactivities(request):
         context['url'] = '../clubpage/?iden=' + org_name
         context['error_msg'] = result['notice']
         response = HttpResponse(render(request, 'jump.html', context))
+        return response
     
     class __Activity:
         def __init__(self, big, org_name, activ_name, activ_place, activ_content, activ_time=''):
@@ -69,7 +70,7 @@ def clubactivities(request):
             activ_name=each['activ_name'],
             activ_place=each['activ_place'],
             activ_content=each['activ_content'],
-            activ_time=each['activ_time'].strftime('%Y-%m-%d %H:%M:%S')
+            activ_time=each['activ_time']
         ))
     context['hasactivities'] = (0 < len(context['activities']))
     if context['hasactivities']:
@@ -103,8 +104,68 @@ def myactivity(request):
 
 
 def addactivity(request):
+    if request.method != 'POST':
+        return HttpResponseRedirect('../index/')
+
     context = {}
+    cookie_id = request.COOKIES.get('id', None)
+    result = function.get_user_info(cookie_id)
+    info = result['info']
+    if not result['success']:
+        return view.response_not_logged_in(request)
+
+    context['islogin'] = True
+    context['name'] = info['user_name']
+    context['user_logo'] = info['user_logo']
+
+    org_name = request.POST.get('org_name', None)
+    activity_title = request.POST.get('activity_title', None)
+    activity_content = request.POST.get('activity_content', None)
+    activity_photo = request.FILES.get('activity_photo', None)
+    org = Organizations.objects.filter(organization_name=org_name, create_status=1)
+    if 0 == len(org):
+        context['title'] = 'Cannot find the club.'
+        context['url'] = '../searchclub/'
+        context['error_msg'] = 'Cannot find a club named "' + org_name + '".'
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+
+    if info['user_name'] == org[0].master.name.name:
+        context['ismanager'] = True
+    else:
+        context['ismanager'] = False
+        context['title'] = 'Not Authorized.'
+        context['url'] = '../clubactivities/?iden=' + org_name
+        context['error_msg'] = 'Only club managers can add activities!'
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+
+    if activity_title is None or activity_content is None \
+            or 0 == len(activity_title) or 0 == len(activity_content):
+        context['title'] = '创建活动失败'
+        context['url'] = '../clubactivities/?iden=' + org_name
+        context['error_msg'] = '活动标题和活动描述均不可为空'
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+
+    result = function.publish_activ(cookie_id, {
+        'org': org[0],
+        'activ_name': activity_title,
+        'activ_place': '',
+        'activ_time': '',
+        'activ_content': activity_content
+    })
     
-    response = HttpResponse(render(request, 'clubactivities.html', context))
+    if not result['success']:
+        context['title'] = 'Failed.'
+        context['url'] = '../clubactivities/?iden=' + org_name
+        context['error_msg'] = result['notice']
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+    
+    context['title'] = 'New activity published.'
+    context['url'] = '../clubactivities/?iden=' + org_name
+    context['error_msg'] = 'New activity published.'
+    response = HttpResponse(render(request, 'jump.html', context))
     return response
 # Ending of function addactivity(request)

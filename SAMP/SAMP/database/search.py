@@ -68,16 +68,29 @@ def user_of_cookie(_cookie_id):
     else:
         return p[0]
 
+
 def get_org_info(org_name, cookie_id):
     result = {}
+    result['success'] = False
     org_info = {}  # result字典中key 'org_info'对应的value
     response_1 = Organizations.objects.filter(organization_name=org_name)
     
     if 0 == len(response_1):
-        result['success'] = False
         result['notice'] = 'No such organization.'
         result['org_info'] = org_info
         return result
+
+    response = Person.objects.filter(cookie_id=cookie_id)
+    user_info = User_info.objects.filter(name=response[0])
+    c = response_1[0].members.all()
+    if user_info[0] in c:
+        org_info['isjoin'] = True
+    else:
+        org_info["isjoin"] = False
+        if 1 != response_1[0].create_status:
+            result['notice'] = 'No such organization.'
+            result['org_info'] = org_info
+            return result
     
     org_info['org_name'] = response_1[0].organization_name
     org_info['org_description'] = response_1[0].description
@@ -87,16 +100,8 @@ def get_org_info(org_name, cookie_id):
     org_info['creator'] = response_1[0].creator.name.name
     org_info['member_num'] = len(response_1[0].members.all())
     org_info['org_logo'] = response_1[0].org_logo
-    response = Person.objects.filter(cookie_id=cookie_id)
-    user_info = User_info.objects.filter(name=response[0])
-    c=response_1[0].members.all()
-    if user_info[0] in c:
-        org_info['isjoin'] = True
-    else:
-        org_info["isjoin"] = False
+    
     result['org_info'] = org_info
     result['success'] = True
     return result
-
-
-
+# Ending of function get_org_info(org_name, cookie_id).
