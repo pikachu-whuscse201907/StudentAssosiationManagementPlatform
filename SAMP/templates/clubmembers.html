@@ -102,8 +102,8 @@
 
               <!--是否是社团管理人-->
               
-              <li class="active"><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
-              <li><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
+              <li><a href="../clubpage/?iden={{org_name}}">社团信息</a></li>
+              <li class="active"><a href="../clubmembers/?iden={{org_name}}">社团成员</a></li>
               <li><a href="../clubactivities/?iden={{org_name}}">社团活动</a></li>
               <li><a href="../clubannouncement/?iden={{org_name}}">社团公告</a></li>              
             </ul>
@@ -120,8 +120,8 @@
             </thead>
             <tbody>
                 <tr style="font-size: 18px">
-                    <td class="col1" style="text-align: center">成员头像：</td>
-                    <td colspan="4" style="text-align: center">成员名字：</td>
+                    <td class="col1" style="text-align: center">成员头像</td>
+                    <td colspan="4" style="text-align: center">成员名字</td>
                 </tr>
                 
                     {% for member in members %}
@@ -138,11 +138,11 @@
                       <td colspan="5" style="height: 20px"></td>
                     </tr>
                   <tr style="font-size: 18px">
-                    <td class="col1" style="text-align: center">成员头像：</td>
-                    <td class="col2" style="text-align: center">成员名字：</td>
-                    <td class="col3" style="text-align: center">申请时间：</td>
-                    <td class="col4" style="text-align: center">处理时间：</td>
-                    <td class="col5" style="text-align: center">成员状态：</td>
+                    <td class="col1" style="text-align: center">成员头像</td>
+                    <td class="col2" style="text-align: center">成员名字</td>
+                    <td class="col3" style="text-align: center">申请时间</td>
+                    <td class="col4" style="text-align: center">处理时间</td>
+                    <td class="col5" style="text-align: center">成员状态</td>
                   </tr>
                     {%for member in applying_members %}
                     <tr style="height: 60px">

@@ -16,7 +16,19 @@
       }
       .td2
       {
-        width: 700px;
+        width: 400px;
+      }
+      .td3
+      {
+        width: 150px;
+      }
+      .td4
+      {
+        width: 150px;
+      }
+      .td5
+      {
+        width: 150px;
       }
     </style>
   </head>
@@ -99,32 +111,14 @@
                       还没有加入任何社团
                       {%endif%}
                       <table class="table">
+
                           {%for club in joinedclubs%}
                           <tr>
                               <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{club.org_logo}}">{{club.organization_name}}</td>
-                              <td class = "td2">{{club.description}}</td>
-                              <td>
-                              申请时间：{{club.apply_time}}
-                              <br>
-                              处理时间：{{club.solve_time}}
-                              </td>
-                              <td class = "td3">
-                               {%if club.status == 0%}
-                                  <span class="label label-primary">审核中……</span>
-                                  
-                                {%elif club.status == 1 %}
-                                  <span class="label label-success">审核通过</span>
-                                  
-                                {%elif club.status == 2 %}
-                                  <span class="label label-danger">失败</span>
-                                  
-                                {%elif club.status == 3 %}
-                                  <span class="label label-default">已退出</span>
-                                  
-                                {%elif club.status == 4 %}
-                                  <span class="label "  style="background-color:black;">被移出社团</span>
-                                  
-                                {% endif %}
+                              <td style="width: 600px">{{club.description}}</td>
+                              <td class = "td4">&nbsp;</td>
+                              <td class = "td5">
+
                                 <br>
                                 <a class="btn btn-ghost" href="../clubpage/?iden={{club.organization_name}}">查看社团</a>
                               </td>
@@ -153,8 +147,9 @@
                       <tr>
                           <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{managedclub.org_logo}}">
                           {{managedclub.organization_name}}</td>
-                          <td class = "td2">{{managedclub.description}}</td>
-                          <td class = "td3">
+                          <td style="width: 600px">{{managedclub.description}}</td>
+                          <td class = "td4">&nbsp;</td>
+                          <td class = "td5">
                               <a class="btn btn-ghost" href="../clubpage/?iden={{managedclub.organization_name}}">管理社团</a>
                           </td>
                       </tr>
@@ -179,16 +174,20 @@
                       还没有申请任何社团
                   {%endif%}
                   <table class="table">
+                      <tr>
+                          <td class="td1">社团头像</td>
+                          <td class="td2">社团描述</td>
+                          <td class="td3">申请时间</td>
+                          <td class="td4">处理时间</td>
+                          <td class="td5">当前状态</td>
+                        </tr>
                       {%for appliedclub in appliedclubs%}
                       <tr>
-                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{appliedclub.org_logo}}"></td>
+                          <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{appliedclub.org_logo}}">{{appliedclub.organization_name}}</td>
                           <td class = "td2">{{appliedclub.description}}</td>
-                          <td>
-                              申请时间：{{appliedclub.apply_time}}
-                              <br>
-                              处理时间：{{appliedclub.solve_time}}
-                              </td>
-                          <td class = "td3">
+                          <td class="td3">{{appliedclub.apply_time}}</td>
+                          <td class="td4">{{appliedclub.solve_time}}</td>
+                          <td class = "td5">
                              {%if appliedclub.status == 0%}
                                   <span class="label label-primary">审核中……</span>
                                   
@@ -227,16 +226,21 @@
                   {%if not hascreatedclub%}
                       还没有创建任何社团
                   {%endif%}
-                  <table class="table">
+
+                  <table class="table">                  
+                    <tr>
+                      <td class="td1">社团头像</td>
+                      <td class="td2">社团描述</td>
+                      <td class="td3">申请时间</td>
+                      <td class="td4">处理时间</td>
+                      <td class="td5">当前状态</td>
+                    </tr>
                     {%for createdclub in createdclubs%}
                     <tr>
-                        <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{createdclub.org_logo}}"></td>
+                        <td class = "td1"><img style="width:100px;height:100px;"  src="..{{MEDIA_URL}}{{createdclub.org_logo}}">{{createclub.organization_name}]</td>
                         <td class = "td2">{{createdclub.description}}</td>
-                        <td>
-                              申请时间：{{createdclub.apply_time}}
-                              <br>
-                              处理时间：{{createdclub.solve_time}}
-                              </td>
+                        <td class="td3">{{createdclub.apply_time}}</td>
+                        <td class="td4">{{createdclub.solve_time}}</td>
                         <td class = "td3">
                            {%if createdclub.status == 0%}
                                   <span class="label label-primary">审核中……</span>
