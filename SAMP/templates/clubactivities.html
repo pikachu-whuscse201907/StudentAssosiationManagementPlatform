@@ -135,13 +135,13 @@
             {% for activity in activities %}
             {% if activity.num == 1 %}
             <li class="active">
-                <a href="#">{{activity_title}}</a>
-                <p>{{activity_content</p>
+                <a href="#">{{activity.title}}</a>
+                <p>{{activity.content</p>
             </li>
             {% else %}
           <li>
-            <a href="#">{{activity_title}}</a>
-            <p>{{activity_content</p>
+            <a href="#">{{activity.title}}</a>
+            <p>{{activity.content}}</p>
           </li>
           {% endif %}
           {% endfor %}
