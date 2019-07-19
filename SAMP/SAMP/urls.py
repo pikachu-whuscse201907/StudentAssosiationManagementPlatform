@@ -41,6 +41,7 @@ urlpatterns = [
     path('clubmembers/', clubbulletin.clubmembers),
     path('clubmembers/approve/', clubbulletin.approve),
     path('clubmembers/deny/', clubbulletin.deny),
+    path('clubmembers/deletemember/', clubbulletin.deletemember),
     path('addannouncement/', clubbulletin.addannouncement),
     path('joinclub/', searchclub.joinclub),
     path('quitclub/', searchclub.quitclub),

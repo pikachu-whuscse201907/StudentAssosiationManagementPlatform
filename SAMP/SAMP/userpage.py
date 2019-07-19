@@ -41,16 +41,14 @@ def userpage(request):
 def updateuserinfo(request):
     context = {}
     cookie_id = request.COOKIES.get('id', None)
-    if cookie_id is None:
-        return view.response_not_logged_in(request)
-    
-    result = function.get_user_info(cookie_id)  # call database
+    result = function.get_user_info(cookie_id)
+    info = result['info']
     if not result['success']:
         return view.response_not_logged_in(request)
-    info = result['info']
-    
     context['islogin'] = True
     context['name'] = info['user_name']
+    context['user_logo'] = info['user_logo']
+    
     context['sex'] = info['gender']
     context['motto'] = info['motto']
     context["img"] = info['user_logo']

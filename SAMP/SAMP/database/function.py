@@ -146,26 +146,6 @@ def search_org(cookie_id, search_content):
 # Ending of function search_org(cookie_id, search_content)
 
 
-# 群主删除成员，提交群主的cookie_id
-def delete_member(cookie_id, org_id):
-    response = Person.objects.filter(cookie_id=cookie_id)
-    result={}
-    if len(response)==0:
-        result['success']=False
-        result['notice']='The cookie_id is not exist.'
-        return result
-    elif expire(response[0].cookie_expire):
-        result['success']=False
-        result['notice']='The cookie_id is out of date.'
-        return result
-    else:
-        result['success']=True
-        name=response[0]['name']
-        members = Organizations.objects.filter(number=org_id)[0]['member']
-        members.remove('name')
-# Ending of function join_org(cookie_id, org_id)
-
-
 # 成员申请加入社团，提交成员的cookie_id，生成新的MemberApplication对象
 def join_org(cookie_id, org_name):
     response = Person.objects.filter(cookie_id=cookie_id)
@@ -240,9 +220,12 @@ def exit_org(cookie_id, org_name):  # 退出社团
     org.save()
     
     result['success'] = True
-    new_application = MembershipApplication.objects.create(organization=org, applicant=user_info,
+    now_time = datetime.datetime.now()
+    new_application = MembershipApplication.objects.create(organization=org,
+                                                           applicant=user_info,
                                                            application_status=3,
-                                                           apply_time=datetime.datetime.now())
+                                                           apply_time=now_time,
+                                                           solve_time=now_time)
     new_application.save()
     
     return result
