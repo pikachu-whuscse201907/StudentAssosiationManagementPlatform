@@ -135,7 +135,8 @@ def search_org(cookie_id, search_content):
         result['notice']='The cookie_id is out of date.'
         return result
     else:
-        org_info = Organizations.objects.filter(organization_name__icontains=search_content).filter(create_status=1)
+        org_info = Organizations.objects.filter(organization_name__icontains=search_content,
+                                                create_status=1)
         org_list = []
         for each in org_info:
             org_list.append((each.organization_name, each.description))
@@ -177,7 +178,7 @@ def join_org(cookie_id, org_name):
         result['notice']='The cookie_id is out of date.'
         return result
 
-    response_1 = Organizations.objects.filter(organization_name=org_name)  # 获取该社团信息
+    response_1 = Organizations.objects.filter(organization_name=org_name, create_status=1)  # 获取该社团信息
     user_info = response[0].user_info
     if len(response_1) == 0:  # 该社团不存在，加入失败
         result['notice']='The organization does not exist.'
@@ -240,7 +241,7 @@ def exit_org(cookie_id, org_name):  # 退出社团
     
     result['success'] = True
     new_application = MembershipApplication.objects.create(organization=org, applicant=user_info,
-                                                           application_status=5,
+                                                           application_status=3,
                                                            apply_time=datetime.datetime.now())
     new_application.save()
     
@@ -249,44 +250,66 @@ def exit_org(cookie_id, org_name):  # 退出社团
 
 
 # 社团管理员发布社团活动信息
-def publish_activ(cookie_id, activ_name, activ_time, activ_place, activ_content, org_name):
+def publish_activ(cookie_id, info):
     response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
-    if len(response)==0:
-        result['success']=False
-        result['notice']='The cookie_id is not exist.'
+    result['success'] = False
+    if len(response) == 0:
+        result['notice'] = 'The cookie_id is not exist.'
         return result
     elif expire(response[0].cookie_expire):
-        result['success']=False
-        result['notice']='The cookie_id is out of date.'
+        result['notice'] = 'The cookie_id is out of date.'
         return result
-    else:
-        org = Organizations.objects.filter(organization_name=org_name)
-        activ = Activ.objects.create(activ_name = activ_name, activ_time = activ_time,org_name=org[0],
-                                        activ_place = activ_place,activ_content = activ_content)
-        activ.save()
-# Ending of function publish_activ(cookie_id, activ_name, activ_time, activ_place, activ_content, org_name)
+    
+    activ_duplicate = info['org'].activ_organization.filter(activ_name=info['activ_name'])
+    if 0 < len(activ_duplicate):
+        result['notice'] = 'Duplicate activity name: "' + info['activ_name'] + '".'
+        return result
+    
+    try:
+        activ_time = datetime.datetime.strptime(info['activ_time'], '%Y-%m-%d')
+    except ValueError:
+        activ_time = None
+    
+    activ = Activ.objects.create(activ_name=info['activ_name'],
+                                 activ_time=activ_time,
+                                 organization=info['org'],
+                                 activ_place=info['activ_place'],
+                                 activ_content=info['activ_content'])
+    activ.save()
+    result['success'] = True
+    return result
 
 
 # 社团成员、管理员查看社团活动信息
 def look_org_activ(cookie_id, org_name):
     response = Person.objects.filter(cookie_id=cookie_id)
     result = {}
+    result['success'] = False
     if len(response) == 0:
-        result['success'] = False
-        result['notice'] = 'The cookie_id is not exist.'
+        result['notice'] = 'Not Logged.'
         return result
     elif expire(response[0].cookie_expire):
-        result['success'] = False
-        result['notice'] = 'The cookie_id is out of date.'
+        result['notice'] = 'Not Logged.'
         return result
-    else:
-        org_info = Organizations.objects.filter(organization_name=org_name)
-        activ_info = Activ.objects.filter(org_name = org_info[0])
-        activ_list = []
-        for each in activ_info:
-            activ_list.append((each.activ_name,each.activ_place,each.activ_time,each.activ_content))
-        result['activ_list']=activ_list
-        result['success'] = True
+    
+    org_info = Organizations.objects.filter(organization_name=org_name, create_status=1)
+    if len(org_info) == 0:
+        result['notice'] = 'The organization does not exist.'
         return result
+    
+    activ_info = Activ.objects.filter(organization=org_info[0]).order_by('-activ_time')
+    activ_list = []
+    for each in activ_info:
+        activ_time = ''
+        if each.activ_time is not None:
+            activ_time = each.activ_time.strftime("%Y-%m-%d")
+        activ_list.append({'org_name': each.organization.organization_name,
+                           'activ_name': each.activ_name,
+                           'activ_time': activ_time,
+                           'activ_place': each.activ_place,
+                           'activ_content': each.activ_content})
+    result['activ_list'] = activ_list
+    result['success'] = True
+    return  result
 # Ending of function look_org_activ(cookie_id, org_name)
