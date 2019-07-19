@@ -25,17 +25,17 @@ function goPage(pno, psize) //页号，每页展示行数
     }
     var tempStr = "";
     if (currentPage > 1) {
-        tempStr += "<a class=\"table_a\" href=\"#\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><上一页</a>";
+        tempStr += "<a class=\"btn btn-ghost \" href=\"#\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><上一页</a>";
     }
     for (var j = 1; j < currentPage; j++) {
-        tempStr += "<a class=\"table_a\" href=\"#\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "</a>" ;
+        tempStr += "<a class=\"btn btn-ghost\" href=\"#\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "</a>" ;
     }
-    tempStr += "<a class=\"table_a cur_page\">" + currentPage + "</a>" ;
+    tempStr += "<a class=\"btn\">" + currentPage + "</a>" ;
     for (var j = currentPage+1; j <= totalPage; j++) {
-        tempStr += "<a class=\"table_a\" href=\"#\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "</a>" ;
+        tempStr += "<a class=\"btn btn-ghost\" href=\"#\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "</a>" ;
     }
     if (currentPage < totalPage) {
-        tempStr += "<a class=\"table_a\"  href=\"#\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\">下一页></a>";
+        tempStr += "<a class=\"btn btn-ghost\"  href=\"#\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\">下一页></a>";
         
     }
     document.getElementById("barcon").innerHTML = tempStr;
