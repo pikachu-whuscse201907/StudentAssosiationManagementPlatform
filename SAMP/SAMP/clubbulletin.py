@@ -184,6 +184,68 @@ def clubmembers(request):
 # Ending of function clubmembers(request)
 
 
+def deletemember(request):
+    context = {}
+    cookie_id = request.COOKIES.get('id', None)
+    result = function.get_user_info(cookie_id)
+    info = result['info']
+    if not result['success']:
+        return view.response_not_logged_in(request)
+    context['islogin'] = True
+    
+    org_name = request.POST.get('org_name', None)
+    org = Organizations.objects.filter(organization_name=org_name)
+    if 0 == len(org):
+        context['title'] = 'Failed.'
+        context['url'] = '../../searchclub/'
+        context['error_msg'] = 'Cannot find a club named "' + org_name + '".'
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+    
+    manager_user_info = search.user_info_of_username(info['user_name'])
+    if manager_user_info != org[0].master:
+        context['title'] = 'Not Authorized.'
+        context['url'] = '../../clubmembers/?iden=' + org_name
+        context['error_msg'] = 'Only club manager can delete a member.'
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+    context['ismanager'] = True
+    
+    target_user = request.POST.get('target_user', None)
+    target_user_info = search.user_info_of_username(target_user)
+    if target_user_info is None:
+        context['title'] = 'Failed.'
+        context['url'] = '../../clubpage/'
+        context['error_msg'] = 'Failed'
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+    
+    if target_user_info not in org[0].members:
+        context['title'] = 'Failed.'
+        context['url'] = '../../clubmembers/?iden=' + org_name
+        context['error_msg'] = 'User ' + target_user + ' is not in this club.'
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+    
+    target_application_list = MembershipApplication.objects.create(
+        applicant=target_user_info,
+        organization=org[0],
+        apply_time=None,
+        solver=manager_user_info,
+        solve_time=datetime.datetime.now(),
+        application_status=4  # EXPELLED
+    )
+    org[0].members.remove(target_user_info)
+    
+    context['title'] = 'User Expelled.'
+    context['url'] = '../../clubmembers/?iden=' + org_name
+    context['error_msg'] = '已将用户 ' + target_user + \
+                           ' 移出社团' + org_name + '. '
+    response = HttpResponse(render(request, 'jump.html', context))
+    return response
+# Ending of function deletemember(request)
+
+
 def approve(request):
     return __approve_or_deny(1, request)
 # Ending of function approve(request)

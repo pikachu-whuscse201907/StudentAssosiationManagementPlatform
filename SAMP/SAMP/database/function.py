@@ -145,7 +145,7 @@ def search_org(cookie_id, search_content):
         return result
 # Ending of function search_org(cookie_id, search_content)
 
-
+'''
 # 群主删除成员，提交群主的cookie_id
 def delete_member(cookie_id, org_id):
     response = Person.objects.filter(cookie_id=cookie_id)
@@ -163,7 +163,7 @@ def delete_member(cookie_id, org_id):
         name=response[0]['name']
         members = Organizations.objects.filter(number=org_id)[0]['member']
         members.remove('name')
-# Ending of function join_org(cookie_id, org_id)
+# Ending of function join_org(cookie_id, org_id)'''
 
 
 # 成员申请加入社团，提交成员的cookie_id，生成新的MemberApplication对象
