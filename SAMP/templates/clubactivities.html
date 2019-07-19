@@ -63,6 +63,35 @@
           text-align: center;/*子内容居中*/
         }
     </style>
+
+<script>
+  //字符串过滤
+  function str_filter()
+  {
+      var activity_title = document.sub.activity_title.value;
+      var activity_content = document.sub.activity_content.value; 
+      var activity_photo = document.sub.getElementById("activity_photo").value; 
+      
+      if(activity_title.length == 0)
+      {
+          alert("请输入活动标题");
+          document.sub.activity_title.focus();
+          return false;
+      }
+      else if(activity_content.length==0)
+      {
+          alert("请输入活动内容");
+          document.sub.activity_content.focus();
+          return false;
+      }
+      else if(activity_photo=="")
+      {
+          alert("请选择照片上传！");
+          return false;
+      }
+      return true;
+  }
+  </script>
   </head>
   <body>
       <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
@@ -206,22 +235,22 @@
   {% if ismanager %}
   <div class="form_sty">
 
-    <form action="../addactivity/" method="POST">
+    <form action="../addactivity/" method="POST" onsubmit ="return str_filter()" name="sub">
             {% csrf_token %}
         <input type="text" name="org_name" value="{{ org_name }}" style="display: none">
         <div>
           <br>
-          <label style="font-size: 22px">活动标题</label>
+          <label style="font-size: 22px" id="title">活动标题</label>
           <input type="text" name="activity_title" placeholder="请输入公告标题">
         </div>
         <div>
           <br>
-          <label style="font-size: 22px">活动描述</label>
+          <label style="font-size: 22px" id="content">活动描述</label>
           <textarea type="text" name="activity_content" placeholder="请输入公告内容"></textarea>
         </div>
         <div>
             <br>
-            <label style="font-size: 22px">活动照片</label>
+            <label style="font-size: 22px" id="photo">活动照片</label>
             <input type="file" name="activity_photo" accept="image/png, image/jpeg, image/jpg">
           </div>
         <div>
