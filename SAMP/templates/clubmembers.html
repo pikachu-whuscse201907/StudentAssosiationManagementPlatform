@@ -51,6 +51,16 @@
           border: 1px solid #7ED320;
         }
     </style>
+
+<script type="text/javascript"> 
+  function del(){ 
+    if(confirm('确认要给TA飞机票吗？')) 
+      { 
+        return true; 
+      } 
+        return false; 
+         }
+</script>
   </head>
   <body>
       <nav class="navbar probootstrap-megamenu navbar-default probootstrap-navbar navbar-fixed-top">
@@ -137,7 +147,7 @@
                     <td class="col1"><img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
                     <td colspan="3" style="text-align: center"><p style="margin: 0px auto">{{member.name}}</p></td>
                     <td class="col5">
-                      <form action="deletemember/" method="POST" style="width: 50px; float: left;">
+                      <form action="deletemember/" method="POST" style="width: 50px; float: left;" onsubmit="return del( );">
                       {% csrf_token %}
                       <input type="text" name="target_user" value="{{member.name}}" style="display:none">
                       <input type="text" name="org_name" value="{{ org_name }}" style="display:none">
@@ -149,7 +159,8 @@
                       margin: 0px auto;
                       background-color: white;
                       cursor: pointer;
-                      border: 1px solid red;">踢出</button></div>
+                      border: 1px solid red;" 
+                      >踢出</button></div>
                     </form>
                   </td>
                 </tr>
