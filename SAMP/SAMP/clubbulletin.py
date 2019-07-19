@@ -220,19 +220,27 @@ def deletemember(request):
         response = HttpResponse(render(request, 'jump.html', context))
         return response
     
-    if target_user_info not in org[0].members:
+    if target_user_info not in org[0].members.all():
         context['title'] = 'Failed.'
         context['url'] = '../../clubmembers/?iden=' + org_name
         context['error_msg'] = 'User ' + target_user + ' is not in this club.'
         response = HttpResponse(render(request, 'jump.html', context))
         return response
     
+    if target_user_info == org[0].master:
+        context['title'] = 'Failed.'
+        context['url'] = '../../clubmembers/?iden=' + org_name
+        context['error_msg'] = 'Cannot expel a manager.'
+        response = HttpResponse(render(request, 'jump.html', context))
+        return response
+    
+    now_time = datetime.datetime.now()
     target_application_list = MembershipApplication.objects.create(
         applicant=target_user_info,
         organization=org[0],
-        apply_time=None,
+        apply_time=now_time,
         solver=manager_user_info,
-        solve_time=datetime.datetime.now(),
+        solve_time=now_time,
         application_status=4  # EXPELLED
     )
     org[0].members.remove(target_user_info)
