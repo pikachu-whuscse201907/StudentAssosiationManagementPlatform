@@ -178,7 +178,7 @@
             <div class="probootstrap-image-showcase">
               <ul class="probootstrap-images-list">
                   {% for activity in activities %}
-                  {% if activity.num == 1}
+                  {% if activity.num == 1 %}
                   <li class="active"><img src="..{{MEDIA_URL}}{{activity_photo}}" alt="Image" class="img-responsive"></li>
                   {% else %}
                   <li><img src="..{{MEDIA_URL}}{{activity_photo}}" alt="Image" class="img-responsive"></li>
