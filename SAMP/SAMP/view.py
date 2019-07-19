@@ -71,7 +71,7 @@ def register(request):
     if username is not None and password1 is not None and password2 is not None:
         verify_result = veri(username, password1, password2)
         if verify_result == True:
-            save_name_pswd(username, password1)
+            save.save_name_pswd(username, password1)
 
             function.save_default_user_info(username)
 
