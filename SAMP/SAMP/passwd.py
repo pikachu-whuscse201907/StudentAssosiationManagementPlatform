@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from . import view
 from .database import function, search, delete
+from .database import save
 
 
 def passwd(request):
@@ -14,7 +15,7 @@ def passwd(request):
     info = result['info']
     context['name'] = info['user_name']
     context['user_logo'] = info['user_logo']
-    
+
     name = request.POST.get('name', None)
     rawpsd = request.POST.get('rawpsd', None)
     newpsd = request.POST.get('newpsd', None)
@@ -24,10 +25,10 @@ def passwd(request):
         return HttpResponse(render(request, 'passwd.html', context))
 
     user = search.user_of_username(info['user_name'])
-
-    if user.pswd == rawpsd:
+    # save.hash_code(password)
+    if user.pswd == save.password_encrypt(rawpsd):
         if info['user_name'] == name and newpsd == cnewpsd:
-            user.pswd = newpsd
+            user.pswd = save.password_encrypt(newpsd)
             user.save()
             context['title'] = '修改密码成功'
             context['url'] = '../userpage/'
@@ -35,7 +36,7 @@ def passwd(request):
             return HttpResponse(render(request, 'jump.html', context))
     else:
         delete.delete_cookie(cookie_id)
-        
+
     context['title'] = '修改密码失败'
     context['url'] = '../passwd/'
     context['error_msg'] = '修改密码失败'

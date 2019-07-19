@@ -4,11 +4,17 @@ from people.models import Person,User_info,Organizations
 from ..Cookie import *
 from .delete import *
 from .search import user_of_username
+import hashlib
 
+def password_encrypt(pwd):#
+	md5 = hashlib.md5() # 2,获取md5() 方法
+	md5.update(pwd.encode()) # 3. 对字符串的字节类型加密
+	result = md5.hexdigest() # 4.加密
+	return result
 
 # 存储注册设置的用户名和密码
 def save_name_pswd(username, password1):
-	User = Person.objects.create(name=username, pswd=password1)
+	User = Person.objects.create(name=username, pswd=password_encrypt(password1))
 	User.save()
 
 
