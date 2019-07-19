@@ -66,7 +66,7 @@
     <div class="navbar-left">
             <div class="userbox">
                 <a href="../updateuserinfo/">
-                <img src="..{{MEDIA_URL}}{{img}}" alt="" class="avatar" id="photo2">
+                <img src="..{{MEDIA_URL}}{{user_logo}}" alt="" class="avatar" id="photo2">
                 </a>
                 <br>
                 <span class="username">{{name|truncatewords:"15"}}</span>
@@ -97,7 +97,7 @@
                             <td></td>
                             <td>
                                 <label for="lookbutton" id="lookbutton_t">
-                                <img src="..{{MEDIA_URL}}{{img}}" alt="" class="img-circle avatar" id="photo1">
+                                <img src="..{{MEDIA_URL}}{{user_logo}}" alt="" class="img-circle avatar" id="photo1">
                                 </label>
                                 <input type="file" id="lookbutton" name="user_photo" accept="image/png, image/jpeg, image/jpg" onchange="showphoto(this);" class="btn" >
                             </td>

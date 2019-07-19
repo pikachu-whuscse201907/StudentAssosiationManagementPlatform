@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from . import view, view_special
 from . import userpage
 from . import settings
-from . import createclub, searchclub, clubbulletin , passwd
+from . import createclub, searchclub, clubbulletin, passwd
 
 urlpatterns = [
     path('', view.index),
@@ -43,12 +43,8 @@ urlpatterns = [
     path('addannouncement/', clubbulletin.addannouncement),
     path('joinclub/', searchclub.joinclub),
     path('quitclub/', searchclub.quitclub),
-
-
-################################
-
-    path('passwd/',passwd.passwd),
-    path('checkpswd/',passwd.checkpsd)
+    path('passwd/', passwd.passwd),
+    path('checkpswd/', passwd.checkpsd)
     # re_path(r'.', view.redir_to_index),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
