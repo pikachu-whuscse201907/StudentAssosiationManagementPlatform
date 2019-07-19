@@ -120,10 +120,42 @@
             </thead>
             <tbody>
                 <tr style="font-size: 18px">
+                  {% if ismanager %}
+                    <td class="col1" style="text-align: center">成员头像</td>
+                    <td colspan="3" style="text-align: center">成员名字</td>
+                    <td class="col5" style="text-align: center">成员操作</td>
+                  {% else %}
                     <td class="col1" style="text-align: center">成员头像</td>
                     <td colspan="4" style="text-align: center">成员名字</td>
+                  {% endif %}
+                    
+                </tr>
+                {% if ismanager %}
+                {% for member in members %}
+                    
+                <tr style="height: 60px">
+                    <td class="col1"><img src="..{{MEDIA_URL}}{{member.user_logo}}" style="width: 50px ; height: 50px; border-radius: 25px"></td>
+                    <td colspan="3" style="text-align: center"><p style="margin: 0px auto">{{member.name}}</p></td>
+                    <td class="col5">
+                      <form action="deletemember/" method="POST" style="width: 50px; float: left;">
+                      {% csrf_token %}
+                      <input type="text" name="target_user" value="{{member.name}}" style="display:none">
+                      <input type="text" name="org_name" value="{{ org_name }}" style="display:none">
+                      <div style="width: 150px; text-align: center">
+                      <button type="submit" style="font-size: 16px;
+                      width: 100px;
+                      height: 40px;
+                      color: red;
+                      margin: 0px auto;
+                      background-color: white;
+                      cursor: pointer;
+                      border: 1px solid red;">踢出</button></div>
+                    </form>
+                  </td>
                 </tr>
                 
+                {% endfor %}
+                {% else %}
                     {% for member in members %}
                     
                     <tr style="height: 60px">
@@ -132,6 +164,8 @@
                     </tr>
                     
                     {% endfor %}
+
+                  {% endif %}
 
                 {% if ismanager %}
                     <tr style="height: 10px">
