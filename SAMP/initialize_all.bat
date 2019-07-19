@@ -1,4 +1,7 @@
 rd people\migrations\ /s /q
+rd media\org_logo\ /s /q
+rd media\user_logo\ /s /q
+rd media\activ_photo\ /s /q
 del db.sqlite3
 python manage.py makemigrations people
 python manage.py migrate

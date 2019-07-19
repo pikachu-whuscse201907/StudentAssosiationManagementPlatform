@@ -208,9 +208,9 @@
               <ul class="probootstrap-images-list">
                   {% for activity in activities %}
                   {% if activity.big == 1 %}
-                  <li class="active"><img src="..{{MEDIA_URL}}{{activity.activity_photo}}" alt="Image" class="img-responsive"></li>
+                  <li class="active"><img src="..{{MEDIA_URL}}{{activity.activ_photo}}" alt="Image" class="img-responsive"></li>
                   {% else %}
-                  <li><img src="..{{MEDIA_URL}}{{activity.activity_photo}}" alt="Image" class="img-responsive"></li>
+                  <li><img src="..{{MEDIA_URL}}{{activity.activ_photo}}" alt="Image" class="img-responsive"></li>
                   {% endif %}
                   {% endfor %}
                 <!--<li class="active"><img src="../static/img/img_showcase1.jpg" alt="Image" class="img-responsive"></li>
@@ -235,7 +235,7 @@
   {% if ismanager %}
   <div class="form_sty">
 
-    <form action="../addactivity/" method="POST" onsubmit ="return str_filter()" name="sub">
+    <form action="../addactivity/" enctype="multipart/form-data" method="POST" onsubmit ="return str_filter()" name="sub">
             {% csrf_token %}
         <input type="text" name="org_name" value="{{ org_name }}" style="display: none">
         <div>
