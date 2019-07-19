@@ -49,6 +49,7 @@ urlpatterns = [
     path('clubactivities/', activity.clubactivities),
     path('myactivity/', activity.myactivity),
     path('mybulletin/', userpage.mybulletin),
+    path('addactivity/', activity.addactivity),
     # re_path(r'.', view.redir_to_index),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
