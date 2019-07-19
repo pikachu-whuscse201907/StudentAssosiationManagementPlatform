@@ -1,16 +1,15 @@
 from django.db import models
-from ..view import *
-from people.models import Person,User_info,Organizations
-from ..Cookie import *
-from .delete import *
-from .search import user_of_username
+from people.models import Person, User_info, Organizations
+from . import delete, search, save
 import hashlib
+
 
 def password_encrypt(pwd):#
 	md5 = hashlib.md5() # 2,获取md5() 方法
 	md5.update(pwd.encode()) # 3. 对字符串的字节类型加密
 	result = md5.hexdigest() # 4.加密
 	return result
+
 
 # 存储注册设置的用户名和密码
 def save_name_pswd(username, password1):
@@ -32,5 +31,4 @@ def update_cookie(User, cookie):
 	if len(response) == 0:
 		return False
 	else:
-		save_cookie(response[0],cookie)
-
+		save_cookie(response[0], cookie)
