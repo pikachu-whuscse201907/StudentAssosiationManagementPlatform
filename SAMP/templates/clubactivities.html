@@ -208,9 +208,9 @@
               <ul class="probootstrap-images-list">
                   {% for activity in activities %}
                   {% if activity.big == 1 %}
-                  <li class="active"><img src="..{{MEDIA_URL}}{{activity_photo}}" alt="Image" class="img-responsive"></li>
+                  <li class="active"><img src="..{{MEDIA_URL}}{{activity.activity_photo}}" alt="Image" class="img-responsive"></li>
                   {% else %}
-                  <li><img src="..{{MEDIA_URL}}{{activity_photo}}" alt="Image" class="img-responsive"></li>
+                  <li><img src="..{{MEDIA_URL}}{{activity.activity_photo}}" alt="Image" class="img-responsive"></li>
                   {% endif %}
                   {% endfor %}
                 <!--<li class="active"><img src="../static/img/img_showcase1.jpg" alt="Image" class="img-responsive"></li>
