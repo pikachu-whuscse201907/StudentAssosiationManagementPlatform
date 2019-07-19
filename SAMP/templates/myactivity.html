@@ -92,7 +92,6 @@
     <div class="contextbox">
         <div class="page-header" style="margin-left: 150px">
         <h1>我的活动</h1>  
-        <button class="btn btn-ghost" data-toggle="modal" data-target="#activityapplyform">申请活动</button>
 
       </div>
       <div class="panel-group" id="accordion" style="margin-left: 150px;width: 1000px">
@@ -181,37 +180,6 @@
           
       </div>
     </div>
-    <!-- 活动申请表（Modal） -->
-<div class="modal fade" id="activityapplyform" tabindex="-1"  >
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">活动申请表</h4>
-          </div>
-          <div class="modal-body">
-            <form action="./" class="form" id = "activity-form" method="POST">
-              {% csrf_token %}
-              活动主题：<input type="text" class="form-control" name="theme" id = "theme">
-              申请社团：<select name="org" id="org" class="form-control">
-                {%for club in clubs%}
-                <option value="{{club.name}}">{{club.name}}</option>
-                {%endfor%}
-              </select>
-              活动地点：<input type="text" class="form-control" name="address" id="address">
-              活动时间：<input type="date" class="form-control" name="date" id="date">
-              备注：<textarea class="form-control"      name="tips"  rows = "3" style="resize: vertical"></textarea> 
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                  <button type="submit" class="btn btn-primary" onclick="return formsubmit()">提交更改</button>
-              </div>
-            </form>
-          </div>
-          
-      </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
-
 
 <!-- 活动详情（Modal） -->
 <div class="modal fade" id="activitydetails" tabindex="-1">
