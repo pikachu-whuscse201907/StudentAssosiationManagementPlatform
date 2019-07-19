@@ -34,7 +34,7 @@ def createclub(request):
 		return render(request, "createclub.html",context)
 	result = function.create_org(cookie_id, creator_name, iden, des, image)
 	if result["success"] == False:
-		context['error'] = result["notice"]
+		context['createclub_fail_notice'] = result["notice"]
 		return render(request, "createclub.html", context)
 	else:
 		context['title'] = 'Create Organization Success'
