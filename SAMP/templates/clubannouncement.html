@@ -160,22 +160,36 @@
         </div>
         {% endif %}
 
-        <table class="table">
-            <thead>
-                <td colspan="2"><h1>历史公告</h1></td>
-                
-            </thead>
-            <tbody>
-                {% for announcement in announcements %}
-                <tr style="height: 35px">
-                  <td>
-                    <p style="font-size: 20px; margin-bottom: 5px;">{{announcement.date}}&nbsp;&nbsp;{{announcement.title}}</p>
-                    <p style="font-size: 18px; margin-bottom: 5px;">{{announcement.content}}</p>
-                  </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+        <div class="panel-group" id="accordion" style="margin-left: 150px;width: 1000px">
+
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" 
+                      href="#collapseOne">
+                      历史公告
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                      <table class="table">
+                          {%for for announcement in announcements%}
+                          <tr>
+                              <td class = "td1">{{announcement.date}}</td>
+                              <td class = "td2">{{announcement.title}}</td>
+                          </tr>
+                          <tr>
+                              <td cols = "2">{{announcement.content}}</td>
+                          </tr>
+                          {%endfor%} 
+                      </table>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
         
 
     </div>
