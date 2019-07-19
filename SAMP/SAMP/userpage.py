@@ -61,8 +61,6 @@ def updateuserinfo(request):
     gender = request.POST.get('gender', None)
     motto = request.POST.get('motto', None)
     birth_date = request.POST.get('birth_date', None)
-    print(type(birth_date))
-    print(birth_date)
     
     if gender is None or motto is None or birth_date is None:
         response = HttpResponse(render(request, 'updateuserinfo.html', context))
