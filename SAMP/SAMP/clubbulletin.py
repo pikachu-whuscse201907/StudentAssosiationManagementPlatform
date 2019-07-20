@@ -1,3 +1,4 @@
+# -*-coding:utf-8 -*-
 from .database import function, search, save
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
