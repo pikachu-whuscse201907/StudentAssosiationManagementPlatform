@@ -18,7 +18,7 @@
             color:black;
             left: 100px;
             font-size: 20px;
-            margin: 0px 200px;
+            margin: 0px -50px;
         }
         .col1
         {
@@ -161,27 +161,27 @@
         {% endif %}
 
 
-        <div class="panel-group" id="accordion" style="margin-left: 150px;width: 1000px">
+        <div class="panel-group" id="accordion" style="margin-left:225px; width: 850px">
 
           <div class="panel panel-default">
               <div class="panel-heading">
                   <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" 
-                      href="#collapseOne">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                       历史公告
                       </a>
                   </h4>
               </div>
               <div id="collapseOne" class="panel-collapse collapse in">
-                  <div class="panel-body">
+                  <div class="panel-body" >
                       <table class="table">
                           {%for announcement in announcements%}
                           <tr>
-                              <td class = "td1">{{announcement.date}}</td>
-                              <td class = "td2">{{announcement.title}}</td>
+                              <td style="width: 250px; text-align: left">{{announcement.date}}</td>
+                              
+                              <td style="width: 450px; text-align: center">{{announcement.title}}</td>
                           </tr>
                           <tr>
-                              <td cols = "2">{{announcement.content}}</td>
+                              <td colspan="2" style="text-align: left">{{announcement.content}}</td>
                           </tr>
                           {%endfor%} 
                       </table>
