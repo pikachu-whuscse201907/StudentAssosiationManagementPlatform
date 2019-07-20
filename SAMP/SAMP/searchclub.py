@@ -1,3 +1,4 @@
+# -*-coding:utf-8 -*-
 from people.models import Organizations
 from django.http import HttpResponseRedirect
 from django.shortcuts import render

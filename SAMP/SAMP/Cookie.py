@@ -1,8 +1,10 @@
+# -*-coding:utf-8 -*-
 import time
 import datetime
 import pytz
 import random
 from people.models import Person
+
 
 COOKIE_AGE_HOURS = 3
 
