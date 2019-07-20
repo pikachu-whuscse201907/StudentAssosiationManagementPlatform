@@ -1,3 +1,4 @@
+# -*-coding:utf-8 -*-
 from django.contrib import admin
 from people.models import Person, Organizations, \
     User_info, ClubAnnouncements, MembershipApplication, \

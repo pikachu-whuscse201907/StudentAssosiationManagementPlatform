@@ -1,3 +1,4 @@
+# -*-coding:utf-8 -*-
 from people.models import Person
 from .database import search
 
